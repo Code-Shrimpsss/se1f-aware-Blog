@@ -11,7 +11,7 @@ import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
 import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
-import siteMetadata, { locale } from '@/data/siteMetadata'
+import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 import ScrollProgress from '@/components/Scroll/PostScroll'
 

@@ -112,10 +112,6 @@ export const Blog = defineDocumentType(() => ({
       type: 'number',
       resolve: (doc) => doc.body.raw.split(/\s+/gu).length,
     },
-    readingTime: {
-      type: 'number',
-      resolve: (doc) => Math.ceil(doc.body.raw.split(/\s+/gu).length / 200),
-    },
   },
 }))
 

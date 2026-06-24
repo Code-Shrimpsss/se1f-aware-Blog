@@ -111,8 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
               <Header />
               <main className="mx-4 mb-auto sm:mx-6">
-                {/* <TransitionCurve>{children}</TransitionCurve> */}
-                {children}
+                <TransitionCurve>{children}</TransitionCurve>
                 <Analytics />
               </main>
             </SearchProvider>

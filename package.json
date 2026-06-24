@@ -5,7 +5,7 @@
     "scripts": {
         "start": "next dev --webpack",
         "dev": "cross-env next dev --webpack",
-        "build": "cross-env next build --webpack && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
+        "build": "cross-env NODE_ENV=production next build --webpack && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
         "serve": "next start",
         "analyze": "cross-env ANALYZE=true next build --webpack",
         "lint": "eslint --fix --dir app --dir components --dir lib --dir layouts --dir scripts"
