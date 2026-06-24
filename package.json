@@ -3,12 +3,12 @@
     "version": "2.1.0",
     "private": true,
     "scripts": {
-        "start": "next dev",
-        "dev": "cross-env next dev",
-        "build": "cross-env INIT_CWD=%cd% next build && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
+        "start": "next dev --webpack",
+        "dev": "cross-env next dev --webpack",
+        "build": "cross-env next build --webpack && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
         "serve": "next start",
-        "analyze": "cross-env ANALYZE=true next build",
-        "lint": "next lint --fix --dir pages --dir app --dir components --dir lib --dir layouts --dir scripts"
+        "analyze": "cross-env ANALYZE=true next build --webpack",
+        "lint": "eslint --fix --dir app --dir components --dir lib --dir layouts --dir scripts"
     },
     "dependencies": {
         "@barba/core": "^2.10.3",
@@ -17,7 +17,7 @@
         "@iconify-json/fa6-brands": "^1.2.5",
         "@iconify-json/logos": "^1.2.4",
         "@iconify-json/skill-icons": "^1.2.0",
-        "@next/bundle-analyzer": "15.1.4",
+        "@next/bundle-analyzer": "16.2.9",
         "@radix-ui/react-avatar": "^1.1.2",
         "@radix-ui/react-context-menu": "^2.2.4",
         "@tailwindcss/forms": "^0.5.10",
@@ -27,7 +27,7 @@
         "autoprefixer": "^10.4.20",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "contentlayer": "latest",
+        "contentlayer2": "latest",
         "esbuild": "0.24.2",
         "framer-motion": "^11.18.0",
         "github-slugger": "^2.0.0",
@@ -35,14 +35,14 @@
         "gsap": "^3.12.7",
         "image-size": "1.2.0",
         "lucide-react": "^0.471.1",
-        "next": "15.1.4",
-        "next-contentlayer": "latest",
+        "next": "16.2.9",
+        "next-contentlayer2": "latest",
         "next-intl": "^3.26.3",
         "next-themes": "^0.4.4",
         "pliny": "^0.4.0",
         "postcss": "^8.5.1",
-        "react": "19.0.0",
-        "react-dom": "19.0.0",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
         "react-use-measure": "^2.1.1",
         "reading-time": "1.5.0",
         "rehype-autolink-headings": "^7.1.0",
@@ -66,19 +66,19 @@
         "@iconify/tailwind": "^1.2.0",
         "@svgr/webpack": "^8.1.0",
         "@types/mdx": "^2.0.13",
-        "@types/react": "^19.0.7",
+        "@types/react": "^19.2.7",
         "@typescript-eslint/eslint-plugin": "^8.20.0",
         "@typescript-eslint/parser": "^8.20.0",
         "cross-env": "^7.0.3",
         "eslint": "^9.18.0",
-        "eslint-config-next": "15.1.4",
+        "eslint-config-next": "16.2.9",
         "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-prettier": "^5.2.2",
         "husky": "^9.1.7",
         "lint-staged": "^15.4.0",
         "prettier": "^3.4.2",
         "prettier-plugin-tailwindcss": "^0.6.10",
-        "typescript": "^5.7.3"
+        "typescript": "^6.0.3"
     },
     "resolutions": {
         "@opentelemetry/api": "1.4.1",
@@ -98,7 +98,7 @@
         ]
     },
     "overrides": {
-        "next-contentlayer": {
+        "next-contentlayer2": {
             "next": "$next"
         }
     },
