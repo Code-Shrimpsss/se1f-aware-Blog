@@ -9,7 +9,7 @@
 | 框架 | Next.js 15.1.4 (App Router, React 19, TypeScript) |
 | 样式 | Tailwind CSS 3.4 + `tailwindcss-animate` + `@tailwindcss/typography` |
 | 内容 | Contentlayer (MDX), `data/blog/` 目录存放文章 |
-| 包管理 | Yarn 3.6.1 (PnP) |
+| 包管理 | Yarn 4.9.1 (PnP) |
 | 部署 | Vercel |
 | 动画 | framer-motion (页面过渡), GSAP (滚动动画) |
 | 搜索 | kbar (本地搜索, 构建时生成 `public/search.json`) |
@@ -109,10 +109,5 @@
 ## 已知问题 / 技术债务
 
 1. **i18n 未完成**: next-intl 已安装，LanguageSwitch 组件已写但被注释掉（Header.tsx:36），没有 messages 目录、没有 i18n 路由配置、没有 NextIntlClientProvider
-2. **页面过渡被禁用**: TransitionCurve 在 layout.tsx:114 被注释掉
-3. **RSS 未生成**: postbuild.mjs 中 rss() 调用被注释
-4. **readingTime 重复定义**: contentlayer.config.ts 第 29 行和第 115-118 行重复定义了 readingTime 计算字段
-5. **locale 导入错误**: blog/[...slug]/page.tsx:14 从 `@/data/siteMetadata` 导入 `locale`，但 siteMetadata.js 没有单独导出 `locale`（它是 `siteMetadata.locale` 属性）
-6. **Tags/Projects 导航被隐藏**: headerNavLinks.ts 中 Tags 和 Projects 链接被注释
-7. **`.env` 已提交**: 包含 Giscus 配置信息
-8. **构建脚本 Windows-ism**: `cross-env INIT_CWD=%cd%` 在 Unix 上应使用 `$PWD`
+2. **Tags/Projects 导航被隐藏**: headerNavLinks.ts 中 Tags 和 Projects 链接被注释
+3. **Yarn PnP + Next.js 16 兼容**: 使用 `scripts/next-with-polyfill.cjs` wrapper 解决 `require.extensions` undefined 问题

@@ -3,11 +3,11 @@
     "version": "2.1.0",
     "private": true,
     "scripts": {
-        "start": "next dev --webpack",
-        "dev": "cross-env next dev --webpack",
-        "build": "cross-env NODE_ENV=production next build --webpack && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
+        "start": "yarn node ./scripts/next-with-polyfill.cjs dev --webpack",
+        "dev": "yarn node ./scripts/next-with-polyfill.cjs dev --webpack",
+        "build": "yarn node ./scripts/next-with-polyfill.cjs build --webpack && cross-env NODE_OPTIONS='--experimental-json-modules' node ./scripts/postbuild.mjs",
         "serve": "next start",
-        "analyze": "cross-env ANALYZE=true next build --webpack",
+        "analyze": "yarn node ./scripts/next-with-polyfill.cjs build --webpack",
         "lint": "eslint --fix --dir app --dir components --dir lib --dir layouts --dir scripts"
     },
     "dependencies": {
@@ -102,5 +102,5 @@
             "next": "$next"
         }
     },
-    "packageManager": "yarn@3.6.1"
+    "packageManager": "yarn@4.9.1"
 }
