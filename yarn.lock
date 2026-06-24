@@ -4168,6 +4168,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/helpers@npm:^0.5.23":
+  version: 0.5.23
+  resolution: "@swc/helpers@npm:0.5.23"
+  dependencies:
+    tslib: "npm:^2.8.0"
+  checksum: 10/899c9761e827d5bf504bd02067596cfe59ad6c7d6b6f0691a2fb05acf3e6c2954ddece7e15d4a6a81e8d95c81500652e6abec326c6c9bbb50bc3e2141696de43
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/forms@npm:^0.5.10":
   version: 0.5.11
   resolution: "@tailwindcss/forms@npm:0.5.11"
@@ -4296,7 +4305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:>=13.7.0":
+"@types/node@npm:26.0.0, @types/node@npm:>=13.7.0":
   version: 26.0.0
   resolution: "@types/node@npm:26.0.0"
   dependencies:
@@ -9875,10 +9884,12 @@ __metadata:
     "@radix-ui/react-avatar": "npm:^1.1.2"
     "@radix-ui/react-context-menu": "npm:^2.2.4"
     "@svgr/webpack": "npm:^8.1.0"
+    "@swc/helpers": "npm:^0.5.23"
     "@tailwindcss/forms": "npm:^0.5.10"
     "@tailwindcss/typography": "npm:^0.5.16"
     "@tanstack/react-virtual": "npm:^3.11.2"
     "@types/mdx": "npm:^2.0.13"
+    "@types/node": "npm:26.0.0"
     "@types/react": "npm:^19.2.7"
     "@typescript-eslint/eslint-plugin": "npm:^8.20.0"
     "@typescript-eslint/parser": "npm:^8.20.0"
