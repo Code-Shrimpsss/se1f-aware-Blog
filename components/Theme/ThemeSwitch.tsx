@@ -44,11 +44,6 @@ const ThemeSwitch = () => {
           )}
         </svg>
       </button>
-      {/* <div
-        className={`${styles.animationOverlay} ${
-          isAnimating ? (isDark ? styles.animateToLight : styles.animateToDark) : ''
-        }`}
-      /> */}
     </>
   )
 }

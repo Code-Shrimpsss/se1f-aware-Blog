@@ -35,7 +35,7 @@ function SkillScroll({
   reverse = false,
 }: {
   size: number
-  skills: Array<{ icon: React.ReactElement; darkIcon?: React.ReactElement }>
+  skills: Array<{ icon: React.ReactElement<React.HTMLAttributes<HTMLElement>>; darkIcon?: React.ReactElement<React.HTMLAttributes<HTMLElement>> }>
   reverse?: boolean
 }) {
   const animationClass = reverse ? 'animate-infinite-scroll-reverse' : 'animate-infinite-scroll'

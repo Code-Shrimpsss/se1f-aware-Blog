@@ -21,6 +21,7 @@ module.exports = {
                 12: '3rem',
                 13: '3.25rem',
                 14: '3.5rem',
+                16: '4rem',
             },
             fontFamily: {
                 sans: ['var(--font-jura)', ...fontFamily.sans],

@@ -18,32 +18,52 @@ interface ColorModeProviderProps {
   children: ReactNode
 }
 
-function ColorModeProvider({ children }: ColorModeProviderProps) {
-  const [colorMode, _setColorMode] = useState<ColorMode>('light')
-  const [currentColorMode, setCurrentColorMode] = useState<CurrentColorMode>('light')
+function getInitialColorMode(): ColorMode {
+  if (typeof window === 'undefined') return 'light'
+  const stored = localStorage.getItem('pattern.mode')
+  if (stored === 'system' || stored === 'dark') return stored
+  return 'light'
+}
 
-  const setColorMode = (colorMode: ColorMode) => {
-    localStorage.setItem('pattern.mode', colorMode)
-    if (colorMode === 'light') {
+function ColorModeProvider({ children }: ColorModeProviderProps) {
+  const [colorMode, _setColorMode] = useState<ColorMode>(getInitialColorMode)
+  const [currentColorMode, setCurrentColorMode] = useState<CurrentColorMode>(() => {
+    if (typeof window === 'undefined') return 'light'
+    const stored = localStorage.getItem('pattern.mode')
+    if (stored === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+    return stored === 'dark' ? 'dark' : 'light'
+  })
+
+  function applyColorModeDom(mode: string) {
+    if (mode === 'light') {
       document.documentElement.classList.add('light')
       document.documentElement.classList.remove('dark')
-    } else if (colorMode === 'dark') {
+    } else if (mode === 'dark') {
       document.documentElement.classList.add('dark')
       document.documentElement.classList.remove('light')
     } else {
       document.documentElement.classList.remove('light')
       document.documentElement.classList.remove('dark')
     }
-    _setColorMode(colorMode)
   }
+
   useEffect(() => {
-    const colorMode = localStorage.getItem('pattern.mode')
-    if (colorMode === 'system' || colorMode === 'dark') {
-      setColorMode(colorMode)
+    const stored = localStorage.getItem('pattern.mode')
+    if (stored === 'system' || stored === 'dark') {
+      applyColorModeDom(stored)
     } else {
-      setColorMode('light')
+      applyColorModeDom('light')
     }
   }, [])
+
+  const setColorMode = (colorMode: ColorMode) => {
+    localStorage.setItem('pattern.mode', colorMode)
+    applyColorModeDom(colorMode)
+    _setColorMode(colorMode)
+  }
+
   useEffect(() => {
     if (colorMode === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')

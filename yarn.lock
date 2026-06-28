@@ -6564,7 +6564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.10.0":
+"eslint-plugin-jsx-a11y@npm:6.10.2, eslint-plugin-jsx-a11y@npm:^6.10.0":
   version: 6.10.2
   resolution: "eslint-plugin-jsx-a11y@npm:6.10.2"
   dependencies:
@@ -8449,6 +8449,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"katex@npm:0.17.0":
+  version: 0.17.0
+  resolution: "katex@npm:0.17.0"
+  dependencies:
+    commander: "npm:^8.3.0"
+  bin:
+    katex: cli.js
+  checksum: 10/46294c4395d0ffdbdc1b3fa4b85e683438b40e665ca0da920d9f9ad9197785cb0350df714247d392ceb7d52acb317bc51d94bc903d3a2dfb97da1fabf1e41e6b
+  languageName: node
+  linkType: hard
+
 "katex@npm:^0.16.0":
   version: 0.16.47
   resolution: "katex@npm:0.16.47"
@@ -8457,17 +8468,6 @@ __metadata:
   bin:
     katex: cli.js
   checksum: 10/e0286b45d9e0c8443cf0381205619ecbab3919ea5fb6616408f46f0cb471ce2222e83f46aef52cdaacdcbfd4485e00fcfbcf36bd85a8a9a81e22b45827c27ced
-  languageName: node
-  linkType: hard
-
-"katex@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "katex@npm:0.17.0"
-  dependencies:
-    commander: "npm:^8.3.0"
-  bin:
-    katex: cli.js
-  checksum: 10/46294c4395d0ffdbdc1b3fa4b85e683438b40e665ca0da920d9f9ad9197785cb0350df714247d392ceb7d52acb317bc51d94bc903d3a2dfb97da1fabf1e41e6b
   languageName: node
   linkType: hard
 
@@ -9869,6 +9869,7 @@ __metadata:
     eslint: "npm:9.18.0"
     eslint-config-next: "npm:16.2.9"
     eslint-config-prettier: "npm:10.1.8"
+    eslint-plugin-jsx-a11y: "npm:6.10.2"
     eslint-plugin-prettier: "npm:5.5.6"
     framer-motion: "npm:12.41.0"
     github-slugger: "npm:2.0.0"
@@ -9876,7 +9877,7 @@ __metadata:
     gsap: "npm:3.15.0"
     husky: "npm:9.1.7"
     image-size: "npm:2.0.2"
-    katex: "npm:^0.17.0"
+    katex: "npm:0.17.0"
     lint-staged: "npm:17.0.8"
     lucide-react: "npm:1.21.0"
     next: "npm:16.2.9"
@@ -9900,12 +9901,16 @@ __metadata:
     remark: "npm:15.0.1"
     remark-gfm: "npm:4.0.1"
     remark-math: "npm:6.0.0"
+    supports-color: "npm:9.4.0"
     tailwind-merge: "npm:3.6.0"
     tailwindcss: "npm:3.4.17"
     tailwindcss-animate: "npm:1.0.7"
     typescript: "npm:6.0.3"
     unist-util-visit: "npm:5.1.0"
     vecteur: "npm:0.3.0"
+  dependenciesMeta:
+    pliny@0.4.1:
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -12235,6 +12240,13 @@ __metadata:
     qs: "npm:^6.5.1"
     readable-stream: "npm:^2.0.5"
   checksum: 10/372a46f445cbb68e3f3801d9cdcaa98e85335f1455cae9084d4b589023e0517b66024e936ff7e3ee2f9bbf3647c3a1d453202d5c3c3965a8db8632f1bd4ec2c5
+  languageName: node
+  linkType: hard
+
+"supports-color@npm:9.4.0":
+  version: 9.4.0
+  resolution: "supports-color@npm:9.4.0"
+  checksum: 10/cb8ff8daeaf1db642156f69a9aa545b6c01dd9c4def4f90a49f46cbf24be0c245d392fcf37acd119cd1819b99dad2cc9b7e3260813f64bcfd7f5b18b5a1eefb8
   languageName: node
   linkType: hard
 
