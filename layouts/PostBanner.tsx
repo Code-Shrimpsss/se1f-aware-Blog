@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import Image from '@/components/Image'
-import Bleed from 'pliny/ui/Bleed'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
@@ -8,9 +7,8 @@ import Link from '@/components/Link'
 import SectionContainer from '@/components/Layout/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/Scroll/ScrollTopAndComment'
-import { formatDate } from 'pliny/utils/formatDate'
-import Tag from '@/components/Tag'
 import { LocaleText } from '@/components/Locale/LocaleProvider'
+import ArticleHeader from '@/components/Article/ArticleHeader'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -29,37 +27,12 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
       <ScrollTopAndComment />
       <article className="page-reveal">
         <div>
-          <header className="banner-post-hero mt-6">
-            <Bleed>
-              <div className="banner-post-frame">
-                <Image
-                  src={displayImage}
-                  alt={title}
-                  fill
-                  className="banner-post-image object-cover"
-                  priority
-                />
-                <div className="banner-post-overlay" />
-                <div className="banner-post-content">
-                  <Link href="/blog" className="article-back article-back-light">← <LocaleText zh="返回文章" en="All writing" /></Link>
-                  <h1>{title}</h1>
-                  <div className="meta-line">
-                    <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                    <span className="meta-dot" />
-                    <span>{wordCount} 字</span>
-                    <span className="meta-dot" />
-                    <span>{readingTime} 分钟</span>
-                  </div>
-                  {tags && tags.length > 0 && (
-                    <div className="banner-post-tags">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </Bleed>
+          <header className="article-header banner-spatial-header">
+            <ArticleHeader title={title} date={date} wordCount={wordCount} readingTime={readingTime} tags={tags} />
+            <figure className="banner-spatial-visual" data-reveal data-tilt>
+              <Image src={displayImage} alt={title} fill className="object-cover" priority />
+              <span aria-hidden="true" />
+            </figure>
           </header>
           <div className="pb-8 pt-4">
             <div className="post-body prose min-w-0 dark:prose-invert">

@@ -11,9 +11,14 @@ export default function Comments({ slug }: { slug: string }) {
   const giscusTheme = theme === 'dark' ? 'dark' : 'light'
 
   return (
-    <>
-      {/* {!loadComments && <button onClick={() => setLoadComments(true)}>Load Comments</button>} */}
-      {siteMetadata.comments && (
+    <div className="spatial-comments">
+      {!loadComments && siteMetadata.comments && (
+        <button className="comments-load" type="button" onClick={() => setLoadComments(true)}>
+          <span>Discussion</span>
+          Load comments <i>↗</i>
+        </button>
+      )}
+      {loadComments && siteMetadata.comments && (
         <CommentsComponent
           commentsConfig={
             siteMetadata.comments.provider === 'giscus'
@@ -29,6 +34,6 @@ export default function Comments({ slug }: { slug: string }) {
           slug={slug}
         />
       )}
-    </>
+    </div>
   )
 }
