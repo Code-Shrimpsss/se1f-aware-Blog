@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Se1fAware — Vito Wang 的个人写作空间。观心，造物。" />
+  <title>Se1fAware — 观心，造物。</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f5f2;
+      --ink: #131411;
+      --muted: #74766f;
+      --line: #cfd1ca;
+      --accent: #2457ff;
+      --accent-soft: #dce4ff;
+      --selection: #cdd8ff;
+      --page-pad: clamp(24px, 4.15vw, 60px);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #151613;
+      --ink: #f0f1ec;
+      --muted: #979990;
+      --line: #3c3e38;
+      --accent: #87a3ff;
+      --accent-soft: #29345b;
+      --selection: #405183;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--paper);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Helvetica Neue", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transition: background-color 260ms ease, color 260ms ease;
+    }
+
+    ::selection { background: var(--selection); }
+
+    a, button { -webkit-tap-highlight-color: transparent; }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .site-header {
+      height: 80px;
+      padding: 0 var(--page-pad);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      justify-self: start;
+      color: inherit;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -.035em;
+    }
+
+    .brand span {
+      margin-left: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .primary-nav,
+    .utility-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .primary-nav { justify-self: center; }
+    .utility-nav { justify-self: end; }
+
+    .nav-link,
+    .utility-button {
+      position: relative;
+      border: 0;
+      padding: 4px 0;
+      background: none;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .nav-link::after,
+    .utility-button::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 220ms var(--ease);
+    }
+
+    .nav-link:hover::after,
+    .utility-button:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    main {
+      padding: 0 var(--page-pad) 34px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 394px;
+      padding: clamp(52px, 7.2vh, 74px) 0 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(190px, 20vw);
+      column-gap: clamp(38px, 6vw, 98px);
+      align-items: end;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sentence-wrap { align-self: center; }
+
+    .sentence {
+      max-width: 1120px;
+      margin: 0;
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
+      font-size: clamp(52px, 6.05vw, 88px);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -.065em;
+      text-wrap: balance;
+    }
+
+    .sentence-word {
+      display: inline;
+      position: relative;
+      border: 0;
+      border-radius: 0;
+      padding: 0 .035em .025em;
+      background: linear-gradient(var(--accent-soft), var(--accent-soft)) 0 88% / 100% .15em no-repeat;
+      color: inherit;
+      font: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+      cursor: pointer;
+      transition: color 180ms ease, background-size 250ms var(--ease);
+    }
+
+    .sentence-word:hover,
+    .sentence-word[aria-pressed="true"] {
+      color: var(--accent);
+      background-size: 100% .055em;
+    }
+
+    .sentence-word:focus-visible {
+      outline-offset: 6px;
+    }
+
+    .sentence.is-changing {
+      animation: sentence-change 430ms var(--ease);
+    }
+
+    @keyframes sentence-change {
+      0% { opacity: .12; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-note {
+      align-self: end;
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
+      font-size: 15px;
+      line-height: 1.75;
+      letter-spacing: .015em;
+    }
+
+    .hero-note strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .reset-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 16px;
+      border: 0;
+      padding: 2px 0;
+      background: none;
+      color: var(--accent);
+      font: inherit;
+      font-family: "Helvetica Neue", "PingFang SC", sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .reset-state::before {
+      content: "↶";
+      font-size: 14px;
+    }
+
+    .reset-state[hidden] { display: none; }
+
+    .writing {
+      padding-top: 18px;
+    }
+
+    .writing-head {
+      height: 46px;
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr) auto;
+      align-items: start;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .curation-label {
+      color: var(--accent);
+      letter-spacing: .06em;
+      text-transform: none;
+    }
+
+    .archive-link {
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .archive-link:hover { color: var(--ink); }
+
+    .article-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .article-item {
+      min-height: 52px;
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr) 90px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      transition: opacity 230ms ease;
+    }
+
+    .article-item.is-secondary { opacity: .5; }
+
+    .article-number {
+      color: var(--muted);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .1em;
+    }
+
+    .article-link {
+      min-width: 0;
+      color: inherit;
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
+      font-size: clamp(16px, 1.35vw, 20px);
+      line-height: 1.25;
+      letter-spacing: -.012em;
+      text-decoration: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 160ms ease, transform 240ms var(--ease);
+    }
+
+    .article-link:hover {
+      color: var(--accent);
+      transform: translateX(7px);
+    }
+
+    .article-state {
+      justify-self: end;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .article-item.is-featured .article-state { color: var(--accent); }
+
+    .page-footer {
+      min-height: 56px;
+      padding-top: 19px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 800px) {
+      .site-header {
+        height: auto;
+        min-height: 70px;
+        grid-template-columns: 1fr auto;
+        row-gap: 10px;
+        padding-top: 16px;
+        padding-bottom: 14px;
+      }
+
+      .primary-nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: start;
+      }
+
+      .utility-nav { gap: 18px; }
+
+      .brand span { display: none; }
+
+      .hero {
+        min-height: auto;
+        padding: 50px 0 32px;
+        grid-template-columns: 1fr;
+        row-gap: 42px;
+      }
+
+      .sentence {
+        font-size: clamp(43px, 13.1vw, 68px);
+        line-height: 1.16;
+        letter-spacing: -.07em;
+        text-wrap: pretty;
+      }
+
+      .hero-note {
+        max-width: 32em;
+        margin: 0;
+      }
+
+      .writing { padding-top: 16px; }
+      .writing-head { grid-template-columns: 44px minmax(0, 1fr) auto; }
+      .article-item {
+        min-height: 72px;
+        grid-template-columns: 44px minmax(0, 1fr);
+        padding: 12px 0;
+      }
+      .article-link {
+        white-space: normal;
+        overflow: visible;
+      }
+      .article-state { display: none; }
+    }
+
+    @media (max-width: 460px) {
+      .primary-nav, .utility-nav { gap: 16px; }
+      .nav-link, .utility-button { font-size: 11px; }
+      .hero { padding-top: 42px; }
+      .writing-head .curation-label { display: none; }
+      .page-footer span:last-child { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Se1fAware 首页">Se1fAware <span>Vito Wang</span></a>
+    <nav class="primary-nav" aria-label="主要导航">
+      <a class="nav-link" href="#writing">文章</a>
+      <a class="nav-link" href="#about">关于</a>
+    </nav>
+    <div class="utility-nav" aria-label="显示选项">
+      <button class="utility-button" id="languageToggle" type="button" aria-label="切换中英文" aria-pressed="false">中 / EN</button>
+      <button class="utility-button" id="themeToggle" type="button" aria-label="切换明暗主题" aria-pressed="false">明 / 暗</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="thesis">
+      <div class="sentence-wrap">
+        <h1 class="sentence" id="thesis" aria-live="polite"></h1>
+      </div>
+      <aside class="hero-note" id="about">
+        <strong id="noteLabel">一个持续发生的命题</strong>
+        <span id="noteText">向内辨认，向外构造。持续校准自我，也持续创造世界。</span>
+        <button class="reset-state" id="resetState" type="button" hidden>回到原句</button>
+      </aside>
+    </section>
+
+    <section class="writing" id="writing" aria-labelledby="writingTitle">
+      <div class="writing-head">
+        <span id="writingTitle">写作</span>
+        <span class="curation-label" id="curationLabel" aria-live="polite">全部 · 顺序阅读</span>
+        <a class="archive-link" href="#archive">浏览全部文章 · 13</a>
+      </div>
+      <ol class="article-list" id="articleList"></ol>
+    </section>
+
+    <footer class="page-footer" id="archive">
+      <span>Vito Wang · Se1fAware</span>
+      <span>观心，造物。</span>
+    </footer>
+  </main>
+
+  <script>
+    const articles = [
+      { id: 1, title: 'Docker in 2024: Evolving Relevance in Modern DevOps', href: '#docker-in-2024', themes: ['make'] },
+      { id: 2, title: 'Release of Tailwind Nextjs Starter Blog v2.0', href: '#tailwind-nextjs-v2', themes: ['make', 'unfinished'] },
+      { id: 3, title: 'AIGC：人工智能生成内容的革命', href: '#aigc-revolution', themes: ['observe', 'make'] },
+      { id: 4, title: 'New features in v1', href: '#new-features-v1', themes: ['unfinished'] },
+      { id: 5, title: 'Introducing Multi-part Posts with Nested Routing', href: '#multi-part-posts', themes: ['observe', 'unfinished'] }
+    ];
+
+    const copy = {
+      zh: {
+        base: [
+          { text: '我在' },
+          { text: '未完成', key: 'unfinished' },
+          { text: '中，向内' },
+          { text: '观心', key: 'observe' },
+          { text: '，向外' },
+          { text: '造物', key: 'make' },
+          { text: '。' }
+        ],
+        observe: [
+          { text: '向内辨认，' },
+          { text: '观心', key: 'observe' },
+          { text: '不是停下，而是持续校准自我。' }
+        ],
+        make: [
+          { text: '向外构造，' },
+          { text: '造物', key: 'make' },
+          { text: '不是占有，而是持续创造世界。' }
+        ],
+        unfinished: [
+          { text: '保持' },
+          { text: '未完成', key: 'unfinished' },
+          { text: '，让' },
+          { text: '观心', key: 'observe' },
+          { text: '诚实，也让' },
+          { text: '造物', key: 'make' },
+          { text: '继续发生。' }
+        ],
+        labels: { base: '全部 · 顺序阅读', observe: '观心 · 辨认与校准', make: '造物 · 技术与构造', unfinished: '未完成 · 版本与生长' },
+        wordLabels: { observe: '观心', make: '造物', unfinished: '未完成' },
+        noteLabel: '一个持续发生的命题',
+        noteText: '向内辨认，向外构造。持续校准自我，也持续创造世界。',
+        reset: '回到原句',
+        writing: '写作',
+        archive: '浏览全部文章 · 13'
+      },
+      en: {
+        base: [
+          { text: 'I stay ' },
+          { text: 'unfinished', key: 'unfinished' },
+          { text: '—looking ' },
+          { text: 'inward', key: 'observe' },
+          { text: ', making ' },
+          { text: 'outward', key: 'make' },
+          { text: '.' }
+        ],
+        observe: [
+          { text: 'Look ' },
+          { text: 'inward', key: 'observe' },
+          { text: '—not to stop, but to keep calibrating the self.' }
+        ],
+        make: [
+          { text: 'Build ' },
+          { text: 'outward', key: 'make' },
+          { text: '—not to possess, but to keep creating the world.' }
+        ],
+        unfinished: [
+          { text: 'Stay ' },
+          { text: 'unfinished', key: 'unfinished' },
+          { text: ', so looking ' },
+          { text: 'inward', key: 'observe' },
+          { text: ' stays honest and making ' },
+          { text: 'outward', key: 'make' },
+          { text: ' continues.' }
+        ],
+        labels: { base: 'All · In sequence', observe: 'Inward · Discern & calibrate', make: 'Outward · Technology & making', unfinished: 'Unfinished · Versions & growth' },
+        wordLabels: { observe: 'inward', make: 'outward', unfinished: 'unfinished' },
+        noteLabel: 'An ongoing proposition',
+        noteText: 'Discern inwardly, construct outwardly. Keep calibrating the self, and keep creating the world.',
+        reset: 'Return to the first sentence',
+        writing: 'Writing',
+        archive: 'Browse all writing · 13'
+      }
+    };
+
+    const orders = {
+      base: [1, 2, 3, 4, 5],
+      observe: [3, 5, 1, 2, 4],
+      make: [1, 2, 3, 5, 4],
+      unfinished: [4, 2, 5, 1, 3]
+    };
+
+    let activeState = 'base';
+    let language = 'zh';
+
+    const sentence = document.getElementById('thesis');
+    const articleList = document.getElementById('articleList');
+    const curationLabel = document.getElementById('curationLabel');
+    const resetState = document.getElementById('resetState');
+    const languageToggle = document.getElementById('languageToggle');
+    const themeToggle = document.getElementById('themeToggle');
+
+    function buildSentence() {
+      sentence.replaceChildren();
+      copy[language][activeState].forEach(part => {
+        if (!part.key) {
+          sentence.append(document.createTextNode(part.text));
+          return;
+        }
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'sentence-word';
+        button.textContent = part.text;
+        button.dataset.state = part.key;
+        button.setAttribute('aria-label', `${copy[language].wordLabels[part.key]}：切换文章策展`);
+        button.setAttribute('aria-pressed', String(activeState === part.key));
+        button.addEventListener('click', () => setState(activeState === part.key ? 'base' : part.key));
+        sentence.append(button);
+      });
+    }
+
+    function buildArticles() {
+      const ordered = orders[activeState].map(id => articles.find(article => article.id === id));
+      const fragment = document.createDocumentFragment();
+      ordered.forEach((article, index) => {
+        const item = document.createElement('li');
+        const relevant = activeState === 'base' || article.themes.includes(activeState);
+        item.className = `article-item${relevant && activeState !== 'base' ? ' is-featured' : ''}${!relevant ? ' is-secondary' : ''}`;
+        item.innerHTML = `
+          <span class="article-number">${String(index + 1).padStart(2, '0')}</span>
+          <a class="article-link" href="${article.href}">${article.title}</a>
+          <span class="article-state">${activeState === 'base' ? 'READ' : relevant ? 'SELECTED' : 'RELATED'}</span>
+        `;
+        fragment.append(item);
+      });
+      articleList.replaceChildren(fragment);
+    }
+
+    function setState(nextState) {
+      activeState = nextState;
+      sentence.classList.remove('is-changing');
+      void sentence.offsetWidth;
+      sentence.classList.add('is-changing');
+      buildSentence();
+      buildArticles();
+      curationLabel.textContent = copy[language].labels[activeState];
+      resetState.hidden = activeState === 'base';
+    }
+
+    function updateLanguage() {
+      document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+      languageToggle.setAttribute('aria-pressed', String(language === 'en'));
+      document.getElementById('noteLabel').textContent = copy[language].noteLabel;
+      document.getElementById('noteText').textContent = copy[language].noteText;
+      document.getElementById('writingTitle').textContent = copy[language].writing;
+      document.querySelector('.archive-link').textContent = copy[language].archive;
+      resetState.textContent = copy[language].reset;
+      setState(activeState);
+    }
+
+    resetState.addEventListener('click', () => setState('base'));
+
+    languageToggle.addEventListener('click', () => {
+      language = language === 'zh' ? 'en' : 'zh';
+      updateLanguage();
+    });
+
+    themeToggle.addEventListener('click', () => {
+      const dark = document.documentElement.dataset.theme !== 'dark';
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      themeToggle.setAttribute('aria-pressed', String(dark));
+      themeToggle.setAttribute('aria-label', dark ? '切换到明亮主题' : '切换到暗色主题');
+    });
+
+    buildSentence();
+    buildArticles();
+  </script>
+</body>
+</html>

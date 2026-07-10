@@ -1,155 +1,83 @@
-import Link from '@/components/Link'
-import siteMetadata from '@/data/siteMetadata'
-import { formatDate } from 'pliny/utils/formatDate'
-import Image from 'next/image'
+'use client'
 
-const capabilities = [
-  {
-    title: 'Agent Engineering',
-    chinese: '智能体工程',
-    description: '从推理链路、工具调用到企业协作，把 AI 从一次回答变成可持续工作的系统。',
-    proof: 'Agents · RAG · Tool use · Workflow',
-  },
-  {
-    title: 'Full-stack Systems',
-    chinese: '全栈交付',
-    description: '理解产品目标，也能打通前后端、数据与部署，把复杂想法收束成稳定可用的产品。',
-    proof: 'Next.js · Node.js · API · Delivery',
-  },
-  {
-    title: 'Frontend Craft',
-    chinese: '前端体验',
-    description: '以三年前端工程经验为底座，在性能、交互与视觉之间寻找精确平衡。',
-    proof: 'React · TypeScript · Design systems',
-  },
-]
+import { useState } from 'react'
+import Link from '@/components/Link'
+import LivingTypeCanvas from '@/components/Home/LivingTypeCanvas'
+import { formatLocalDate, LocaleText, useSiteLocale } from '@/components/Locale/LocaleProvider'
 
 export default function Home({ posts }) {
+  const { locale } = useSiteLocale()
+  const [activePost, setActivePost] = useState(0)
+  const featuredPosts = posts.slice(0, 5)
+  const active = featuredPosts[activePost]
+
   return (
-    <div className="home-page page-reveal">
-      <Hero />
-      <CapabilityField />
-      <ReadingShelf posts={posts} />
+    <div className="kinetic-home page-reveal">
+      <section className="living-hero" aria-labelledby="living-title">
+        <LivingTypeCanvas />
+        <div className="living-hero-topline">
+          <span>SE1FAWARE / VITO WANG</span>
+          <span><LocaleText zh="向内辨认 · 向外构造" en="LOOK WITHIN · MAKE OUTWARD" /></span>
+        </div>
+        <div className="living-hero-copy">
+          <p><LocaleText zh="一种持续校准自我，也持续创造世界的生活方式" en="A practice of refining the self while making the world" /></p>
+          <h1 id="living-title" aria-label={locale === 'zh' ? '观心，造物。' : 'Look within. Make outward.'}>
+            {locale === 'zh' ? (
+              <>
+                <span>观心</span><em aria-hidden="true">，</em><span>造物</span><em aria-hidden="true">。</em>
+              </>
+            ) : (
+              <>
+                <span>LOOK WITHIN</span><em aria-hidden="true">/</em><span>MAKE OUTWARD</span>
+              </>
+            )}
+          </h1>
+        </div>
+        <div className="living-hero-footer">
+          <Link href="/blog"><LocaleText zh="进入文章" en="Enter writing" /> <span>↘</span></Link>
+          <p><LocaleText zh="移动光标，在未说出口之处寻找文字" en="Move slowly. Find language before it is spoken." /></p>
+        </div>
+      </section>
+
+      <section className="kinetic-index" aria-labelledby="latest-title">
+        <header className="kinetic-index-header">
+          <p><LocaleText zh="最近写作" en="Recent writing" /></p>
+          <h2 id="latest-title"><LocaleText zh="正在发生的思考" en="Thoughts in motion" /></h2>
+          <span>{String(featuredPosts.length).padStart(2, '0')} / {String(posts.length).padStart(2, '0')}</span>
+        </header>
+
+        <div className="kinetic-index-body">
+          <div className="kinetic-list" role="list">
+            {featuredPosts.map((post, index) => (
+              <article
+                key={post.slug}
+                className={index === activePost ? 'kinetic-row is-active' : 'kinetic-row'}
+                onPointerEnter={() => setActivePost(index)}
+                onFocusCapture={() => setActivePost(index)}
+                role="listitem"
+              >
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3><Link href={`/blog/${post.slug}`}>{post.title}</Link></h3>
+                <time dateTime={post.date}>{formatLocalDate(post.date, locale)}</time>
+                <Link href={`/blog/${post.slug}`} className="kinetic-arrow" aria-label={post.title}>↗</Link>
+              </article>
+            ))}
+          </div>
+
+          <aside className="kinetic-lens" aria-live="polite">
+            <div className="kinetic-lens-number">{String(activePost + 1).padStart(2, '0')}</div>
+            <p>{active?.summary || <LocaleText zh="一则仍在生长的笔记。" en="A note still becoming." />}</p>
+            <div>
+              {active?.tags?.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}
+            </div>
+          </aside>
+        </div>
+
+        <footer className="kinetic-index-footer">
+          <Link href="/blog"><LocaleText zh="浏览全部文章" en="Browse all writing" /> <span>→</span></Link>
+          <p>VITO WANG © {new Date().getFullYear()}</p>
+        </footer>
+      </section>
     </div>
-  )
-}
-
-function Hero() {
-  return (
-    <section className="brand-hero" aria-labelledby="home-title">
-      <div className="brand-hero-copy">
-        <p className="brand-overline">
-          <span>Vito Wang</span>
-          <span aria-hidden="true">·</span>
-          <span>Agent / Full-stack / Frontend</span>
-        </p>
-        <h1 id="home-title">
-          <span>在技术的边界之外，</span>
-          <span className="brand-hero-emphasis">持续成为自己。</span>
-        </h1>
-        <p className="brand-hero-lede">
-          我设计智能体，也构建完整产品。这里记录工程实践、认知迭代，以及一个开发者如何在快速变化的世界里保持清醒。
-        </p>
-        <div className="brand-hero-actions">
-          <Link href="/blog" className="button-primary">
-            开始阅读 <span aria-hidden="true">↗</span>
-          </Link>
-          <Link href="/about" className="button-quiet">
-            认识我
-          </Link>
-        </div>
-      </div>
-
-      <aside className="home-portrait" aria-label="个人简介">
-        <div className="home-portrait-image">
-          <Image
-            src={siteMetadata.avatar}
-            alt={siteMetadata.author}
-            width={152}
-            height={152}
-            className="home-avatar"
-            priority
-          />
-        </div>
-        <p><span>Vito Wang</span> 为真实业务构建 AI Agent，也写关于工程与自我重塑的文章。</p>
-      </aside>
-    </section>
-  )
-}
-
-function CapabilityField() {
-  return (
-    <section className="capability-field" aria-labelledby="capability-title">
-      <header className="section-heading">
-        <p>能力不是标签，而是解决问题的路径。</p>
-        <h2 id="capability-title">不受单一职位定义</h2>
-      </header>
-      <div className="capability-paths">
-        {capabilities.map((capability, index) => (
-          <article className="capability-path" key={capability.title}>
-            <div className="capability-index" aria-hidden="true">
-              {String(index + 1).padStart(2, '0')}
-            </div>
-            <div className="capability-title">
-              <span>{capability.chinese}</span>
-              <h3>{capability.title}</h3>
-            </div>
-            <p>{capability.description}</p>
-            <small>{capability.proof}</small>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function ReadingShelf({ posts }) {
-  const visiblePosts = posts.slice(0, siteMetadata.post.homeMaxDisplay)
-
-  return (
-    <section className="reading-shelf" aria-labelledby="reading-title">
-      <header className="section-heading reading-heading">
-        <div>
-          <p>写作是我整理世界的方式。</p>
-          <h2 id="reading-title">近来所思</h2>
-        </div>
-        <Link href="/blog" className="text-link">
-          查看全部文章 <span aria-hidden="true">→</span>
-        </Link>
-      </header>
-
-      {visiblePosts.length ? (
-        <ol className="home-posts">
-          {visiblePosts.map((post, index) => {
-            const { slug, date, title, summary, wordCount, readingTime } = post
-            return (
-              <li key={slug}>
-                <article className="home-post">
-                  <span className="home-post-number" aria-hidden="true">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <div className="home-post-main">
-                    <h3>
-                      <Link href={`/blog/${slug}`}>{title}</Link>
-                    </h3>
-                    {summary && <p>{summary}</p>}
-                  </div>
-                  <div className="home-post-meta">
-                    <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                    {wordCount && <span>{wordCount} 字</span>}
-                    {readingTime && <span>约 {Math.ceil(readingTime)} 分钟</span>}
-                  </div>
-                </article>
-              </li>
-            )
-          })}
-        </ol>
-      ) : (
-        <div className="reading-empty">
-          <p>新的思考正在沉淀。</p>
-          <span>过些时候再来，或通过 RSS 订阅更新。</span>
-        </div>
-      )}
-    </section>
   )
 }

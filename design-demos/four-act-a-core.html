@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#e8e7e1" />
+  <meta name="description" content="Se1fAware / Vito Wang — 观心，造物。Agent、全栈与前端工程实践及写作。" />
+  <title>Se1fAware — 观心，造物。</title>
+  <style>
+    :root {
+      --ink: #171a18;
+      --ink-soft: #4b504c;
+      --fog: #e8e7e1;
+      --paper: #f2f1eb;
+      --pine: #214a3d;
+      --pine-light: #628073;
+      --cinnabar: #a54732;
+      --line: rgba(23, 26, 24, .18);
+      --line-strong: rgba(23, 26, 24, .46);
+      --header-h: 72px;
+      --pad: clamp(22px, 4.2vw, 64px);
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      background: var(--fog);
+      overflow-x: clip;
+    }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 62% 40%, rgba(255,255,255,.68), transparent 34rem),
+        linear-gradient(105deg, #dedfd9 0%, var(--fog) 52%, #efeee8 100%);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .085;
+      pointer-events: none;
+      z-index: 20;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 5px; }
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      transform: translateY(-150%);
+      background: var(--ink);
+      color: white;
+      text-decoration: none;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: fixed;
+      z-index: 30;
+      inset: 0 0 auto 0;
+      height: var(--header-h);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 var(--pad);
+      pointer-events: none;
+    }
+    .brand, .scene-nav, .chapter-readout { pointer-events: auto; }
+    .brand {
+      justify-self: start;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      text-decoration: none;
+      font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .brand .mark {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--cinnabar);
+      box-shadow: 0 0 0 4px rgba(165,71,50,.12);
+    }
+    .scene-nav { display: flex; gap: 6px; align-items: center; }
+    .scene-nav a {
+      width: 30px; height: 30px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      color: transparent;
+      text-decoration: none;
+      position: relative;
+    }
+    .scene-nav a::before {
+      content: "";
+      width: 5px; height: 5px;
+      border: 1px solid var(--ink-soft);
+      border-radius: 50%;
+      transition: width .35s ease, height .35s ease, background .35s ease;
+    }
+    .scene-nav a[aria-current="true"]::before {
+      width: 9px; height: 9px;
+      background: var(--pine);
+      border-color: var(--pine);
+    }
+    .chapter-readout {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font: 11px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .chapter-readout .fraction { color: var(--ink); }
+    .progress-track {
+      position: fixed;
+      z-index: 29;
+      left: var(--pad); right: var(--pad); top: 71px;
+      height: 1px;
+      background: var(--line);
+    }
+    .progress-bar {
+      width: 25%; height: 1px;
+      background: var(--cinnabar);
+      transform-origin: left;
+      transition: width .7s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .stage {
+      position: fixed;
+      z-index: 2;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    #core-canvas { width: 100%; height: 100%; display: block; }
+    .static-core {
+      position: absolute;
+      width: min(43vw, 580px);
+      aspect-ratio: 1;
+      left: 60%; top: 51%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(33,74,61,.30);
+      border-radius: 50%;
+      transition: opacity .5s ease;
+    }
+    .static-core::before,
+    .static-core::after {
+      content: ""; position: absolute; border-radius: 50%;
+      border: 1px solid rgba(23,26,24,.22);
+    }
+    .static-core::before { inset: 17%; transform: rotate(28deg); border-left-color: var(--cinnabar); }
+    .static-core::after { inset: 33%; background: rgba(33,74,61,.10); box-shadow: inset 0 0 40px rgba(33,74,61,.16); }
+    .static-core span { position: absolute; inset: 8%; border: 1px dashed rgba(23,26,24,.16); border-radius: 50%; transform: rotateX(66deg); }
+    .canvas-ready .static-core { opacity: 0; }
+
+    main { position: relative; z-index: 5; }
+    .scene {
+      position: relative;
+      min-height: 100svh;
+      height: 100svh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      padding: calc(var(--header-h) + 24px) var(--pad) max(28px, env(safe-area-inset-bottom));
+      display: grid;
+      isolation: isolate;
+    }
+    .scene::after {
+      content: attr(data-coord);
+      position: absolute;
+      right: var(--pad); bottom: 26px;
+      font: 9px/1 ui-monospace, "SFMono-Regular", Menlo, monospace;
+      letter-spacing: .16em;
+      color: rgba(23,26,24,.46);
+      writing-mode: vertical-rl;
+    }
+    .eyebrow {
+      margin: 0 0 20px;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--pine);
+      font: 10px/1.2 ui-monospace, "SFMono-Regular", Menlo, monospace;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--cinnabar); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 {
+      font-family: "Songti SC", "Noto Serif CJK SC", STSong, serif;
+      font-weight: 500;
+    }
+    h1 { margin-bottom: 28px; font-size: clamp(58px, 8.2vw, 124px); line-height: .92; letter-spacing: -.07em; }
+    h2 { margin-bottom: 18px; font-size: clamp(36px, 4.8vw, 70px); line-height: 1; letter-spacing: -.055em; }
+    .lead { color: var(--ink-soft); line-height: 1.85; font-size: 14px; }
+    .micro {
+      font: 9px/1.5 ui-monospace, "SFMono-Regular", Menlo, monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* Scene 1 */
+    .scene-world { grid-template-columns: minmax(300px, 42%) 1fr; align-items: center; }
+    .world-copy { align-self: center; max-width: 560px; }
+    .thesis { display: flex; align-items: baseline; gap: .15em; white-space: nowrap; }
+    .thesis .slash { font-family: ui-monospace, monospace; font-size: .29em; color: var(--cinnabar); letter-spacing: 0; transform: translateY(-.65em); }
+    .world-copy .lead { max-width: 390px; margin-left: 7px; }
+    .world-meta {
+      position: absolute;
+      left: var(--pad); bottom: 34px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .scroll-cue { display: flex; align-items: center; gap: 11px; }
+    .scroll-cue i { width: 36px; height: 1px; background: var(--ink); position: relative; overflow: hidden; }
+    .scroll-cue i::after { content: ""; position: absolute; inset: 0; background: var(--cinnabar); animation: cue 2.4s ease-in-out infinite; }
+    @keyframes cue { 0%,20% { transform: translateX(-105%); } 65%,100% { transform: translateX(105%); } }
+    .axis-notes { position: absolute; inset: var(--header-h) var(--pad) 0 50%; }
+    .axis-notes span { position: absolute; font: 9px/1 ui-monospace, monospace; letter-spacing: .12em; color: var(--ink-soft); }
+    .axis-notes span:nth-child(1) { left: 4%; top: 24%; }
+    .axis-notes span:nth-child(2) { right: 7%; top: 42%; }
+    .axis-notes span:nth-child(3) { left: 28%; bottom: 17%; color: var(--cinnabar); }
+
+    /* Scene 2 */
+    .scene-writing { grid-template-columns: 30% 1fr; align-items: center; }
+    .writing-head { align-self: start; padding-top: 5vh; max-width: 310px; }
+    .archive-link {
+      display: inline-flex; gap: 10px; align-items: center; margin-top: 18px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .archive-link span { color: var(--cinnabar); font-family: ui-monospace, monospace; }
+    .article-index {
+      align-self: stretch;
+      margin: 2vh 0 2vh auto;
+      width: min(68vw, 960px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(3, 1fr);
+      border-top: 1px solid var(--line-strong);
+      border-left: 1px solid var(--line);
+    }
+    .article-link {
+      position: relative;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      gap: 12px;
+      align-content: center;
+      padding: clamp(14px, 2.2vw, 28px);
+      text-decoration: none;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: background .35s ease, color .35s ease;
+    }
+    .article-link:nth-child(1) { grid-row: span 2; }
+    .article-link:nth-child(5) { grid-column: 2; }
+    .article-link .no { color: var(--cinnabar); font: 10px/1 ui-monospace, monospace; }
+    .article-link h3 {
+      margin: 0;
+      max-width: 450px;
+      font-family: "Songti SC", "Noto Serif CJK SC", serif;
+      font-weight: 500;
+      font-size: clamp(15px, 1.35vw, 21px);
+      line-height: 1.25;
+    }
+    .article-link .arrow { font-size: 16px; opacity: 0; transform: translateX(-8px); transition: .3s ease; }
+    .article-link .kind {
+      grid-column: 2 / 4; margin-top: 8px;
+      font: 9px/1 ui-monospace, monospace; letter-spacing: .1em; color: var(--ink-soft); text-transform: uppercase;
+    }
+    .article-link:hover, .article-link:focus-visible { background: rgba(33,74,61,.90); color: var(--paper); outline-offset: -4px; }
+    .article-link:hover .arrow, .article-link:focus-visible .arrow { opacity: 1; transform: none; }
+    .article-link:hover .kind, .article-link:focus-visible .kind { color: rgba(242,241,235,.65); }
+
+    /* Scene 3 */
+    .scene-practice { grid-template-columns: 32% 1fr; align-items: center; }
+    .practice-copy { max-width: 360px; }
+    .bio { max-width: 330px; margin-bottom: 28px; }
+    .location { display: flex; align-items: center; gap: 9px; }
+    .location i { width: 5px; height: 5px; background: var(--cinnabar); border-radius: 50%; }
+    .role-system {
+      width: min(64vw, 850px);
+      justify-self: end;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr 1fr;
+      grid-template-rows: 1fr auto;
+      align-items: center;
+      min-height: 58vh;
+    }
+    .role {
+      position: relative;
+      padding: 22px 18px;
+      border-top: 1px solid var(--line-strong);
+      z-index: 2;
+    }
+    .role:nth-child(2) { align-self: start; margin-top: 5vh; }
+    .role:nth-child(3) { align-self: end; margin-bottom: 5vh; }
+    .role .role-no { color: var(--cinnabar); font: 9px/1 ui-monospace, monospace; }
+    .role h3 { margin: 12px 0 8px; font: 500 clamp(19px, 2vw, 28px)/1 "Songti SC", serif; }
+    .role p { margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.6; }
+    .role-system::before {
+      content: "";
+      position: absolute;
+      left: 54%;
+      width: min(42vw, 580px); height: min(42vw, 580px);
+      border-radius: 50%;
+      border: 1px dashed var(--line);
+      transform: translateX(-15%);
+    }
+    .stack-strip {
+      grid-column: 1 / -1;
+      display: flex; flex-wrap: wrap; gap: 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line);
+    }
+    .stack-strip span { flex: 1; min-width: max-content; padding: 13px 10px; text-align: center; font: 9px/1 ui-monospace, monospace; letter-spacing: .07em; border-right: 1px solid var(--line); }
+    .stack-strip span:last-child { border-right: 0; }
+
+    /* Scene 4 */
+    .scene-proof { grid-template-columns: 34% 1fr; align-items: center; }
+    .proof-head { align-self: start; padding-top: 3vh; max-width: 360px; }
+    .proof-head .lead { max-width: 270px; }
+    .proof-body { width: min(65vw, 860px); justify-self: end; align-self: center; }
+    .timeline { border-top: 1px solid var(--line-strong); }
+    .event {
+      display: grid; grid-template-columns: 120px 145px 1fr;
+      gap: 20px; align-items: baseline;
+      padding: clamp(14px, 2vh, 22px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .event time, .event .type { font: 9px/1.4 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .event .type { color: var(--pine); }
+    .event h3 { margin: 0; font: 500 clamp(15px, 1.5vw, 20px)/1.25 "Songti SC", serif; }
+    .event p { margin: 6px 0 0; color: var(--ink-soft); font-size: 11px; line-height: 1.55; }
+    .closing {
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      margin-top: clamp(22px, 4vh, 42px);
+    }
+    .contact {
+      display: inline-flex; align-items: center; gap: 16px;
+      text-decoration: none;
+      font: 500 clamp(20px, 2.5vw, 36px)/1 "Songti SC", serif;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 8px;
+    }
+    .contact i { width: 9px; height: 9px; border-radius: 50%; background: var(--cinnabar); transition: transform .3s ease; }
+    .contact:hover i, .contact:focus-visible i { transform: scale(1.7); }
+    .return-writing { font-size: 11px; text-underline-offset: 5px; }
+
+    .to-top {
+      position: fixed;
+      z-index: 40;
+      right: max(22px, var(--pad)); bottom: max(22px, env(safe-area-inset-bottom));
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      background: rgba(232,231,225,.88);
+      color: var(--ink);
+      display: grid; place-items: center;
+      cursor: pointer;
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: opacity .3s ease, transform .3s ease, visibility .3s;
+      backdrop-filter: blur(8px);
+    }
+    .to-top.visible { opacity: 1; visibility: visible; transform: none; }
+    .to-top svg { width: 16px; height: 16px; }
+
+    @media (max-width: 800px) {
+      :root { --header-h: 58px; --pad: 20px; }
+      html { scroll-snap-type: y proximity; }
+      .site-header { grid-template-columns: 1fr auto; }
+      .scene-nav { display: none; }
+      .chapter-readout { font-size: 9px; }
+      .chapter-readout .label { display: none; }
+      .progress-track { top: 57px; }
+      .scene {
+        padding-top: calc(var(--header-h) + 22px);
+        min-height: 100svh; height: 100svh;
+      }
+      .scene::after { display: none; }
+      .stage { opacity: .74; }
+      .static-core { width: 72vw; left: 52%; top: 35%; }
+      h1 { font-size: clamp(56px, 19vw, 78px); }
+      h2 { font-size: clamp(36px, 11vw, 48px); }
+      .eyebrow { margin-bottom: 12px; }
+      .scene-world { display: block; }
+      .world-copy { padding-top: 47vh; }
+      .world-copy .lead { max-width: 310px; font-size: 12px; line-height: 1.7; }
+      .thesis { margin-bottom: 16px; }
+      .world-meta { left: var(--pad); bottom: 22px; }
+      .axis-notes { inset: var(--header-h) var(--pad) auto var(--pad); height: 42vh; }
+      .axis-notes span:nth-child(1) { left: 3%; top: 22%; }
+      .axis-notes span:nth-child(2) { right: 1%; top: 45%; }
+      .axis-notes span:nth-child(3) { left: 18%; bottom: 3%; }
+
+      .scene-writing { display: block; padding-top: calc(var(--header-h) + 14px); }
+      .writing-head { padding: 0; display: grid; grid-template-columns: 1fr auto; align-items: end; }
+      .writing-head .eyebrow { grid-column: 1 / -1; margin-bottom: 7px; }
+      .writing-head h2 { font-size: 34px; margin: 0; }
+      .writing-head .lead { display: none; }
+      .archive-link { margin: 0 0 3px; font-size: 10px; }
+      .article-index {
+        width: 100%; height: calc(100svh - 145px);
+        margin: 12px 0 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, minmax(0, 1fr));
+        background: rgba(232,231,225,.70);
+        border-left: 0;
+      }
+      .article-link, .article-link:nth-child(1), .article-link:nth-child(5) {
+        grid-column: auto; grid-row: auto;
+        grid-template-columns: 27px 1fr auto;
+        padding: 8px 7px;
+        border-right: 0;
+      }
+      .article-link h3 { font-size: 14px; line-height: 1.18; }
+      .article-link .kind { margin-top: 4px; font-size: 7px; }
+
+      .scene-practice { display: block; padding-top: calc(var(--header-h) + 13px); }
+      .practice-copy { max-width: none; }
+      .practice-copy .eyebrow { margin-bottom: 7px; }
+      .practice-copy h2 { font-size: 34px; margin-bottom: 8px; }
+      .bio { font-size: 11px; line-height: 1.5; max-width: 350px; margin-bottom: 6px; }
+      .location { font-size: 8px; }
+      .role-system {
+        width: 100%; min-height: 0; height: calc(100svh - 244px);
+        margin-top: 11px;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, 1fr) auto;
+        background: rgba(232,231,225,.69);
+      }
+      .role-system::before { display: none; }
+      .role, .role:nth-child(2), .role:nth-child(3) { align-self: stretch; margin: 0; padding: 10px 8px; display: grid; grid-template-columns: 28px 1fr; align-content: center; }
+      .role h3 { margin: 0 0 3px; font-size: 17px; }
+      .role p { grid-column: 2; font-size: 9px; }
+      .stack-strip { overflow: hidden; flex-wrap: nowrap; }
+      .stack-strip span { font-size: 7px; padding: 8px 7px; }
+
+      .scene-proof { display: block; padding-top: calc(var(--header-h) + 14px); }
+      .proof-head { padding: 0; }
+      .proof-head .eyebrow { margin-bottom: 6px; }
+      .proof-head h2 { font-size: 34px; margin-bottom: 6px; }
+      .proof-head .lead { display: none; }
+      .proof-body { width: 100%; margin-top: 13px; }
+      .event { grid-template-columns: 76px 1fr; gap: 4px 12px; padding: 10px 0; }
+      .event time { font-size: 7px; }
+      .event .type { grid-column: 1; grid-row: 2; font-size: 7px; }
+      .event > div { grid-column: 2; grid-row: 1 / span 2; }
+      .event h3 { font-size: 14px; }
+      .event p { margin-top: 3px; font-size: 9px; line-height: 1.35; }
+      .closing { margin-top: 17px; display: block; }
+      .contact { font-size: 19px; }
+      .return-writing { display: block; width: fit-content; margin-top: 15px; font-size: 9px; }
+      .to-top { width: 42px; height: 42px; right: 18px; bottom: 18px; }
+    }
+
+    @media (max-height: 700px) and (min-width: 801px) {
+      .scene { padding-top: calc(var(--header-h) + 12px); }
+      .article-index { margin-top: 0; margin-bottom: 0; }
+      .writing-head { padding-top: 1vh; }
+      .proof-head { padding-top: 0; }
+      .event { padding: 12px 0; }
+      .closing { margin-top: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .scroll-cue i::after { display: none; }
+    }
+
+    @media (forced-colors: active) {
+      .static-core, .static-core::before, .static-core::after { border: 1px solid CanvasText; }
+      .mark, .contact i { forced-color-adjust: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#world">跳到主要内容</a>
+
+  <header class="site-header" aria-label="站点导航">
+    <a class="brand" href="#world" aria-label="Se1fAware 首页">
+      <span class="mark" aria-hidden="true"></span><span>Se1fAware</span>
+    </a>
+    <nav class="scene-nav" aria-label="四幕导航">
+      <a href="#world" aria-label="第一幕：世界观" aria-current="true">1</a>
+      <a href="#writing" aria-label="第二幕：写作">2</a>
+      <a href="#practice" aria-label="第三幕：人物与能力">3</a>
+      <a href="#proof" aria-label="第四幕：经历与联系">4</a>
+    </nav>
+    <div class="chapter-readout" aria-live="polite">
+      <span class="label">世界观</span><span class="fraction">01 / 04</span>
+    </div>
+  </header>
+  <div class="progress-track" aria-hidden="true"><div class="progress-bar"></div></div>
+
+  <div class="stage" aria-hidden="true">
+    <canvas id="core-canvas"></canvas>
+    <div class="static-core"><span></span></div>
+  </div>
+
+  <main id="main">
+    <section class="scene scene-world" id="world" data-scene="0" data-coord="23.3541° N · 116.6820° E">
+      <div class="world-copy">
+        <p class="eyebrow">Act I · Inner / Outer</p>
+        <h1 class="thesis"><span>观心</span><span class="slash">／</span><span>造物</span></h1>
+        <p class="lead">向内辨认，向外构造。持续校准自我，也持续创造世界。</p>
+      </div>
+      <div class="axis-notes" aria-hidden="true">
+        <span>INNER SHELL · SELF</span>
+        <span>OUTER SHELL · WORLD</span>
+        <span>T+2026 · CALIBRATING</span>
+      </div>
+      <div class="world-meta">
+        <span class="micro">Vito Wang · Shantou</span>
+        <span class="scroll-cue micro"><i></i>Scroll to unfold</span>
+      </div>
+    </section>
+
+    <section class="scene scene-writing" id="writing" data-scene="1" data-coord="ARCHIVE / 13 ENTRIES">
+      <header class="writing-head">
+        <p class="eyebrow">Act II · Thought field</p>
+        <h2>思想有轨</h2>
+        <p class="lead">写作不是结论的陈列，而是思考留下的空间坐标。指向一篇，造物核会随之偏转。</p>
+        <a class="archive-link" href="/blog" aria-label="查看全部 13 篇文章">全部文章 <span>13 ↗</span></a>
+      </header>
+      <nav class="article-index" aria-label="精选文章">
+        <a class="article-link" href="/blog/docker-in-2024" data-orbit="0">
+          <span class="no">01</span><h3>Docker in 2024: Evolving Relevance in Modern DevOps</h3><span class="arrow">↗</span><span class="kind">Engineering / DevOps</span>
+        </a>
+        <a class="article-link" href="/blog/tailwind-nextjs-starter-blog-v2" data-orbit="1">
+          <span class="no">02</span><h3>Release of Tailwind Nextjs Starter Blog v2.0</h3><span class="arrow">↗</span><span class="kind">Frontend / Open source</span>
+        </a>
+        <a class="article-link" href="/blog/aigc-revolution" data-orbit="2">
+          <span class="no">03</span><h3>AIGC：人工智能生成内容的革命</h3><span class="arrow">↗</span><span class="kind">AI / Observation</span>
+        </a>
+        <a class="article-link" href="/blog/new-features-in-v1" data-orbit="3">
+          <span class="no">04</span><h3>New features in v1</h3><span class="arrow">↗</span><span class="kind">Product / Changelog</span>
+        </a>
+        <a class="article-link" href="/blog/multi-part-posts-with-nested-routing" data-orbit="4">
+          <span class="no">05</span><h3>Introducing Multi-part Posts with Nested Routing</h3><span class="arrow">↗</span><span class="kind">Architecture / Next.js</span>
+        </a>
+      </nav>
+    </section>
+
+    <section class="scene scene-practice" id="practice" data-scene="2" data-coord="AGENT × SYSTEM × SURFACE">
+      <header class="practice-copy">
+        <p class="eyebrow">Act III · Practice</p>
+        <h2>一人，三层</h2>
+        <p class="lead bio">我是 Vito，常驻广东汕头。三年前端经验、两年全栈背景；现在把 Agent 的推理与工具能力，做成真实可用的产品。</p>
+        <span class="location micro"><i></i>Guangdong · Shantou</span>
+      </header>
+      <div class="role-system" aria-label="三种协作身份">
+        <article class="role">
+          <span class="role-no">L3</span><div><h3>Agent 工程</h3><p>让模型理解任务、检索知识、调用工具，并完成可验证的工作流。</p></div>
+        </article>
+        <article class="role">
+          <span class="role-no">L2</span><div><h3>全栈系统</h3><p>连接模型、服务与数据，承担从原型到企业交付的完整链路。</p></div>
+        </article>
+        <article class="role">
+          <span class="role-no">L1</span><div><h3>前端体验</h3><p>把复杂系统变成人能理解、愿意使用并可以信任的界面。</p></div>
+        </article>
+        <div class="stack-strip" aria-label="核心技术栈">
+          <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>AI Agents</span><span>RAG</span><span>Tool Use</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene scene-proof" id="proof" data-scene="3" data-coord="PROOF SETTLED · CHANNEL OPEN">
+      <header class="proof-head">
+        <p class="eyebrow">Act IV · Proof</p>
+        <h2>所造之物</h2>
+        <p class="lead">经历在核的表面沉淀。不是履历墙，而是从想法到交付的连续证据。</p>
+      </header>
+      <div class="proof-body">
+        <div class="timeline" aria-label="工作经历与项目交付">
+          <article class="event">
+            <time datetime="2024-06">2024.06 — NOW</time><span class="type">FastMoss</span>
+            <div><h3>面向真实业务的产品与工程实践</h3><p>在持续迭代中连接用户需求、前端体验与完整产品交付。</p></div>
+          </article>
+          <article class="event">
+            <time datetime="2021">2021 — 2024</time><span class="type">Aimy</span>
+            <div><h3>远程教育平台</h3><p>长期全栈与前端工程实践，参与复杂业务从构建到维护的全过程。</p></div>
+          </article>
+          <article class="event">
+            <time>DELIVERY 01</time><span class="type">AI Assistant</span>
+            <div><h3>端到端 AI 客服助手</h3><p>从 Agent 链路、工具调用，到企业协作场景落地。</p></div>
+          </article>
+          <article class="event">
+            <time>DELIVERY 02</time><span class="type">Agent Systems</span>
+            <div><h3>Agent 工程交付</h3><p>RAG、工具调用、工作流与企业项目落地。</p></div>
+          </article>
+        </div>
+        <div class="closing">
+          <a class="contact" href="mailto:se1faware24@gmail.com"><i aria-hidden="true"></i>一起造点什么</a>
+          <a class="return-writing" href="#writing">返回思想场 →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="to-top" type="button" aria-label="返回第一幕：世界观" title="返回顶部">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 16V4M5 9l5-5 5 5" stroke="currentColor" stroke-width="1.5"/></svg>
+  </button>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const scenes = [...document.querySelectorAll('.scene')];
+      const navLinks = [...document.querySelectorAll('.scene-nav a')];
+      const readoutLabel = document.querySelector('.chapter-readout .label');
+      const readoutFraction = document.querySelector('.chapter-readout .fraction');
+      const progress = document.querySelector('.progress-bar');
+      const topButton = document.querySelector('.to-top');
+      const labels = ['世界观', '思想场', '协作结构', '经历与联系'];
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const compact = matchMedia('(max-width: 800px)').matches;
+      let activeScene = 0;
+      let wheelSum = 0;
+      let wheelTimer = 0;
+      let wheelLocked = false;
+      let orbitFocus = -1;
+
+      function setScene(index, updateHash = false) {
+        index = Math.max(0, Math.min(scenes.length - 1, index));
+        if (activeScene === index && !updateHash) return;
+        activeScene = index;
+        navLinks.forEach((link, i) => link.setAttribute('aria-current', String(i === index)));
+        readoutLabel.textContent = labels[index];
+        readoutFraction.textContent = `0${index + 1} / 04`;
+        progress.style.width = `${(index + 1) * 25}%`;
+        topButton.classList.toggle('visible', index > 0);
+        if (updateHash) history.replaceState(null, '', `#${scenes[index].id}`);
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setScene(Number(visible.target.dataset.scene), true);
+      }, { threshold: [.35, .55, .72] });
+      scenes.forEach(scene => observer.observe(scene));
+
+      topButton.addEventListener('click', () => scenes[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }));
+
+      // One deliberate wheel/trackpad gesture advances one act. Native scrolling remains
+      // available for small deltas, touch, keyboard, anchors, and reduced-motion users.
+      addEventListener('wheel', event => {
+        if (compact || reduceMotion || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => { wheelSum = 0; }, 180);
+        wheelSum += event.deltaY;
+        if (wheelLocked || Math.abs(wheelSum) < 42) return;
+        const direction = wheelSum > 0 ? 1 : -1;
+        const next = Math.max(0, Math.min(scenes.length - 1, activeScene + direction));
+        wheelSum = 0;
+        if (next === activeScene) return;
+        event.preventDefault();
+        wheelLocked = true;
+        scenes[next].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setScene(next);
+        setTimeout(() => { wheelLocked = false; }, 900);
+      }, { passive: false });
+
+      document.querySelectorAll('.article-link').forEach(link => {
+        const focus = () => orbitFocus = Number(link.dataset.orbit);
+        const blur = () => orbitFocus = -1;
+        link.addEventListener('mouseenter', focus);
+        link.addEventListener('focus', focus);
+        link.addEventListener('mouseleave', blur);
+        link.addEventListener('blur', blur);
+      });
+
+      const canvas = document.getElementById('core-canvas');
+      let ctx = null;
+      try {
+        ctx = canvas && canvas.getContext ? canvas.getContext('2d', { alpha: true }) : null;
+      } catch (_) {
+        ctx = null;
+      }
+      if (!ctx) return;
+
+      const DPR_CAP = compact ? 1.25 : 1.75;
+      const particleCount = compact ? 150 : 320;
+      const TAU = Math.PI * 2;
+      const particles = [];
+      const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+      let width = 1, height = 1, dpr = 1;
+      let then = performance.now();
+      let shapeScene = activeScene;
+      const pageIsVisible = () => !document.hidden;
+      let sleeping = !pageIsVisible();
+      let firstFrame = true;
+
+      function seeded(index, salt = 0) {
+        const x = Math.sin((index + 1) * 127.1 + salt * 311.7) * 43758.5453;
+        return x - Math.floor(x);
+      }
+
+      function targetFor(scene, i, count) {
+        const u = (i + .5) / count;
+        const phi = Math.acos(1 - 2 * u);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        let x = 0, y = 0, z = 0, group = 0;
+
+        if (scene === 0) {
+          // Breathing double shell: introspection held inside construction.
+          const inner = i % 3 === 0;
+          const r = inner ? .48 : .94;
+          x = r * Math.sin(phi) * Math.cos(theta);
+          y = r * Math.cos(phi);
+          z = r * Math.sin(phi) * Math.sin(theta);
+          group = inner ? 1 : 0;
+        } else if (scene === 1) {
+          // Five article trajectories: each band is a different tilted orbit.
+          group = i % 5;
+          const j = Math.floor(i / 5);
+          const n = Math.ceil(count / 5);
+          const a = (j / n) * TAU + group * .42;
+          const r = .62 + group * .135;
+          x = Math.cos(a) * r;
+          y = Math.sin(a) * r * (.38 + group * .055);
+          z = Math.sin(a * 2 + group) * .20 + (group - 2) * .09;
+          const tilt = (-.52 + group * .24);
+          const yy = y * Math.cos(tilt) - z * Math.sin(tilt);
+          z = y * Math.sin(tilt) + z * Math.cos(tilt);
+          y = yy;
+        } else if (scene === 2) {
+          // Three materially different layers: neural crown, service ring, interface plane.
+          group = i % 3;
+          const j = Math.floor(i / 3);
+          const n = Math.ceil(count / 3);
+          if (group === 0) {
+            const uu = (j + .5) / n;
+            const pp = Math.acos(1 - 2 * uu);
+            const tt = Math.PI * (1 + Math.sqrt(5)) * j;
+            x = .56 * Math.sin(pp) * Math.cos(tt);
+            y = .56 * Math.cos(pp) - .77;
+            z = .56 * Math.sin(pp) * Math.sin(tt);
+          } else if (group === 1) {
+            const a = (j / n) * TAU;
+            x = Math.cos(a) * .88;
+            y = Math.sin(a * 3) * .13;
+            z = Math.sin(a) * .88;
+          } else {
+            const side = Math.ceil(Math.sqrt(n));
+            const gx = (j % side) / Math.max(1, side - 1) - .5;
+            const gz = Math.floor(j / side) / Math.max(1, side - 1) - .5;
+            x = gx * 1.45;
+            y = .78 + Math.sin(gx * 5) * .04;
+            z = gz * 1.15;
+          }
+        } else {
+          // Reconstituted seed. Four proof nodes sit just proud of the settled shell.
+          group = i % 4;
+          const r = .76 + .05 * Math.sin(theta * 2);
+          x = r * Math.sin(phi) * Math.cos(theta) * .76;
+          y = r * Math.cos(phi) * 1.15;
+          z = r * Math.sin(phi) * Math.sin(theta) * .76;
+          if (i < 4) {
+            const a = i * TAU / 4 + .4;
+            x = Math.cos(a) * .88;
+            y = Math.sin(a) * .58;
+            z = .3;
+          }
+        }
+        return { x, y, z, group };
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        const t = targetFor(0, i, particleCount);
+        particles.push({ x: t.x, y: t.y, z: t.z, tx: t.x, ty: t.y, tz: t.z, group: t.group, seed: seeded(i) });
+      }
+
+      function resize() {
+        width = innerWidth; height = innerHeight;
+        dpr = Math.min(devicePixelRatio || 1, DPR_CAP);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      addEventListener('resize', resize, { passive: true });
+      addEventListener('pointermove', event => {
+        pointer.tx = (event.clientX / width - .5) * 2;
+        pointer.ty = (event.clientY / height - .5) * 2;
+      }, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        sleeping = document.hidden;
+        if (!sleeping) { then = performance.now(); requestAnimationFrame(render); }
+      });
+
+      function updateTargets(scene) {
+        for (let i = 0; i < particles.length; i++) {
+          const t = targetFor(scene, i, particleCount);
+          particles[i].tx = t.x; particles[i].ty = t.y; particles[i].tz = t.z; particles[i].group = t.group;
+        }
+        shapeScene = scene;
+      }
+
+      function drawGuide(cx, cy, scale, time) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.strokeStyle = 'rgba(23,26,24,.13)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([2, 6]);
+        const baseRotation = reduceMotion ? 0 : time * .00004;
+        ctx.rotate(baseRotation);
+        if (activeScene === 0) {
+          ctx.beginPath(); ctx.ellipse(0, 0, scale * 1.12, scale * .34, -.35, 0, TAU); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(0, 0, scale * .77, scale * .77, 0, 0, TAU); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.beginPath(); ctx.moveTo(-scale * 1.25, 0); ctx.lineTo(scale * 1.25, 0); ctx.stroke();
+        } else if (activeScene === 1) {
+          for (let i = 0; i < 5; i++) {
+            ctx.strokeStyle = orbitFocus === i ? 'rgba(165,71,50,.68)' : 'rgba(33,74,61,.16)';
+            ctx.beginPath(); ctx.ellipse(0, 0, scale * (.66 + i * .13), scale * (.25 + i * .05), -.52 + i * .24, 0, TAU); ctx.stroke();
+          }
+        } else if (activeScene === 2) {
+          ctx.beginPath(); ctx.ellipse(0, -scale * .73, scale * .62, scale * .26, 0, 0, TAU); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(0, 0, scale * .95, scale * .32, 0, 0, TAU); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(-scale * .76, scale * .77); ctx.lineTo(scale * .76, scale * .77); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, -scale * 1.18); ctx.lineTo(0, scale * 1.02); ctx.stroke();
+        } else {
+          ctx.beginPath(); ctx.ellipse(0, 0, scale * .72, scale * 1.08, .08, 0, TAU); ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.strokeStyle = 'rgba(165,71,50,.36)';
+          ctx.beginPath(); ctx.moveTo(0, -scale * 1.2); ctx.lineTo(0, scale * 1.2); ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function render(now) {
+        if (sleeping) return;
+        const dt = Math.min(34, now - then); then = now;
+        if (shapeScene !== activeScene) updateTargets(activeScene);
+        pointer.x += (pointer.tx - pointer.x) * .035;
+        pointer.y += (pointer.ty - pointer.y) * .035;
+        ctx.clearRect(0, 0, width, height);
+
+        const mobile = width <= 800;
+        const cxBase = mobile ? width * .51 : width * (activeScene === 1 ? .40 : activeScene === 2 ? .60 : activeScene === 3 ? .27 : .63);
+        const cyBase = mobile ? height * (activeScene === 0 ? .32 : activeScene === 1 ? .50 : activeScene === 2 ? .56 : .52) : height * .51;
+        const scale = mobile ? Math.min(width * .29, 128) : Math.min(width, height) * (activeScene === 1 ? .22 : .25);
+        const cx = cxBase + pointer.x * (mobile ? 2 : 12);
+        const cy = cyBase + pointer.y * (mobile ? 2 : 8);
+        const breathe = reduceMotion ? 1 : 1 + Math.sin(now * .0012) * (activeScene === 0 ? .028 : .008);
+        const rotY = (reduceMotion ? .38 : now * .00010) + pointer.x * .08;
+        const rotX = -.18 + pointer.y * .045;
+        const ease = reduceMotion ? 1 : 1 - Math.pow(.001, dt / 1000);
+        const projected = [];
+
+        drawGuide(cx, cy, scale, now);
+
+        for (const p of particles) {
+          p.x += (p.tx - p.x) * ease;
+          p.y += (p.ty - p.y) * ease;
+          p.z += (p.tz - p.z) * ease;
+          let x = p.x * breathe, y = p.y * breathe, z = p.z * breathe;
+          const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+          const xx = x * cosY - z * sinY;
+          z = x * sinY + z * cosY; x = xx;
+          const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+          const yy = y * cosX - z * sinX;
+          z = y * sinX + z * cosX; y = yy;
+          const perspective = 2.8 / (3.1 + z);
+          projected.push({ x: cx + x * scale * perspective, y: cy + y * scale * perspective, z, group: p.group, seed: p.seed, perspective });
+        }
+
+        // Lines are topology, not decoration: close neighbors show the core's current assembly.
+        const connectDistance = activeScene === 2 ? scale * .18 : scale * .14;
+        const stride = compact ? 4 : 3;
+        ctx.lineWidth = .7;
+        for (let i = 0; i < projected.length; i += stride) {
+          const a = projected[i];
+          let best = null, bestD = connectDistance;
+          for (let j = i + 1; j < Math.min(projected.length, i + 18); j++) {
+            const b = projected[j];
+            if (activeScene > 0 && a.group !== b.group) continue;
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dist < bestD) { bestD = dist; best = b; }
+          }
+          if (best) {
+            const highlighted = activeScene === 1 && orbitFocus === a.group;
+            ctx.strokeStyle = highlighted ? 'rgba(165,71,50,.42)' : 'rgba(33,74,61,.18)';
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(best.x, best.y); ctx.stroke();
+          }
+        }
+
+        projected.sort((a,b) => b.z - a.z);
+        for (const p of projected) {
+          const highlighted = activeScene === 1 && orbitFocus === p.group;
+          const proof = activeScene === 3 && p.group === 0;
+          const radius = (highlighted ? 2.5 : proof ? 2.1 : .85 + p.perspective * .7) * (compact ? .82 : 1);
+          const alpha = Math.max(.22, Math.min(.84, .64 - p.z * .18));
+          ctx.beginPath(); ctx.arc(p.x, p.y, radius, 0, TAU);
+          ctx.fillStyle = highlighted ? 'rgba(165,71,50,.94)' : proof ? 'rgba(165,71,50,.78)' : `rgba(33,74,61,${alpha})`;
+          ctx.fill();
+        }
+
+        // The quiet mechanical heart remains legible through every reconstruction.
+        ctx.beginPath(); ctx.arc(cx, cy, compact ? 6 : 8, 0, TAU);
+        ctx.fillStyle = '#a54732'; ctx.fill();
+        ctx.beginPath(); ctx.arc(cx, cy, compact ? 12 : 16, 0, TAU);
+        ctx.strokeStyle = 'rgba(165,71,50,.35)'; ctx.stroke();
+
+        if (firstFrame) {
+          document.documentElement.classList.add('canvas-ready');
+          firstFrame = false;
+        }
+        requestAnimationFrame(render);
+      }
+
+      requestAnimationFrame(render);
+      setScene(Math.max(0, scenes.findIndex(scene => `#${scene.id}` === location.hash)));
+    })();
+  </script>
+</body>
+</html>
