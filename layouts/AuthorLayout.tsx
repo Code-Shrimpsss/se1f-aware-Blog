@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import type { Authors } from 'contentlayer/generated'
 import SocialIcon, { SocialIconKind } from '@/components/social-icons'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Image from 'next/image'
 import React from 'react'
 
 import { IconBrandPiedPiperHat } from '@/components/icons'
@@ -39,33 +39,37 @@ function SkillScroll({
   reverse?: boolean
 }) {
   const animationClass = reverse ? 'animate-infinite-scroll-reverse' : 'animate-infinite-scroll'
+  const iconSize = Math.min(size, 72)
+  const tokenSize = iconSize + 20
+
   return (
-    <div className="mb-[16px] inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+    <div className="skill-lane mb-[16px] inline-flex w-full flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
       {[0, 1].map((key) => (
         <ul
           key={key}
-          className={`flex ${animationClass} items-center [&_li]:mx-[8px]`}
+          className={`flex ${animationClass} items-center [&_li]:mx-[12px]`}
           aria-hidden={key === 1}
         >
           {skills.map((skill, idx) => (
             <li
               key={idx}
-              className={`flex items-center justify-center whitespace-nowrap rounded-full bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200`}
+              className={`skill-token flex items-center justify-center whitespace-nowrap rounded-full bg-white/85 text-gray-800 dark:bg-slate-900/85 dark:text-gray-200`}
+              style={{ width: `${tokenSize}px`, height: `${tokenSize}px` }}
             >
               {skill.darkIcon ? (
                 <>
                   {React.cloneElement(skill.icon, {
-                    style: { width: `${size}px`, height: `${size}px` },
+                    style: { width: `${iconSize}px`, height: `${iconSize}px` },
                     className: 'dark:hidden',
                   })}
                   {React.cloneElement(skill.darkIcon, {
-                    style: { width: `${size}px`, height: `${size}px` },
+                    style: { width: `${iconSize}px`, height: `${iconSize}px` },
                     className: 'hidden dark:block',
                   })}
                 </>
               ) : (
                 React.cloneElement(skill.icon, {
-                  style: { width: `${size}px`, height: `${size}px` },
+                  style: { width: `${iconSize}px`, height: `${iconSize}px` },
                 })
               )}
             </li>
@@ -129,30 +133,39 @@ export default function AuthorLayout({
   ]
 
   return (
-    <>
+    <div className="page-reveal">
       {showHeader && (
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            About Me
+        <div className="border-b border-dashed border-slate-300 pb-6 pt-6 dark:border-slate-700 md:space-y-5">
+          <div className="section-kicker">关于 Vito</div>
+          <h1 className="mt-2 text-4xl font-extrabold leading-tight tracking-tight text-gray-950 dark:text-gray-50 sm:text-5xl md:text-6xl">
+            在工程与自我之间
           </h1>
         </div>
       )}
-      <div className="items-start space-y-2 ">
+      <div className="items-start space-y-2">
         {showAvatar && (
-          <div className="flex flex-col items-center space-x-2 pt-8">
+          <div className="hero-note mt-8 flex flex-col items-center rounded-sm px-5 py-8">
             {avatar && (
-              <Avatar className="h-28 w-28 rounded-full">
-                <AvatarImage src={avatar} alt="avatar" />
-                <AvatarFallback delayMs={600}>{name}</AvatarFallback>
-              </Avatar>
+              <div className="avatar-orbit">
+                <Image
+                  src={avatar}
+                  alt={name}
+                  width={112}
+                  height={112}
+                  className="relative z-10 h-28 w-28 rounded-full border border-white/70 object-cover shadow-2xl dark:border-slate-700"
+                  priority
+                />
+              </div>
             )}
-            <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{name}</h3>
-            <div className="text-gray-500 dark:text-gray-400">
+            <h3 className="relative z-10 pb-2 pt-6 text-3xl font-bold leading-8 tracking-tight text-gray-950 dark:text-gray-50">
+              {name}
+            </h3>
+            <div className="relative z-10 text-gray-600 dark:text-gray-300">
               <IconBrandPiedPiperHat className="mx-1 translate-y-0.5" />
               {occupation}
             </div>
-            <div className="text-gray-500 dark:text-gray-400">{company}</div>
-            <div className="flex space-x-3 pt-6">
+            <div className="relative z-10 text-gray-500 dark:text-gray-400">{company}</div>
+            <div className="relative z-10 flex space-x-3 pt-6">
               {socialLinks.map((link) => (
                 <SocialIcon key={link.kind} kind={link.kind as SocialIconKind} href={link.href} />
               ))}
@@ -164,9 +177,9 @@ export default function AuthorLayout({
             <>
               <h2>
                 <IconBrandPiedPiperHat className="mx-1 translate-y-0.5" />
-                My Skills
+                能力坐标
               </h2>
-              <h3>Mainly Coding Follow</h3>
+              <h3>主要工程栈</h3>
               <div>
                 {mainSkills.map((skill, index) => (
                   <React.Fragment key={skill?.name}>
@@ -184,7 +197,7 @@ export default function AuthorLayout({
           )}
           {showSkillCategories && (
             <>
-              <h3>I'm good at using these skills.</h3>
+              <h3>能力覆盖</h3>
               <div>
                 {skillCategories.map((category) => (
                   <li key={category.name}>
@@ -201,7 +214,7 @@ export default function AuthorLayout({
       {showAboutMe && (
         <div className="mb-8 w-full">
           {/* <h2 className="mb-4 text-center text-2xl font-bold">More</h2> */}
-          <div className="prose max-w-none dark:prose-invert">
+          <div className="about-note prose max-w-none border-y border-dashed border-slate-300 py-8 dark:border-slate-700 dark:prose-invert">
             <p>
               As a passionate developer, I'm always eager to learn and grow. Here's a bit more about
               who I am:
@@ -238,15 +251,15 @@ export default function AuthorLayout({
       )}
 
       {showSkillScroll && (
-        <div className="mb-4 w-full">
-          <h2 className="mb-4 text-center text-2xl font-bold">
-            I'am the sum of all my past experiences.
+        <div className="skill-stage mb-4 w-full page-reveal reveal-delay-2">
+          <h2 className="skill-stage-title mb-5 text-center text-2xl font-bold text-gray-950 dark:text-gray-50">
+            所有走过的路，最终都成为能力的一部分。
           </h2>
           <SkillScroll size={68} skills={languageSkills} />
           <SkillScroll size={108} skills={frontendSkills} reverse={true} />
           <SkillScroll size={68} skills={otherSkills} />
         </div>
       )}
-    </>
+    </div>
   )
 }

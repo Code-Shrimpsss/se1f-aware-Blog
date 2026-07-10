@@ -7,7 +7,6 @@ import styles from './ThemeSwitch.module.css'
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => setMounted(true), [])
 
@@ -16,22 +15,24 @@ const ThemeSwitch = () => {
   }
 
   const toggleTheme = () => {
-    setIsAnimating(true)
     const newTheme = theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark'
     setTheme(newTheme)
-    setTimeout(() => setIsAnimating(false), 1000)
   }
 
   const isDark = theme === 'dark' || resolvedTheme === 'dark'
 
   return (
     <>
-      <button aria-label="Toggle Dark Mode" onClick={toggleTheme} className={styles.themeSwitch}>
+      <button
+        aria-label="Toggle dark mode"
+        onClick={toggleTheme}
+        className={`${styles.themeSwitch} theme-trigger`}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className={`h-6 w-6 text-gray-900 dark:text-gray-100 ${styles.icon}`}
+          className={`theme-trigger-icon ${styles.icon}`}
         >
           {isDark ? (
             <path

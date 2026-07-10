@@ -3,7 +3,7 @@ import 'pliny/search/algolia.css'
 
 import { Jura, Roboto_Mono, Noto_Sans_SC } from 'next/font/google'
 // import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
+import SearchProvider from '@/components/Search/SearchProvider'
 import Header from '@/components/Layout/Header'
 import MainContainer from '@/components/Layout/MainContainer'
 import Footer from '@/components/Layout/Footer'
@@ -105,19 +105,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <ThemeProviders>
           {/* <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} /> */}
-          <MainContainer>
-            <LoadingBar />
-            <div className="dark:text-opacity-82 flex flex-col justify-between bg-white font-sans dark:bg-[#000000] dark:text-white">
-            <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-              <Header />
-              <main className="mx-4 mb-auto sm:mx-6">
-                <TransitionCurve>{children}</TransitionCurve>
-                <Analytics />
-              </main>
-            </SearchProvider>
-            <Footer />
-            </div>
-          </MainContainer>
+          <div className="site-frame">
+            <MainContainer>
+              <LoadingBar />
+              <div className="content-surface dark:text-opacity-82 flex flex-col justify-between font-sans dark:text-white">
+                <SearchProvider searchConfig={siteMetadata.search}>
+                  <Header />
+                  <main className="mx-5 mb-auto min-w-0 sm:mx-6">
+                    <TransitionCurve>{children}</TransitionCurve>
+                    <Analytics />
+                  </main>
+                </SearchProvider>
+                <Footer />
+              </div>
+            </MainContainer>
+          </div>
         </ThemeProviders>
       </body>
     </html>

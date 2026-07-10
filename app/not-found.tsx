@@ -2,23 +2,29 @@ import Link from '@/components/Link'
 
 export default function NotFound() {
   return (
-    <div className="mb-10 flex flex-col items-start justify-start md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6">
-      <div className="max-w-md">
-        <p className="mb-4 text-xl font-bold leading-normal md:text-2xl">
-          <div className="container">
-            <div className="copy-container center-xy">
-              <p>404, page not found.</p>
-              <span className="handle"></span>
-            </div>
+    <div className="page-reveal py-10 sm:py-16">
+      <div className="lost-note hero-note mx-auto max-w-2xl rounded-sm px-5 py-8 sm:px-8 sm:py-10">
+        <div className="relative z-10">
+          <div className="section-kicker">Lost note</div>
+          <p className="lost-note-code" aria-label="404">
+            404
+          </p>
+          <h1 className="lost-note-title mt-3 text-3xl font-extrabold leading-tight tracking-tight text-gray-950 dark:text-gray-50 sm:text-5xl">
+            This page slipped out of the notebook.
+          </h1>
+          <p className="lost-note-copy mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The route is empty, but the archive is still here. Step back into the notes or return to
+            the front page.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-4 text-sm font-semibold">
+            <Link href="/" className="note-link">
+              Home <span aria-hidden="true">&rarr;</span>
+            </Link>
+            <Link href="/blog" className="note-link">
+              Blog <span aria-hidden="true">&rarr;</span>
+            </Link>
           </div>
-        </p>
-        <p className="mb-8">But dont worry, you can find plenty of other things on homepage.</p>
-        <Link
-          href="/"
-          className=" focus:shadow-outline-blue mx-auto inline rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium leading-5 text-white shadow transition-colors duration-150 hover:bg-blue-700 focus:outline-none dark:hover:bg-blue-500"
-        >
-          Back to homepage
-        </Link>
+        </div>
       </div>
     </div>
   )

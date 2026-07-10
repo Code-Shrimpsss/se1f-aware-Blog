@@ -24,7 +24,7 @@ module.exports = {
                 16: '4rem',
             },
             fontFamily: {
-                sans: ['var(--font-jura)', ...fontFamily.sans],
+                sans: ['var(--font-noto-sans-sc)', ...fontFamily.sans],
                 wenkai: ['"LXGW WenKai TC"', 'sans-serif'],
             },
             colors: {

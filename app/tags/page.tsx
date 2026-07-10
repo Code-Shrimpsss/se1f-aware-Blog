@@ -1,5 +1,4 @@
 import Link from '@/components/Link'
-import Tag from '@/components/Tag'
 import { slug } from 'github-slugger'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
@@ -10,32 +9,50 @@ export default async function Page() {
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const totalTaggedPosts = sortedTags.reduce((count, tag) => count + tagCounts[tag], 0)
+  const maxCount = Math.max(...sortedTags.map((tag) => tagCounts[tag]), 1)
+
   return (
-    <>
-      <div className="flex flex-col items-start justify-start divide-y divide-gray-200 dark:divide-gray-700 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
-        <div className="space-x-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14">
-            标签
-          </h1>
+    <div className="page-reveal">
+      <section className="tag-index-hero border-b border-dashed border-slate-300 pb-7 pt-6 dark:border-slate-700">
+        <div className="section-kicker">Index cards</div>
+        <div className="mt-3 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+          <div className="min-w-0">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-gray-950 dark:text-gray-50 sm:text-5xl">
+              标签
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+              A compact map of recurring notes, grouped by the ideas they keep circling back to.
+            </p>
+          </div>
+          <div className="tag-index-count">
+            <span>{sortedTags.length}</span>
+            <small>tags / {totalTaggedPosts} links</small>
+          </div>
         </div>
-        <div className="flex max-w-lg flex-wrap">
-          {tagKeys.length === 0 && 'No tags found.'}
-          {sortedTags.map((t) => {
-            return (
-              <div key={t} className="mb-2 mr-5 mt-2">
-                <Tag text={t} />
-                <Link
-                  href={`/tags/${slug(t)}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
-                  aria-label={`View posts tagged ${t}`}
-                >
-                  {` (${tagCounts[t]})`}
-                </Link>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    </>
+      </section>
+
+      <section className="tag-cloud py-7" aria-label="Tag index">
+        {tagKeys.length === 0 && (
+          <p className="text-sm text-slate-500 dark:text-slate-400">No tags found.</p>
+        )}
+        {sortedTags.map((tag, index) => {
+          const count = tagCounts[tag]
+          const weight = count === maxCount ? 'major' : count > 1 ? 'mid' : 'minor'
+          return (
+            <Link
+              key={tag}
+              href={`/tags/${slug(tag)}`}
+              className={`tag-cloud-item tag-cloud-item-${weight} page-reveal`}
+              style={{ animationDelay: `${index * 28}ms` }}
+              aria-label={`View posts tagged ${tag}`}
+            >
+              <span className="tag-cloud-name">{tag}</span>
+              <span className="tag-cloud-count">{count}</span>
+            </Link>
+          )
+        })}
+      </section>
+    </div>
   )
 }

@@ -3,14 +3,12 @@ import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog, Authors } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/Layout/SectionContainer'
-import Image from '@/components/Image'
-import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/Scroll/ScrollTopAndComment'
-import PostScroll from '@/components/Scroll/PostScroll'
-import { formatDate } from 'pliny/utils/formatDate'
+
+import ArticleHeader from '@/components/Article/ArticleHeader'
+import { LocaleText } from '@/components/Locale/LocaleProvider'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -38,28 +36,38 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
   return (
     <SectionContainer>
       <ScrollTopAndComment />
-      <article>
-        <div className="">
-          <header className="pt-6 xl:pb-6">
-            <div className="space-y-1 text-center">
-              <PageTitle>{title}</PageTitle>
-              <div className="space-y-10  text-xs font-medium leading-8 text-gray-500 dark:text-gray-400 lg:text-base xl:text-lg">
-                {/* <div className="pt-1  font-medium text-gray-700 dark:text-gray-400"> */}
-                <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                <span className="mx-1">·</span>
-                <span className="font-medium">{wordCount} 字</span>
-                <span className="mx-1">·</span>
-                <span>{readingTime} 分钟</span>
-                {/* </div> */}
-              </div>
-            </div>
+      <article className="page-reveal">
+        <div>
+          <header className="article-header">
+            <ArticleHeader title={title} date={date} wordCount={wordCount} readingTime={readingTime} tags={tags} />
           </header>
-          <div className="pb-8">
-            <div className=" xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
+          <div className="pb-8 pt-4">
+            <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
+              <div className="post-body prose min-w-0 dark:prose-invert">
+                {children}
+              </div>
+              {(prev || next) && (
+                <nav
+                  className={`post-nav py-8 ${!prev || !next ? 'post-nav-single' : ''}`}
+                  aria-label="Article navigation"
+                >
+                  {prev && (
+                    <Link href={`/${prev.path}`} className="post-nav-card post-nav-card-prev">
+                      <span className="post-nav-label"><LocaleText zh="上一篇" en="Previous" /></span>
+                      <span className="post-nav-title">{prev.title}</span>
+                    </Link>
+                  )}
+                  {next && (
+                    <Link href={`/${next.path}`} className="post-nav-card post-nav-card-next">
+                      <span className="post-nav-label"><LocaleText zh="下一篇" en="Next" /></span>
+                      <span className="post-nav-title">{next.title}</span>
+                    </Link>
+                  )}
+                </nav>
+              )}
               {siteMetadata.comments && (
                 <div
-                  className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300"
+                  className="pb-6 pt-8 text-center text-gray-700 dark:text-gray-300"
                   id="comment"
                 >
                   <Comments slug={slug} />

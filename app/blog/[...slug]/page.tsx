@@ -33,7 +33,6 @@ export async function generateMetadata({
     if (!result) return;
 
     const slug = decodeURI(result?.slug?.join('/') ?? "")
-    console.log("slug", allBlogs, slug)
     post = allBlogs?.find((p) => p.slug === slug)
     const authorList = post?.authors || ['default']
     const authorDetails = authorList.map((author) => {

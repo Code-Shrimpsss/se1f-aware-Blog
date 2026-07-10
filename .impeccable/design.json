@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-10T00:00:00.000Z",
+  "title": "Design System: Se1fAware",
+  "extensions": {
+    "colorMeta": {
+      "mist": { "role": "neutral", "displayName": "远山雾青", "canonical": "#edf2ef", "tonalRamp": ["#17201c", "#2d3a34", "#4d5d55", "#74857c", "#9dacA5", "#c4d0ca", "#e2e9e5", "#f5f8f6"] },
+      "pine": { "role": "primary", "displayName": "松针绿", "canonical": "#315c4d", "tonalRamp": ["#10251f", "#18382e", "#21483c", "#315c4d", "#4c7868", "#77a091", "#b1c9c0", "#e8f1ed"] },
+      "cinnabar": { "role": "secondary", "displayName": "朱砂", "canonical": "#b44a3b", "tonalRamp": ["#351511", "#5a211b", "#7c3026", "#9d4033", "#b44a3b", "#ce776b", "#e5aaa2", "#fae8e5"] },
+      "ink": { "role": "neutral", "displayName": "浓墨", "canonical": "#16201c", "tonalRamp": ["#101713", "#16201c", "#2d3833", "#4d5953", "#78847e", "#a8b1ac", "#d4dad7", "#f5f7f6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "观心标题", "purpose": "首页主命题和页面标题，保留书写呼吸。" },
+      "body": { "displayName": "静读正文", "purpose": "长文与中英文混排，稳定清晰。" },
+      "label": { "displayName": "界面标注", "purpose": "日期、阅读时长与短操作标签。" }
+    },
+    "shadows": [
+      { "name": "glass-edge", "value": "0 1px 0 rgba(255,255,255,.55) inset", "purpose": "玻璃浮层内侧反光。" },
+      { "name": "ambient-float", "value": "0 8px 24px rgba(22,32,28,.08)", "purpose": "导航、菜单与当前交互浮层。" }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "页面进入和主要状态变化。" },
+      { "name": "state", "value": "180ms", "purpose": "链接、按钮与标签反馈。" }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "关键阅读与联系操作。",
+      "html": "<button class=\"ds-btn-primary\">开始阅读</button>",
+      "css": ".ds-btn-primary{min-height:44px;border:0;border-radius:999px;padding:12px 20px;background:#21483c;color:#f8faf8;font:600 14px/1.4 system-ui;transition:background .18s,transform .18s}.ds-btn-primary:hover{background:#16372d;transform:translateY(-1px)}.ds-btn-primary:focus-visible{outline:3px solid rgba(49,92,77,.35);outline-offset:3px}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "次级导航与低打扰操作。",
+      "html": "<button class=\"ds-btn-quiet\">了解更多</button>",
+      "css": ".ds-btn-quiet{min-height:44px;border:1px solid #cbd6d0;border-radius:999px;padding:12px 20px;background:#f8faf8;color:#16201c;font:600 14px/1.4 system-ui;transition:border-color .18s,color .18s}.ds-btn-quiet:hover{border-color:#315c4d;color:#21483c}.ds-btn-quiet:focus-visible{outline:3px solid rgba(49,92,77,.3);outline-offset:3px}"
+    },
+    {
+      "name": "Reading Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "文章分类标签。",
+      "html": "<span class=\"ds-tag\">Agent Engineering</span>",
+      "css": ".ds-tag{display:inline-flex;border-radius:999px;padding:6px 10px;background:#edf2ef;color:#21483c;font:600 12px/1.4 system-ui}"
+    },
+    {
+      "name": "Glass Navigation",
+      "kind": "nav",
+      "description": "唯一常驻的大面积玻璃组件。",
+      "html": "<nav class=\"ds-nav\"><strong>Se1fAware</strong><a href=\"#\">文章</a><a href=\"#\">关于</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:20px;border:1px solid rgba(203,214,208,.8);border-radius:12px;padding:10px 14px;background:rgba(248,250,248,.72);box-shadow:0 8px 24px rgba(22,32,28,.08);backdrop-filter:blur(20px);color:#16201c;font:500 14px/1.4 system-ui}.ds-nav a{color:#315c4d;text-decoration:none}.ds-nav a:hover{text-decoration:underline;text-underline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "山中观心",
+    "overview": "界面像雨后山中一间通透、安静的书房：雾青是空气，墨色是文字，朱砂只在最需要被记住的位置出现。数字玻璃只区分导航、身份信息与阅读内容。",
+    "keyCharacteristics": ["雾青、松针绿与深墨构成低疲劳阅读环境。", "玻璃仅用于导航和少量身份浮层。", "宽松留白与非对称构图承载个人品牌。"],
+    "rules": [
+      { "name": "The One Cinnabar Rule", "body": "朱砂在任何一个视口内不超过约 5%。", "section": "colors" },
+      { "name": "The Quiet Reading Rule", "body": "正文永远不用展示字体、全大写或低对比灰色。", "section": "typography" },
+      { "name": "The Glass With Purpose Rule", "body": "没有空间层级意义的容器禁止使用 backdrop-filter。", "section": "elevation" }
+    ],
+    "dos": ["Do 将正文保持在 68–72ch，并使用 1.8 以上行高。", "Do 用真实能力、交付结果和文章建立个人可信度。", "Do 用留白、虚实与低色度层次表达东方气韵。"],
+    "donts": ["Don't 使用终端、代码雨、代码窗口与黑绿霓虹。", "Don't 使用赛博朋克、紫蓝渐变或发光边框。", "Don't 制作满屏玻璃卡片、同尺寸能力卡片墙或普通 SaaS 落地页。"]
+  }
+}

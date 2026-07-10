@@ -1,25 +1,19 @@
-import React from 'react'
-import { useRouter } from 'next/router'
-import { useLocale } from 'next-intl'
+'use client'
 
-const LanguageSwitch: React.FC = () => {
-  const router = useRouter()
-  const locale = useLocale()
+import { useSiteLocale } from './Locale/LocaleProvider'
 
-  const toggleLanguage = () => {
-    const newLocale = locale === 'en' ? 'zh' : 'en'
-    router.push(router.asPath, undefined, { locale: newLocale })
-  }
+export default function LanguageSwitch() {
+  const { locale, toggleLocale } = useSiteLocale()
 
   return (
     <button
-      onClick={toggleLanguage}
+      type="button"
+      onClick={toggleLocale}
       className="language-switch-btn"
-      aria-label={`Switch to ${locale === 'en' ? 'Chinese' : 'English'}`}
+      aria-label={locale === 'zh' ? 'Switch interface to English' : '将界面切换为中文'}
+      title={locale === 'zh' ? 'English' : '中文'}
     >
-      {locale === 'en' ? '中文' : 'English'}
+      {locale === 'zh' ? 'EN' : '中'}
     </button>
   )
 }
-
-export default LanguageSwitch

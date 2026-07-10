@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
-import { formatDate } from 'pliny/utils/formatDate'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/Layout/SectionContainer'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/Scroll/ScrollTopAndComment'
+import ArticleHeader from '@/components/Article/ArticleHeader'
+import { LocaleText } from '@/components/Locale/LocaleProvider'
 
 interface LayoutProps {
   content: CoreContent<Blog>
@@ -17,30 +17,21 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, next, prev, children }: LayoutProps) {
-  const { path, slug, date, title, wordCount, readingTime } = content
+  const { slug, date, title, wordCount, readingTime, tags } = content
 
   return (
     <SectionContainer>
       <ScrollTopAndComment />
-      <article>
+      <article className="page-reveal">
         <div>
-          <header>
-            <div className="mt-4 space-y-1 text-center dark:border-gray-700">
-              <div>
-                <PageTitle>{title}</PageTitle>
-                <div className="pt-1 text-xs font-medium text-gray-700 dark:text-gray-400">
-                  <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                  <span className="mx-1">·</span>
-                  <span className="text-xs font-medium">{wordCount} 字</span>
-                  <span className="mx-1">·</span>
-                  <span>{readingTime} 分钟</span>
-                </div>
-              </div>
-            </div>
+          <header className="article-header">
+            <ArticleHeader title={title} date={date} wordCount={wordCount} readingTime={readingTime} tags={tags} />
           </header>
-          <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:divide-y-0">
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
+          <div className="pb-8 pt-4">
+            <div className="xl:col-span-3 xl:row-span-2 xl:pb-0">
+              <div className="post-body prose min-w-0 dark:prose-invert">
+                {children}
+              </div>
             </div>
 
             {siteMetadata.comments && (
@@ -48,32 +39,35 @@ export default function PostLayout({ content, next, prev, children }: LayoutProp
                 <Comments slug={slug} />
               </div>
             )}
-            <footer>
-              <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
-                {prev && prev.path && (
-                  <div className="pt-4 xl:pt-8">
+            {(prev || next) && (
+              <footer>
+                <nav
+                  className={`post-nav py-8 ${!prev || !next ? 'post-nav-single' : ''}`}
+                  aria-label="Article navigation"
+                >
+                  {prev && prev.path && (
                     <Link
                       href={`/${prev.path}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                      className="post-nav-card post-nav-card-prev"
                       aria-label={`Previous post: ${prev.title}`}
                     >
-                      &larr; {prev.title}
+                      <span className="post-nav-label"><LocaleText zh="上一篇" en="Previous" /></span>
+                      <span className="post-nav-title">{prev.title}</span>
                     </Link>
-                  </div>
-                )}
-                {next && next.path && (
-                  <div className="pt-4 xl:pt-8">
+                  )}
+                  {next && next.path && (
                     <Link
                       href={`/${next.path}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                      className="post-nav-card post-nav-card-next"
                       aria-label={`Next post: ${next.title}`}
                     >
-                      {next.title} &rarr;
+                      <span className="post-nav-label"><LocaleText zh="下一篇" en="Next" /></span>
+                      <span className="post-nav-title">{next.title}</span>
                     </Link>
-                  </div>
-                )}
-              </div>
-            </footer>
+                  )}
+                </nav>
+              </footer>
+            )}
           </div>
         </div>
       </article>
