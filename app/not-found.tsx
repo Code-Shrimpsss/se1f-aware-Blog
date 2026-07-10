@@ -2,30 +2,14 @@ import Link from '@/components/Link'
 
 export default function NotFound() {
   return (
-    <div className="page-reveal py-10 sm:py-16">
-      <div className="lost-note hero-note mx-auto max-w-2xl rounded-sm px-5 py-8 sm:px-8 sm:py-10">
-        <div className="relative z-10">
-          <div className="section-kicker">Lost note</div>
-          <p className="lost-note-code" aria-label="404">
-            404
-          </p>
-          <h1 className="lost-note-title mt-3 text-3xl font-extrabold leading-tight tracking-tight text-gray-950 dark:text-gray-50 sm:text-5xl">
-            This page slipped out of the notebook.
-          </h1>
-          <p className="lost-note-copy mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            The route is empty, but the archive is still here. Step back into the notes or return to
-            the front page.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-4 text-sm font-semibold">
-            <Link href="/" className="note-link">
-              Home <span aria-hidden="true">&rarr;</span>
-            </Link>
-            <Link href="/blog" className="note-link">
-              Blog <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
-        </div>
-      </div>
+    <div className="not-found-page page-reveal">
+      <div className="not-found-orbit" aria-hidden="true"><i /><i /><strong>404</strong></div>
+      <section data-reveal>
+        <p className="spatial-mono">Signal lost</p>
+        <h1>这里没有页面，<br /><em>但仍有方向。</em></h1>
+        <p>这个地址可能已经移动，或从未存在。回到首页，或者继续阅读。</p>
+        <div><Link href="/" className="spatial-button spatial-button-primary">返回首页 <span>↗</span></Link><Link href="/blog" className="spatial-button spatial-button-secondary">浏览文章</Link></div>
+      </section>
     </div>
   )
 }

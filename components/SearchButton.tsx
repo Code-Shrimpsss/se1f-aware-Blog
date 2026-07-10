@@ -3,11 +3,11 @@
 import { useKBar } from 'kbar'
 import siteMetadata from '@/data/siteMetadata'
 
-const SearchButton = () => {
+const SearchButton = ({ label = '搜索', showLabel = false }: { label?: string; showLabel?: boolean }) => {
   const { query } = useKBar()
   if (siteMetadata.search?.provider === 'kbar') {
     return (
-      <button aria-label="Search" type="button" onClick={() => query.toggle()}>
+      <button aria-label={label} type="button" onClick={() => query.toggle()}>
         <span className="search-trigger" aria-hidden="true">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,6 +24,7 @@ const SearchButton = () => {
             />
           </svg>
         </span>
+        {showLabel && <span className="search-trigger-label">{label}</span>}
       </button>
     )
   }

@@ -62,7 +62,7 @@ export async function generateMetadata({
             title: post.title,
             description: post.summary,
             siteName: siteMetadata.title,
-            locale: 'en_US',
+            locale: post.locale || 'zh_CN',
             type: 'article',
             publishedTime: publishedAt,
             modifiedTime: modifiedAt,
@@ -80,7 +80,7 @@ export async function generateMetadata({
 }
 
 export const generateStaticParams = async () => {
-    const paths = allBlogs.map((p) => ({ slug: p.slug.split('/'), locale: p.locale }))
+    const paths = allBlogs.filter((p) => !p.draft).map((p) => ({ slug: p.slug.split('/'), locale: p.locale }))
     return paths
 }
 
@@ -89,7 +89,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
     const slug = decodeURI(resolved?.slug?.join('/') ?? "")
     // const defaultLocale = 'en_US'
     // Filter out drafts in production
-    const sortedCoreContents = allCoreContent(sortPosts(allBlogs))
+    const sortedCoreContents = allCoreContent(sortPosts(allBlogs.filter((p) => !p.draft)))
 
     // const postIndex = sortedCoreContents.findIndex((p) => {
     //   console.log('slug', slug)

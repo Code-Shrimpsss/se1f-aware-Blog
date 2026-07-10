@@ -10,11 +10,11 @@ const siteMetadata = {
   // description: '一个还在重新学习，重塑思想的开发者',
   description: 'Vito Wang 的个人网站：关于 AI Agent、全栈工程、前端体验与持续自我重塑。',
   language: 'zh-CN',
-  theme: 'system', // system, dark or light
-  siteUrl: 'https://se1f-aware-blog.vercel.app/',
+  theme: 'light', // The Spatial direction is intentionally light-first.
+  siteUrl: 'https://se1f-aware-blog.vercel.app',
   siteRepo: 'https://github.com/Code-Shrimpsss/se1f-aware-Blog',
   siteLogo: '/static/favicons/favicon.ico',
-  socialBanner: '/static/images/twitter-card.png',
+  socialBanner: '/opengraph-image',
   email: 'se1faware24@gmail.com',
   github: 'https://github.com/Code-Shrimpsss',
   juejin: 'https://juejin.cn/user/783303009380040',
@@ -48,12 +48,12 @@ const siteMetadata = {
     //   googleAnalyticsId: '', // e.g. G-XXXXXXX
     // },
   },
-  newsletter: {
-    // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
-    // Please add your .env file and modify it according to your selection
-    // provider: 'buttondown',
-  },
-  comments: {
+  newsletter: null,
+  comments: process.env.NEXT_PUBLIC_GISCUS_ENABLED === 'true' &&
+    process.env.NEXT_PUBLIC_GISCUS_REPO &&
+    process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID &&
+    process.env.NEXT_PUBLIC_GISCUS_CATEGORY &&
+    process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID ? {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
     // Select a provider and use the environment variables associated to it
@@ -82,9 +82,9 @@ const siteMetadata = {
       // example: https://giscus.app/themes/custom_example.css
       themeURL: '',
       // This corresponds to the `data-lang="en"` in giscus's configurations
-      lang: 'en',
+      lang: 'zh-CN',
     },
-  },
+  } : null,
   search: {
     provider: 'kbar', // kbar or algolia
     kbarConfig: {

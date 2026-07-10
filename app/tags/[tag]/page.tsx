@@ -41,7 +41,7 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
   // Capitalize first letter and convert space to dash
   const title = decodedTag[0].toUpperCase() + decodedTag.split(' ').join('-').slice(1)
   const filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(decodedTag)))
+    sortPosts(allBlogs.filter((post) => !post.draft && post.tags && post.tags.map((t) => slug(t)).includes(decodedTag)))
   )
   return <ListLayout posts={filteredPosts} title={title} />
 }

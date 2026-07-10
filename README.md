@@ -1,60 +1,86 @@
-# Self-Aware Blog
+# Se1fAware
 
-This is my personal blog built with Next.js, Tailwind CSS, and Contentlayer. It's based on the [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) template.
+Vito Wang 的个人网站，记录 AI Agent、全栈工程、前端体验与持续自我重塑。
 
-## TODOS
+当前版本采用 Apple Spatial 视觉方向：明亮空间、层叠材质、克制的三维动效与以内容为中心的排版。网站基于 Next.js、TypeScript、Tailwind CSS、Contentlayer 与 MDX 构建。
 
-- i18(Focus by Chinese & English)
-- Sign Page Tranlate Animation
-- Blog side-nav Bar
-- BackEnd Blog
+## 本地运行
 
-## Features
+要求 Node.js 20+，并使用 Yarn 安装依赖。
 
-- Next.js with TypeScript
-- Tailwind CSS for styling
-- Contentlayer for content management
-- MDX support
-- Light and dark theme
-- Responsive design
-- SEO optimized
+```bash
+yarn install
+yarn dev
+```
 
-## Content
+开发服务器默认运行在 [http://localhost:3000](http://localhost:3000)。
 
-My blog covers topics related to:
+发布前检查：
 
-- Web3 technologies
-- Blockchain development
-- Cryptocurrency
-- Smart contracts
-- Decentralized applications (dApps)
+```bash
+yarn lint
+yarn build
+```
 
-## Getting Started
+## 内容创作
 
-1. Clone the repository
-2. Install dependencies: `yarn install`
-3. Run the development server: `yarn dev`
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+文章位于 `data/blog`，使用 MDX。新文章至少需要以下 frontmatter：
 
-## Customization
+```yaml
+---
+title: '文章标题'
+date: '2026-07-11'
+lastmod: '2026-07-11'
+tags: ['AI Agent', 'Engineering']
+draft: false
+summary: '用于列表与搜索结果的摘要。'
+layout: PostLayout
+locale: 'zh_CN'
+---
+```
 
-- Edit `data/siteMetadata.js` to update site metadata
-- Modify `data/authors/default.md` to update author information
-- Add blog posts in the `data/blog` directory
+设置 `draft: true` 可以保留源文件，但不在生产文章列表、静态路由和站点地图中发布。作者资料位于 `data/authors/default.mdx`，站点元数据位于 `data/siteMetadata.js`。
 
-## Deployment
+## 视觉系统
 
-This blog is deployed on [Vercel](https://vercel.com). To deploy your own version:
+- 设计规范：`APPLE-SPATIAL-DESIGN.md`
+- 主要样式：`css/spatial.css`
+- 页面动效运行时：`components/Spatial/SpatialRuntime.tsx`
+- 社交分享图：`app/opengraph-image.tsx`
+- 本地字体：Outfit、Instrument Serif Italic、Red Hat Mono
 
-1. Push your code to a GitHub repository
-2. Import the project to Vercel
-3. Configure your deployment settings
-4. Deploy!
+字体文件随站点托管，不依赖第三方字体服务。
+
+## 可选环境变量
+
+评论使用 Giscus，只有以下变量全部存在时才会显示评论入口：
+
+```text
+NEXT_PUBLIC_GISCUS_ENABLED=true
+NEXT_PUBLIC_GISCUS_REPO
+NEXT_PUBLIC_GISCUS_REPOSITORY_ID
+NEXT_PUBLIC_GISCUS_CATEGORY
+NEXT_PUBLIC_GISCUS_CATEGORY_ID
+```
+
+未配置时评论功能会安全隐藏。可选的 Umami 统计使用：
+
+```text
+NEXT_UMAMI_ID
+```
+
+## 部署
+
+项目适合直接部署到 Vercel：
+
+1. 将仓库导入 Vercel。
+2. 使用仓库中的 Yarn lockfile 安装依赖。
+3. 构建命令使用 `yarn build`。
+4. 如需评论或统计，在项目设置中添加相应环境变量。
+5. 部署后检查首页、Work、Writing、Topics、About、搜索与文章详情页。
+
+站点 URL、仓库地址、社交链接和 SEO 图片统一在 `data/siteMetadata.js` 中维护。
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
-
-## Contact
-
-Feel free to reach out to me on [Twitter](https://twitter.com/yourusername) or [GitHub](https://github.com/yourusername).
+[MIT](LICENSE)
