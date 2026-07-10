@@ -15,7 +15,7 @@ export default function Comments({ slug }: { slug: string }) {
       {!loadComments && siteMetadata.comments && (
         <button className="comments-load" type="button" onClick={() => setLoadComments(true)}>
           <span>Discussion</span>
-          Load comments <i>↗</i>
+          Load comments <i aria-hidden="true">↗</i>
         </button>
       )}
       {loadComments && siteMetadata.comments && (

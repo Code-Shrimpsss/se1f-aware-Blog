@@ -30,7 +30,7 @@ export default function PostMinimal({ content, next, prev, children }: LayoutPro
           <header className="article-header banner-spatial-header">
             <ArticleHeader title={title} date={date} wordCount={wordCount} readingTime={readingTime} tags={tags} />
             <figure className="banner-spatial-visual" data-reveal data-tilt>
-              <Image src={displayImage} alt={title} fill className="object-cover" priority />
+              <Image src={displayImage} alt={title} fill sizes="(max-width: 960px) 80vw, 420px" className="object-cover" priority />
               <span aria-hidden="true" />
             </figure>
           </header>

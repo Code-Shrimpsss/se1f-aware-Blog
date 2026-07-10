@@ -105,13 +105,17 @@ function SearchModal({ actions, isLoading }: { actions: SearchAction[]; isLoadin
               <span aria-hidden="true">⌕</span>
               <KBarSearch
                 className="search-panel-input"
-                defaultPlaceholder="Search titles, summaries, tags..."
+                defaultPlaceholder="Search titles, summaries, tags…"
+                aria-label="Search articles"
+                name="site-search"
+                autoComplete="off"
+                spellCheck={false}
               />
             </div>
             <div className="search-panel-results">
               {isLoading ? (
                 <div className="search-panel-empty">
-                  <span>Loading notes...</span>
+                  <span>Loading notes…</span>
                   <small>Index cards are being prepared.</small>
                 </div>
               ) : (

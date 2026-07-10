@@ -11,7 +11,7 @@ const Header = () => {
     <header className="spatial-nav" aria-label="网站导航">
       <Link href="/" aria-label="Se1fAware 首页" className="spatial-brand" data-magnetic>
         <span className="spatial-brand-mark" aria-hidden="true">S<b>1</b></span>
-        <span>Se1fAware</span>
+        <span translate="no">Se1fAware</span>
       </Link>
       <div className="spatial-nav-actions">
         <nav className="spatial-nav-links" aria-label="主要导航">

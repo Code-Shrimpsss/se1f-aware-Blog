@@ -57,6 +57,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang={siteMetadata.language} className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/static/fonts/Outfit-Regular.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
+        <link rel="preload" href="/static/fonts/Outfit-Bold.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
         <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon.ico" />
@@ -70,11 +72,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviders>
           <SearchProvider searchConfig={siteMetadata.search}>
             <div className="spatial-site">
+              <a className="spatial-skip" href="#main-content">跳至主要内容</a>
               <div className="spatial-atmosphere" aria-hidden="true"><i /><i /><i /></div>
               <div className="spatial-noise" aria-hidden="true" />
               <LoadingBar />
               <Header />
-              <main className="spatial-main">
+              <main className="spatial-main" id="main-content">
                 <TransitionCurve>{children}</TransitionCurve>
               </main>
               <Footer />
