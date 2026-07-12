@@ -9,6 +9,7 @@ export default function SpatialRuntime() {
   useEffect(() => {
     const root = document.documentElement
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const sceneWheelMedia = window.matchMedia('(min-width: 961px)')
     root.classList.add('spatial-ready')
 
     const revealNodes = [...document.querySelectorAll<HTMLElement>('[data-reveal]')]
@@ -20,7 +21,6 @@ export default function SpatialRuntime() {
 
     if (reduceMotion) {
       revealNodes.forEach((node) => node.classList.add('is-visible'))
-      return () => observer.disconnect()
     }
 
     const onPointerMove = (event: PointerEvent) => {
@@ -59,9 +59,39 @@ export default function SpatialRuntime() {
       root.style.setProperty('--sp-scroll', Math.min(1, window.scrollY / max).toFixed(3))
     }
 
+    const scenes = [...document.querySelectorAll<HTMLElement>('[data-scroll-scene]')]
+    let wheelLocked = false
+    let wheelUnlockTimer = 0
+
+    const onSceneWheel = (event: WheelEvent) => {
+      if (!sceneWheelMedia.matches || scenes.length < 2 || event.ctrlKey || Math.abs(event.deltaY) < 12) return
+      if ((event.target as HTMLElement).closest('[data-wheel-native]')) return
+      if (wheelLocked) {
+        event.preventDefault()
+        return
+      }
+
+      const currentIndex = scenes.reduce((closest, scene, index) => {
+        const currentDistance = Math.abs(scenes[closest].getBoundingClientRect().top)
+        const candidateDistance = Math.abs(scene.getBoundingClientRect().top)
+        return candidateDistance < currentDistance ? index : closest
+      }, 0)
+      const nextIndex = Math.max(0, Math.min(scenes.length - 1, currentIndex + Math.sign(event.deltaY)))
+
+      if (nextIndex === currentIndex) return
+      event.preventDefault()
+
+      wheelLocked = true
+      scenes[nextIndex].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+      wheelUnlockTimer = window.setTimeout(() => {
+        wheelLocked = false
+      }, reduceMotion ? 120 : 850)
+    }
+
     window.addEventListener('pointermove', onPointerMove, { passive: true })
     window.addEventListener('pointerout', onPointerOut, { passive: true })
     window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('wheel', onSceneWheel, { passive: false })
     onScroll()
 
     return () => {
@@ -69,6 +99,8 @@ export default function SpatialRuntime() {
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerout', onPointerOut)
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('wheel', onSceneWheel)
+      window.clearTimeout(wheelUnlockTimer)
     }
   }, [pathname])
 

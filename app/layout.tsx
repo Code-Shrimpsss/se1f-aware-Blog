@@ -1,4 +1,5 @@
 import 'css/tailwind.css'
+import 'css/design-tokens.css'
 import 'css/spatial.css'
 import 'pliny/search/algolia.css'
 
@@ -55,11 +56,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={siteMetadata.language} className="scroll-smooth" suppressHydrationWarning>
+    <html lang={siteMetadata.language} className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/static/fonts/Outfit-Regular.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
         <link rel="preload" href="/static/fonts/Outfit-Bold.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
         <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/static/brand/se1faware-mark.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon.ico" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon.ico" />
         <link rel="manifest" href="/static/favicons/site.webmanifest" />

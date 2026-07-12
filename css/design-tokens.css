@@ -1,0 +1,141 @@
+/*
+ * Se1fAware — design-token source of truth
+ * Layers: primitives → semantic roles → component contracts.
+ * Components consume semantic/component tokens only; raw values stay here.
+ */
+
+:root {
+  /* Primitives: colour */
+  --sa-neutral-0: #ffffff;
+  --sa-neutral-25: #f8f8fa;
+  --sa-neutral-50: #eff0f4;
+  --sa-neutral-100: #e3e5ea;
+  --sa-neutral-200: #cdd0d8;
+  --sa-neutral-400: #8d919c;
+  --sa-neutral-500: #6b6e78;
+  --sa-neutral-700: #3f424b;
+  --sa-neutral-900: #111216;
+  --sa-blue-100: #dfe7ff;
+  --sa-blue-300: #a2b9ff;
+  --sa-blue-500: #668fff;
+  --sa-blue-700: #3e63cf;
+  --sa-violet-300: #c6b8fb;
+  --sa-violet-500: #9479ea;
+  --sa-coral-300: #ffb09d;
+  --sa-coral-500: #ff8463;
+  --sa-mint-300: #b5eddf;
+  --sa-mint-500: #7ddbc7;
+  --sa-green-500: #22875f;
+  --sa-amber-500: #a86316;
+  --sa-red-500: #bc3e3e;
+
+  /* Primitives: type, space, shape, elevation, motion */
+  --sa-font-sans: 'Spatial Outfit', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --sa-font-editorial: 'Spatial Instrument', 'Noto Serif SC', serif;
+  --sa-font-mono: 'Spatial Mono', 'SFMono-Regular', Consolas, monospace;
+  --sa-text-xs: 0.75rem;
+  --sa-text-sm: 0.875rem;
+  --sa-text-base: 1rem;
+  --sa-text-lg: 1.125rem;
+  --sa-text-xl: 1.25rem;
+  --sa-text-2xl: 1.5rem;
+  --sa-text-3xl: 1.875rem;
+  --sa-text-4xl: 2.25rem;
+  --sa-space-1: 0.25rem;
+  --sa-space-2: 0.5rem;
+  --sa-space-3: 0.75rem;
+  --sa-space-4: 1rem;
+  --sa-space-5: 1.25rem;
+  --sa-space-6: 1.5rem;
+  --sa-space-8: 2rem;
+  --sa-space-10: 2.5rem;
+  --sa-space-12: 3rem;
+  --sa-space-16: 4rem;
+  --sa-space-24: 6rem;
+  --sa-radius-control: 999px;
+  --sa-radius-sm: 0.75rem;
+  --sa-radius-md: 1.375rem;
+  --sa-radius-plane: 1.875rem;
+  --sa-shadow-float: 0 14px 46px rgb(20 24 44 / 8%);
+  --sa-shadow-plane: 0 28px 90px rgb(47 57 92 / 13%);
+  --sa-duration-quick: 180ms;
+  --sa-duration-base: 420ms;
+  --sa-duration-reveal: 760ms;
+  --sa-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Semantic: surfaces and content */
+  --sa-bg-canvas: var(--sa-neutral-50);
+  --sa-bg-surface: var(--sa-neutral-25);
+  --sa-bg-elevated: var(--sa-neutral-0);
+  --sa-bg-subtle: rgb(255 255 255 / 68%);
+  --sa-fg-primary: var(--sa-neutral-900);
+  --sa-fg-secondary: var(--sa-neutral-700);
+  --sa-fg-muted: var(--sa-neutral-500);
+  --sa-border-subtle: rgb(17 18 22 / 9%);
+  --sa-border-strong: rgb(17 18 22 / 18%);
+  --sa-action-primary: var(--sa-neutral-900);
+  --sa-action-primary-fg: var(--sa-neutral-0);
+  --sa-action-secondary: rgb(255 255 255 / 72%);
+  --sa-action-secondary-fg: var(--sa-neutral-900);
+  --sa-focus: var(--sa-blue-500);
+  --sa-accent-cool: var(--sa-blue-500);
+  --sa-accent-warm: var(--sa-coral-500);
+  --sa-status-success: var(--sa-green-500);
+  --sa-status-warning: var(--sa-amber-500);
+  --sa-status-danger: var(--sa-red-500);
+  --sa-content-measure: 72ch;
+  --sa-page-gutter: clamp(1.25rem, 3vw, 3rem);
+  --sa-page-max: 75rem;
+
+  /* Component contracts */
+  --sa-button-height: 2.875rem;
+  --sa-button-padding-inline: var(--sa-space-5);
+  --sa-button-gap: var(--sa-space-2);
+  --sa-button-radius: var(--sa-radius-control);
+  --sa-button-font: 600 var(--sa-text-sm) / 1 var(--sa-font-sans);
+  --sa-button-primary-bg: var(--sa-action-primary);
+  --sa-button-primary-fg: var(--sa-action-primary-fg);
+  --sa-button-secondary-bg: var(--sa-action-secondary);
+  --sa-button-secondary-fg: var(--sa-action-secondary-fg);
+  --sa-button-border: var(--sa-border-subtle);
+  --sa-plane-bg: var(--sa-bg-subtle);
+  --sa-plane-border: rgb(255 255 255 / 96%);
+  --sa-plane-radius: var(--sa-radius-plane);
+  --sa-plane-shadow: var(--sa-shadow-plane);
+  --sa-input-height: 3.25rem;
+  --sa-input-bg: rgb(248 248 250 / 90%);
+  --sa-input-border: var(--sa-border-subtle);
+  --sa-chip-bg: rgb(102 143 255 / 10%);
+  --sa-chip-fg: var(--sa-blue-700);
+  --sa-chip-active-bg: var(--sa-neutral-900);
+  --sa-chip-active-fg: var(--sa-neutral-0);
+}
+
+.dark {
+  --sa-bg-canvas: #111216;
+  --sa-bg-surface: #181a20;
+  --sa-bg-elevated: #21242b;
+  --sa-bg-subtle: rgb(33 36 43 / 72%);
+  --sa-fg-primary: #f7f7f9;
+  --sa-fg-secondary: #d5d8df;
+  --sa-fg-muted: #a8acb6;
+  --sa-border-subtle: rgb(255 255 255 / 13%);
+  --sa-border-strong: rgb(255 255 255 / 24%);
+  --sa-action-primary: #f7f7f9;
+  --sa-action-primary-fg: #111216;
+  --sa-action-secondary: rgb(255 255 255 / 9%);
+  --sa-action-secondary-fg: #f7f7f9;
+  --sa-focus: var(--sa-blue-300);
+  --sa-chip-bg: rgb(162 185 255 / 18%);
+  --sa-chip-fg: var(--sa-blue-100);
+  --sa-chip-active-bg: #f7f7f9;
+  --sa-chip-active-fg: #111216;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sa-duration-quick: 0ms;
+    --sa-duration-base: 0ms;
+    --sa-duration-reveal: 0ms;
+  }
+}

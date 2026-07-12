@@ -17,7 +17,10 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = window.localStorage.getItem('site-locale')
-    if (saved === 'zh' || saved === 'en') setLocaleState(saved)
+    if (saved === 'zh' || saved === 'en') {
+      setLocaleState(saved)
+      document.documentElement.lang = saved === 'zh' ? 'zh-CN' : 'en'
+    }
   }, [])
 
   const setLocale = (nextLocale: Locale) => {
