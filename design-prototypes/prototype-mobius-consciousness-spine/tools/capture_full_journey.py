@@ -46,6 +46,7 @@ DEFAULT_URL = (
 STATE_COUNT = 16
 LAST_STATE = STATE_COUNT - 1
 VIEWPORT = {"width": 1440, "height": 900}
+MOBILE_VIEWPORT = {"width": 390, "height": 844}
 
 STATE_SPECS: Sequence[Tuple[int, str, str]] = (
     (0, "首页 · 完整骨架", "home-complete-spine"),
@@ -123,6 +124,14 @@ DIRECTOR_SPECS: Sequence[Tuple[float, str]] = (
     (9.95, "reflection-one-room-many-times"),
     (10.85, "same-scar-reopens-room-gap"),
     (13.00, "nature-whole-with-inherited-scar"),
+)
+
+MOBILE_SPECS: Sequence[Tuple[float, str]] = (
+    (0.0, "home"),
+    (3.0, "observation"),
+    (7.0, "order"),
+    (10.0, "reflection"),
+    (13.0, "nature"),
 )
 
 CAPTURE_JAVASCRIPT = """
@@ -203,6 +212,37 @@ OVERFLOW_JAVASCRIPT = """
     offenders,
   };
 }
+"""
+
+FRAME_CADENCE_JAVASCRIPT = """
+() => new Promise(resolve => {
+  const capture = window.MobiusCapture;
+  const samples = [];
+  let previous = 0;
+  let warmup = 10;
+
+  function frame(now) {
+    capture.renderState(0, now / 1000);
+    if (previous && warmup <= 0) samples.push(now - previous);
+    previous = now;
+    warmup -= 1;
+    if (samples.length >= 90) {
+      const sorted = samples.slice().sort((a, b) => a - b);
+      const averageMs = samples.reduce((sum, value) => sum + value, 0) / samples.length;
+      resolve({
+        frames: samples.length,
+        averageMs: Number(averageMs.toFixed(2)),
+        averageFps: Number((1000 / averageMs).toFixed(1)),
+        p95Ms: Number(sorted[Math.floor(sorted.length * 0.95)].toFixed(2)),
+        maxMs: Number(Math.max(...samples).toFixed(2)),
+        tier: document.body.dataset.performanceTier || null,
+      });
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})
 """
 
 
@@ -492,9 +532,16 @@ def prepare_output(output_dir: Path, include_video_frames: bool) -> Dict[str, Pa
     keyframes_dir = output_dir / "keyframes"
     continuity_dir = output_dir / "continuity"
     director_dir = output_dir / "director-frames"
+    mobile_dir = output_dir / "mobile-390x844"
     frames_dir = output_dir / "frames"
 
-    for directory in (states_dir, keyframes_dir, continuity_dir, director_dir):
+    for directory in (
+        states_dir,
+        keyframes_dir,
+        continuity_dir,
+        director_dir,
+        mobile_dir,
+    ):
         shutil.rmtree(directory, ignore_errors=True)
         directory.mkdir(parents=True, exist_ok=True)
     if include_video_frames:
@@ -507,6 +554,7 @@ def prepare_output(output_dir: Path, include_video_frames: bool) -> Dict[str, Pa
         "keyframes": keyframes_dir,
         "continuity": continuity_dir,
         "director": director_dir,
+        "mobile": mobile_dir,
         "frames": frames_dir,
         "video": output_dir / "mobius-full-journey.mp4",
         "report": output_dir / "validation-report.json",
@@ -542,6 +590,7 @@ def screenshot(page: Page, destination: Path) -> None:
         scale="css",
         animations="allow",
         caret="hide",
+        timeout=60_000,
     )
 
 
@@ -708,6 +757,8 @@ def main() -> int:
         "keyframes": [],
         "continuityFrames": [],
         "directorFrames": [],
+        "mobileCaptures": [],
+        "performance": None,
         "video": None,
         "checks": {
             "console_errors": [],
@@ -848,6 +899,8 @@ def main() -> int:
                     {"stateFloat": state_float, "file": str(destination)}
                 )
 
+            report["performance"] = page.evaluate(FRAME_CADENCE_JAVASCRIPT)
+
             if include_video_frames:
                 if args.motion == "reduce":
                     samples = build_reduced_motion_samples(
@@ -907,6 +960,55 @@ def main() -> int:
 
             context.close()
             context = None
+
+            mobile_context = browser.new_context(
+                viewport=MOBILE_VIEWPORT,
+                device_scale_factor=1,
+                color_scheme="dark",
+                locale="zh-CN",
+                reduced_motion=(
+                    "reduce" if args.motion == "reduce" else "no-preference"
+                ),
+                service_workers="block",
+                is_mobile=True,
+                has_touch=True,
+            )
+            try:
+                mobile_page = mobile_context.new_page()
+                mobile_page.set_default_timeout(args.timeout_ms)
+                attach_diagnostics(mobile_page, report, local_hosts)
+                mobile_page.goto(
+                    capture_url, wait_until="load", timeout=args.timeout_ms
+                )
+                mobile_page.evaluate(
+                    "async () => { if (document.fonts) await document.fonts.ready; return true; }"
+                )
+                mobile_page.wait_for_function(
+                    "() => window.MobiusCapture?.ready === true",
+                    timeout=args.timeout_ms,
+                )
+                for state_float, slug in MOBILE_SPECS:
+                    render_state(
+                        mobile_page,
+                        state_float,
+                        state_float * args.state_time_step,
+                    )
+                    destination = paths["mobile"] / f"{slug}.png"
+                    screenshot(mobile_page, destination)
+                    overflow = inspect_overflow(mobile_page)
+                    if overflow["overflowPixels"] > 1:
+                        report["checks"]["horizontal_overflow"].append(
+                            {"state": state_float, "viewport": "mobile", **overflow}
+                        )
+                    report["mobileCaptures"].append(
+                        {
+                            "stateFloat": state_float,
+                            "file": str(destination),
+                            "overflow": overflow,
+                        }
+                    )
+            finally:
+                mobile_context.close()
             browser.close()
             browser = None
 
@@ -917,9 +1019,15 @@ def main() -> int:
         raise
     finally:
         if context is not None:
-            context.close()
+            try:
+                context.close()
+            except Exception:
+                pass
         if browser is not None:
-            browser.close()
+            try:
+                browser.close()
+            except Exception:
+                pass
         report["durationSeconds"] = round(time.monotonic() - started, 3)
         paths["root"].mkdir(parents=True, exist_ok=True)
         paths["report"].write_text(
@@ -932,6 +1040,7 @@ def main() -> int:
     print(f"9 review keyframes: {paths['keyframes']}", flush=True)
     print(f"{len(CONTINUITY_SPECS)} continuity frames: {paths['continuity']}", flush=True)
     print(f"9 director frames: {paths['director']}", flush=True)
+    print(f"5 mobile frames: {paths['mobile']}", flush=True)
     if report["video"]:
         if report["video"]["encoded"]:
             print(f"journey video: {report['video']['file']}", flush=True)

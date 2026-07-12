@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-07-12T18:22:28.581242+00:00",
+  "startedAt": "2026-07-12T22:02:06.171041+00:00",
   "prototype": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine",
   "url": "http://127.0.0.1:4173/design-prototypes/prototype-mobius-consciousness-spine/?capture=1&clean=1&motion=reduce",
   "viewport": {
@@ -14,7 +14,7 @@
     "console_messages": []
   },
   "network": {
-    "request_count": 2
+    "request_count": 6
   },
   "stateCaptures": [
     {
@@ -28,7 +28,7 @@
           "stateFloat": 0,
           "legacyProgress": 0,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "首页 · 完整骨架"
         }
@@ -52,7 +52,7 @@
           "stateFloat": 1,
           "legacyProgress": 0.68,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "观象 · 显名"
         }
@@ -76,7 +76,7 @@
           "stateFloat": 2,
           "legacyProgress": 0.82,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "观象 · 信息经过"
         }
@@ -100,7 +100,7 @@
           "stateFloat": 3,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "观象 · 印痕留下"
         }
@@ -124,7 +124,7 @@
           "stateFloat": 4,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "转场 · 印痕成为轴线"
         }
@@ -148,7 +148,7 @@
           "stateFloat": 5,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "构序 · 归类"
         }
@@ -172,7 +172,7 @@
           "stateFloat": 6,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "构序 · 空间邻接"
         }
@@ -196,7 +196,7 @@
           "stateFloat": 7,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "构序 · 跨时间对齐"
         }
@@ -220,7 +220,7 @@
           "stateFloat": 8,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "转场 · 进入曲面厚度"
         }
@@ -244,7 +244,7 @@
           "stateFloat": 9,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "观心 · 旧状态"
         }
@@ -268,7 +268,7 @@
           "stateFloat": 10,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "观心 · 时间重现"
         }
@@ -292,7 +292,7 @@
           "stateFloat": 11,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "观心 · 空间回望"
         }
@@ -316,9 +316,9 @@
           "stateFloat": 12,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
-          "label": "转场 · 第一次脱离曲面"
+          "label": "转场 · 曲面开始回收"
         }
       },
       "overflow": {
@@ -340,7 +340,7 @@
           "stateFloat": 13,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "见性 · 整体显现"
         }
@@ -364,7 +364,7 @@
           "stateFloat": 14,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "见性 · 逐层剥离"
         }
@@ -388,7 +388,7 @@
           "stateFloat": 15,
           "legacyProgress": 1,
           "timeSeconds": 0,
-          "vertexCount": 104160,
+          "vertexCount": 118800,
           "derivedVertexCount": 3852,
           "label": "见性 · 最终返照"
         }
@@ -442,6 +442,26 @@
   ],
   "continuityFrames": [
     {
+      "stateFloat": 0.74,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/opening-outer-surface-before-turn-state-00-74.png"
+    },
+    {
+      "stateFloat": 0.78,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/opening-continuous-surface-turn-state-00-78.png"
+    },
+    {
+      "stateFloat": 0.82,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/opening-inner-surface-after-turn-state-00-82.png"
+    },
+    {
+      "stateFloat": 2.15,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/observation-route-begins-at-title-state-02-15.png"
+    },
+    {
+      "stateFloat": 2.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/observation-route-connects-phrases-state-02-55.png"
+    },
+    {
       "stateFloat": 3.0,
       "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/imprint-before-fold-state-03-00.png"
     },
@@ -464,6 +484,10 @@
     {
       "stateFloat": 7.45,
       "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/past-present-separate-state-07-45.png"
+    },
+    {
+      "stateFloat": 7.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/past-thought-readable-without-blur-state-07-00.png"
     },
     {
       "stateFloat": 8.2,
@@ -496,6 +520,22 @@
     {
       "stateFloat": 11.0,
       "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/room-remembers-passage-state-11-00.png"
+    },
+    {
+      "stateFloat": 11.45,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/reflection-exit-keeps-surface-visible-state-11-45.png"
+    },
+    {
+      "stateFloat": 12.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/no-black-flash-between-acts-state-12-00.png"
+    },
+    {
+      "stateFloat": 12.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/continuous-pullback-before-nature-state-12-55.png"
+    },
+    {
+      "stateFloat": 15.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/continuity/final-reflection-keeps-white-point-state-15-00.png"
     }
   ],
   "directorFrames": [
@@ -536,6 +576,71 @@
       "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/director-frames/nature-whole-with-inherited-scar-state-13-00.png"
     }
   ],
+  "mobileCaptures": [
+    {
+      "stateFloat": 0.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/mobile-390x844/home.png",
+      "overflow": {
+        "viewportWidth": 390,
+        "rootScrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "stateFloat": 3.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/mobile-390x844/observation.png",
+      "overflow": {
+        "viewportWidth": 390,
+        "rootScrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "stateFloat": 7.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/mobile-390x844/order.png",
+      "overflow": {
+        "viewportWidth": 390,
+        "rootScrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "stateFloat": 10.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/mobile-390x844/reflection.png",
+      "overflow": {
+        "viewportWidth": 390,
+        "rootScrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "stateFloat": 13.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/mobile-390x844/nature.png",
+      "overflow": {
+        "viewportWidth": 390,
+        "rootScrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    }
+  ],
+  "performance": {
+    "frames": 90,
+    "averageMs": 16.67,
+    "averageFps": 60,
+    "p95Ms": 18.2,
+    "maxMs": 18.5,
+    "tier": "high"
+  },
   "video": {
     "encoded": true,
     "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/reduced-motion/mobius-full-journey.mp4",
@@ -555,5 +660,5 @@
   },
   "fatalError": null,
   "passed": true,
-  "durationSeconds": 140.747
+  "durationSeconds": 50.675
 }

@@ -93,6 +93,20 @@
         pointer-events: none;
       }
 
+      .stage::after {
+        position: absolute;
+        z-index: 6;
+        inset: 0;
+        content: "";
+        background: #000;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      body.is-reduced-motion .stage::after {
+        opacity: var(--reduced-fade, 0);
+      }
+
       .hero-copy {
         position: absolute;
         z-index: 1;
@@ -231,8 +245,8 @@
       }
 
       .copy-heart {
-        top: 58%;
-        left: 9%;
+        top: 61%;
+        left: 15%;
         transform: translate3d(0, 22px, 0);
       }
 
@@ -546,6 +560,106 @@
         animation: cue-pulse 2.4s cubic-bezier(0.55, 0, 0.25, 1) infinite;
       }
 
+      .reality-anchor {
+        position: fixed;
+        z-index: 14;
+        top: max(22px, env(safe-area-inset-top));
+        right: max(24px, env(safe-area-inset-right));
+        padding: 8px 0;
+        border: 0;
+        background: transparent;
+        color: rgba(236, 234, 227, 0.42);
+        font-family: "Outfit Local", "Songti SC", sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        cursor: pointer;
+      }
+
+      .reality-anchor:hover,
+      .reality-anchor:focus-visible {
+        color: rgba(236, 234, 227, 0.88);
+        outline: none;
+      }
+
+      .reality-panel {
+        position: fixed;
+        z-index: 15;
+        top: max(56px, calc(env(safe-area-inset-top) + 44px));
+        right: max(24px, env(safe-area-inset-right));
+        display: grid;
+        width: min(248px, calc(100vw - 48px));
+        padding: 18px;
+        border: 1px solid rgba(236, 234, 227, 0.14);
+        background: rgba(9, 9, 9, 0.92);
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+        opacity: 0;
+        transform: translateY(-8px);
+        visibility: hidden;
+        transition: opacity 180ms ease, transform 180ms ease, visibility 180ms step-end;
+      }
+
+      .reality-panel.is-open {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        transition: opacity 180ms ease, transform 180ms ease;
+      }
+
+      .reality-panel p {
+        margin: 0 0 14px;
+        color: rgba(236, 234, 227, 0.38);
+        font-family: "Songti SC", "STSong", serif;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        line-height: 1.7;
+      }
+
+      .reality-panel button {
+        min-height: 38px;
+        padding: 0;
+        border: 0;
+        border-top: 1px solid rgba(236, 234, 227, 0.1);
+        background: transparent;
+        color: rgba(236, 234, 227, 0.72);
+        font-family: "Outfit Local", "Songti SC", sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .reality-panel button:hover,
+      .reality-panel button:focus-visible {
+        color: #f0eee7;
+        outline: none;
+      }
+
+      .reality-panel button:disabled {
+        color: rgba(236, 234, 227, 0.24);
+        cursor: default;
+      }
+
+      body.is-reality-open .perception-point,
+      body.is-immersion-paused .perception-point {
+        opacity: 0;
+      }
+
+      body.is-immersion-paused #world {
+        opacity: 0.2;
+      }
+
+      body.is-immersion-paused .hero-copy,
+      body.is-immersion-paused .guanxiang,
+      body.is-immersion-paused .narrative-copy,
+      body.is-immersion-paused .paired-thought,
+      body.is-immersion-paused .time-echoes,
+      body.is-immersion-paused .information-field,
+      body.is-immersion-paused .impact-scar,
+      body.is-immersion-paused .reflection,
+      body.is-immersion-paused .scroll-cue {
+        opacity: 0 !important;
+      }
+
       @keyframes cue-pulse {
         0%, 100% { transform: scaleY(0.45); transform-origin: top; opacity: 0.24; }
         48% { transform: scaleY(1); transform-origin: top; opacity: 0.78; }
@@ -679,6 +793,11 @@
         .scroll-cue {
           bottom: max(20px, env(safe-area-inset-bottom));
         }
+
+        .reality-anchor,
+        .reality-panel {
+          right: 18px;
+        }
       }
 
       @media (pointer: coarse) {
@@ -790,6 +909,17 @@
     <div class="perception-point" aria-hidden="true"></div>
     <div class="scroll-space" aria-hidden="true"></div>
 
+    <button class="reality-anchor" type="button" aria-expanded="false" aria-controls="reality-panel">
+      现实
+    </button>
+    <aside class="reality-panel" id="reality-panel" aria-hidden="true" aria-label="现实锚点">
+      <p>离开空间并不会清除已经发生的路径。</p>
+      <button type="button" data-reality-action="home">返回首页</button>
+      <button type="button" data-reality-action="index" disabled>文章索引 · 待接入</button>
+      <button type="button" data-reality-action="sound">声音 · 关闭</button>
+      <button type="button" data-reality-action="immersion">退出沉浸</button>
+    </aside>
+
     <div class="state-rail" aria-hidden="true"></div>
     <aside class="blockout-debug" aria-label="Blockout 调试工具">
       <strong>BLOCKOUT DEBUG</strong>
@@ -801,12 +931,13 @@
       </div>
     </aside>
 
+    <script src="./content-data.js"></script>
     <script>
       (() => {
         'use strict'
 
-        // Assumption for this fast validation: material detail is provisional.
-        // The approved question is whether one continuous object can carry the whole camera chain.
+        // One continuous object carries the full camera chain. Material, light,
+        // text and derived structures change state without replacing that world.
         const TAU = Math.PI * 2
         const canvas = document.querySelector('#world')
         const body = document.body
@@ -829,6 +960,116 @@
         const stateRail = document.querySelector('.state-rail')
         const debugState = document.querySelector('#debug-state')
         const debugValues = document.querySelector('#debug-values')
+        const realityAnchor = document.querySelector('.reality-anchor')
+        const realityPanel = document.querySelector('.reality-panel')
+        const soundControl = document.querySelector('[data-reality-action="sound"]')
+        const immersionControl = document.querySelector('[data-reality-action="immersion"]')
+        const contentData = window.SELF_AWAKE_CONTENT
+        if (!contentData) throw new Error('Self-Awake content data failed to load.')
+        const contentById = new Map(contentData.entries.map((entry) => [entry.id, entry]))
+
+        function hydrateContent() {
+          const hero = contentById.get('prologue-declaration')
+          Array.from(heroCopy.querySelectorAll('p')).forEach((element, index) => {
+            element.textContent = hero.lines[index] || ''
+          })
+
+          const stageCopies = [
+            [guanxiang, contentById.get('observation-name')],
+            [orderCopy, contentById.get('order-name')],
+            [heartCopy, contentById.get('reflection-name')],
+            [natureCopy, contentById.get('nature-name')],
+          ]
+          stageCopies.forEach(([element, entry]) => {
+            const eyebrow = element.querySelector('.eyebrow')
+            if (eyebrow) eyebrow.textContent = entry.eyebrow || ''
+            element.querySelector('h2').textContent = entry.title
+            element.querySelector('p').textContent = entry.body
+          })
+
+          const thought = contentById.get('order-cross-time-thought')
+          const past = pairedThought.querySelector('.is-past')
+          const present = pairedThought.querySelector('.is-present')
+          past.innerHTML = `<time>${thought.past.year}</time>${thought.past.text}`
+          present.innerHTML = `<time>${thought.present.year}</time>${thought.present.text}`
+
+          const room = contentById.get('reflection-room-years')
+          Array.from(timeEchoes.children).forEach((element, index) => {
+            const moment = room.moments[index]
+            element.dataset.year = moment.year
+            element.textContent = moment.text
+          })
+
+          const finalQuestion = contentById.get('final-question')
+          reflection.querySelector('p').innerHTML = finalQuestion.lines.join('<br />')
+        }
+
+        hydrateContent()
+
+        const MEMORY_KEY = 'self-awake.mobius-memory.v1'
+        const defaultMemory = {
+          soundEnabled: false,
+          completedStages: [],
+          lastState: 0,
+          visits: 0,
+          dwellSeconds: {},
+        }
+
+        function loadMemory() {
+          try {
+            return { ...defaultMemory, ...JSON.parse(localStorage.getItem(MEMORY_KEY) || '{}') }
+          } catch {
+            return { ...defaultMemory }
+          }
+        }
+
+        let experienceMemory = loadMemory()
+        let soundEnabled = Boolean(experienceMemory.soundEnabled)
+        let immersionPaused = false
+        let lastMemorySaveAt = 0
+
+        function saveMemory() {
+          try {
+            localStorage.setItem(MEMORY_KEY, JSON.stringify(experienceMemory))
+          } catch {
+            // The experience remains complete when storage is unavailable.
+          }
+        }
+
+        function setRealityOpen(open) {
+          const isOpen = Boolean(open)
+          body.classList.toggle('is-reality-open', isOpen)
+          realityPanel.classList.toggle('is-open', isOpen)
+          realityPanel.setAttribute('aria-hidden', String(!isOpen))
+          realityAnchor.setAttribute('aria-expanded', String(isOpen))
+        }
+
+        function updateSoundControl() {
+          soundControl.textContent = `声音 · ${soundEnabled ? '开启' : '关闭'}`
+          soundControl.setAttribute('aria-pressed', String(soundEnabled))
+        }
+
+        function audioEventForState(stateIndex) {
+          if (stateIndex <= 0) return 'prologue-pressure'
+          if (stateIndex <= 3) return 'observation-impact'
+          if (stateIndex <= 7) return 'order-bearing'
+          if (stateIndex <= 11) return 'reflection-time-layer'
+          if (stateIndex <= 14) return 'nature-removal'
+          return 'final-response'
+        }
+
+        function emitAudioState(stateIndex) {
+          dispatchEvent(new CustomEvent('selfawake:audio-state', {
+            detail: {
+              enabled: soundEnabled,
+              state: stateIndex,
+              event: audioEventForState(stateIndex),
+            },
+          }))
+        }
+
+        updateSoundControl()
+
         const params = new URLSearchParams(location.search)
         const captureMode = params.get('capture') === '1'
         const demoMode = params.get('demo') === '1'
@@ -837,6 +1078,15 @@
         const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
           || params.get('motion') === 'reduce'
         const finePointer = matchMedia('(pointer: fine)')
+        const compactDevice = matchMedia('(max-width: 720px)').matches
+        const reportedMemory = navigator.deviceMemory || 4
+        const reportedCores = navigator.hardwareConcurrency || 4
+        const performanceTier = compactDevice
+          ? 'compact'
+          : reportedMemory <= 4 || reportedCores <= 4
+            ? 'balanced'
+            : 'high'
+        body.dataset.performanceTier = performanceTier
 
         const LAST_STATE = 15
         const LEGACY_STATE_PROGRESS = [0, 0.68, 0.82, 1]
@@ -866,24 +1116,7 @@
         const DEMO_OPENING_HOLD = 1.4
         const DEMO_TRAVEL_DURATION = 27
         const DEMO_DURATION = DEMO_OPENING_HOLD + DEMO_TRAVEL_DURATION + 2.8
-        const STATE_LABELS = [
-          '首页 · 完整骨架',
-          '观象 · 显名',
-          '观象 · 信息经过',
-          '观象 · 印痕留下',
-          '转场 · 印痕成为轴线',
-          '构序 · 归类',
-          '构序 · 空间邻接',
-          '构序 · 跨时间对齐',
-          '转场 · 进入曲面厚度',
-          '观心 · 旧状态',
-          '观心 · 时间重现',
-          '观心 · 空间回望',
-          '转场 · 曲面开始回收',
-          '见性 · 整体显现',
-          '见性 · 逐层剥离',
-          '见性 · 最终返照',
-        ]
+        const STATE_LABELS = contentData.stateLabels
 
         let gl
         let program
@@ -920,16 +1153,9 @@
           stateRail.append(marker)
         })
 
-        const fragments = [
-          { text: '未保存的照片', start: [-0.12, 0.2], end: [0.27, 0.39], size: 11, blur: 0.3, front: false },
-          { text: '光先留下边缘', start: [0.42, -0.14], end: [0.4, 0.31], size: 12, blur: 0.15, front: true },
-          { text: '2023 · 问题第一次出现', start: [1.12, 0.12], end: [0.62, 0.28], size: 12, blur: 0, front: true },
-          { text: '雨向玻璃左侧', start: [1.1, 0.78], end: [0.77, 0.38], size: 10, blur: 0.7, front: false },
-          { text: '04:17 · 句子没有寄出', start: [-0.18, 0.88], end: [0.68, 0.55], size: 10, blur: 0.4, front: true },
-          { text: '旧墙的裂口', start: [1.15, 0.32], end: [0.49, 0.65], size: 12, blur: 0.2, front: false },
-          { text: '反复出现的问题', start: [-0.2, 0.58], end: [0.36, 0.55], size: 12, blur: 0.25, front: false },
-          { text: '真正看见', start: [1.12, 0.25], end: [0.5, 0.57], size: 14, blur: 0, front: true, weighted: true },
-        ].map((item, index) => {
+        const fragments = contentData.entries
+          .filter((entry) => entry.kind === 'fragment')
+          .map((item, index) => {
           const element = document.createElement('span')
           element.className = `information-fragment${item.weighted ? ' is-weighted' : ''}`
           element.textContent = item.text
@@ -1002,11 +1228,15 @@
 
         function reducedStateAtScroll(progress) {
           const value = clamp(progress)
-          let state = 0
           for (let index = 1; index < STATE_SCROLL_ANCHORS.length; index += 1) {
-            if (value >= STATE_SCROLL_ANCHORS[index]) state = index
+            const start = STATE_SCROLL_ANCHORS[index - 1]
+            const end = STATE_SCROLL_ANCHORS[index]
+            if (value <= end) {
+              const local = clamp((value - start) / Math.max(0.0001, end - start))
+              return (index - 1) + smoothstep(local)
+            }
           }
-          return state
+          return LAST_STATE
         }
 
         function followRateFor(mode, target) {
@@ -1138,8 +1368,9 @@
           const radius = 2.48 + Math.sin(u * 2 - 0.2) * 0.15 + Math.sin(u * 5) * 0.055
           const twist = u * 0.5 + Math.sin(u * 3) * 0.035
           const projected = radius + v * Math.cos(twist)
-          const sculpt = Math.sin(u * 5 + vNormalized * 2.7) * 0.035
-            + Math.sin(u * 11 - vNormalized * 4.2) * 0.014
+          const sculpt = Math.sin(u * 4.1 + vNormalized * 11.7) * 0.012
+            + Math.sin(u * 9.3 - vNormalized * 17.2 + 0.6) * 0.005
+            + Math.sin(u * 1.7 + vNormalized * 6.4 - 1.1) * 0.003
           const indentation = Math.exp(
             -Math.pow(wrappedDistance(u / TAU, 0.62) / 0.055, 2)
             -Math.pow((vNormalized + 0.24) / 0.36, 2)
@@ -1207,8 +1438,8 @@
         }
 
         function createGeometry() {
-          const longitudinalSegments = innerWidth <= 720 ? 190 : 280
-          const widthSegments = innerWidth <= 720 ? 20 : 30
+          const longitudinalSegments = performanceTier === 'compact' ? 180 : performanceTier === 'balanced' ? 250 : 300
+          const widthSegments = performanceTier === 'compact' ? 18 : performanceTier === 'balanced' ? 26 : 32
           const vertices = []
 
           function pushVertex(position, normal, uNormalized, vNormalized) {
@@ -1501,7 +1732,15 @@
           void main() {
             float travellingPressure = sin(aParam.x * TAU * 3.0 - uTime * 0.72);
             float delayedPressure = sin(aParam.x * TAU * 1.25 - uTime * 0.46 + aParam.y * 1.6);
-            float breath = travellingPressure * 0.022 + delayedPressure * 0.009;
+            float openingBreath = 1.0 - smoothstep(3.05, 4.1, uState);
+            float returnBreath = smoothstep(12.45, 13.05, uState) * (1.0 - smoothstep(13.85, 14.4, uState));
+            float reflectionPressure = smoothstep(8.35, 9.0, uState)
+              * (1.0 - smoothstep(11.55, 12.15, uState))
+              * sin(aParam.x * TAU * 0.75 - uTime * 0.18 + aParam.y * 0.9)
+              * 0.0025;
+            float breath = (travellingPressure * 0.013 + delayedPressure * 0.0055)
+              * max(openingBreath, returnBreath * 0.42)
+              + reflectionPressure;
 
             float eventTime = saturate((uProgress - 0.87) / 0.13);
             float scarV = masterScarV(aParam.x);
@@ -1580,6 +1819,32 @@
             return fract((p.x + p.y) * p.z);
           }
 
+          float valueNoise(vec3 p) {
+            vec3 cell = floor(p);
+            vec3 local = fract(p);
+            local = local * local * (3.0 - 2.0 * local);
+            float n000 = hash31(cell + vec3(0.0, 0.0, 0.0));
+            float n100 = hash31(cell + vec3(1.0, 0.0, 0.0));
+            float n010 = hash31(cell + vec3(0.0, 1.0, 0.0));
+            float n110 = hash31(cell + vec3(1.0, 1.0, 0.0));
+            float n001 = hash31(cell + vec3(0.0, 0.0, 1.0));
+            float n101 = hash31(cell + vec3(1.0, 0.0, 1.0));
+            float n011 = hash31(cell + vec3(0.0, 1.0, 1.0));
+            float n111 = hash31(cell + vec3(1.0, 1.0, 1.0));
+            float nx00 = mix(n000, n100, local.x);
+            float nx10 = mix(n010, n110, local.x);
+            float nx01 = mix(n001, n101, local.x);
+            float nx11 = mix(n011, n111, local.x);
+            return mix(mix(nx00, nx10, local.y), mix(nx01, nx11, local.y), local.z);
+          }
+
+          float materialField(vec3 p) {
+            float field = valueNoise(p * 1.7) * 0.58;
+            field += valueNoise(p * 4.9 + vec3(3.7, 1.1, 5.3)) * 0.29;
+            field += valueNoise(p * 13.0 + vec3(8.1, 2.6, 0.7)) * 0.13;
+            return field;
+          }
+
           float wrappedDistance(float a, float b) {
             float distance = abs(fract(a) - fract(b));
             return min(distance, 1.0 - distance);
@@ -1598,18 +1863,57 @@
             vec3 normal = normalize(vNormal);
             if (!gl_FrontFacing) normal *= -1.0;
             vec3 viewDirection = normalize(uCamera - vWorld);
-            vec3 keyLight = normalize(vec3(-0.62, 0.84, 0.66));
-            vec3 fillLight = normalize(vec3(0.58, -0.18, 0.48));
+            float observation = smoothstep(0.55, 1.1, uState) * (1.0 - smoothstep(3.15, 3.9, uState));
+            float order = smoothstep(3.15, 4.15, uState) * (1.0 - smoothstep(8.0, 8.8, uState));
+            float reflection = smoothstep(8.0, 8.9, uState) * (1.0 - smoothstep(12.05, 12.8, uState));
+            float nature = smoothstep(12.05, 12.9, uState);
 
-            float key = abs(dot(normal, keyLight));
-            float fill = abs(dot(normal, fillLight));
-            float halfLambert = abs(dot(normal, keyLight)) * 0.5 + 0.5;
-            float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 3.0);
+            vec3 keyLight = normalize(vec3(-0.72, 0.72, 0.46));
+            keyLight = normalize(mix(keyLight, normalize(vec3(-0.9, 0.18, 0.34)), observation));
+            keyLight = normalize(mix(keyLight, normalize(vec3(-0.46, 0.92, 0.28)), order));
+            keyLight = normalize(mix(keyLight, normalize(vec3(0.18, 0.54, -0.82)), reflection));
+            keyLight = normalize(mix(keyLight, normalize(vec3(-0.68, 0.48, 0.56)), nature));
+            vec3 fillLight = normalize(mix(vec3(0.56, -0.2, 0.72), vec3(-0.14, -0.42, -0.9), reflection));
 
-            vec3 bone = vec3(0.93, 0.925, 0.89);
+            float macroRoughness = materialField(vWorld * 1.15 + vec3(vParam.x * 2.2, vParam.y * 0.24, 0.0));
+            float fineRoughness = valueNoise(vWorld * 21.0 + vec3(0.0, vParam.x * 8.0, vParam.y * 3.0));
+            float microHeight = macroRoughness * 0.72 + fineRoughness * 0.28;
+            vec3 worldDx = normalize(dFdx(vWorld));
+            vec3 worldDy = normalize(dFdy(vWorld));
+            vec3 materialNormal = normalize(normal - (worldDx * dFdx(microHeight) + worldDy * dFdy(microHeight)) * 0.24);
+            float normalDetail = 0.48 + observation * 0.26 - order * 0.07 - reflection * 0.2;
+            normal = normalize(mix(normal, materialNormal, normalDetail));
+
+            float key = max(dot(normal, keyLight), 0.0);
+            float fill = max(dot(normal, fillLight), 0.0);
+            float wrap = dot(normal, keyLight) * 0.5 + 0.5;
+            float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), mix(3.6, 2.4, nature));
+            vec3 halfVector = normalize(keyLight + viewDirection);
+            float matteSpecular = pow(max(dot(normal, halfVector), 0.0), mix(34.0, 18.0, order))
+              * mix(0.025, 0.055, 1.0 - fineRoughness);
+
+            vec3 boneShadow = vec3(0.54, 0.555, 0.545);
+            vec3 boneLight = vec3(0.94, 0.925, 0.865);
+            vec3 bone = mix(boneShadow, boneLight, 0.72 + (macroRoughness - 0.5) * 0.16);
             vec3 deep = vec3(0.105, 0.11, 0.108);
-            vec3 color = bone * (0.31 + key * 0.56 + fill * 0.1 + halfLambert * 0.05);
-            color += bone * rim * 0.08;
+            float heroDistanceFill = smoothstep(10.5, 14.0, length(uCamera));
+            float ambient = 0.135
+              + observation * 0.17
+              + reflection * 0.035
+              + (1.0 - smoothstep(0.35, 0.9, uState)) * (0.16 + heroDistanceFill * 0.34);
+            vec3 color = bone * (ambient + key * mix(0.86, 0.94, order) + wrap * 0.075 + fill * 0.055);
+            color += boneLight * rim * mix(0.09, 0.17, nature);
+            color += boneLight * matteSpecular;
+            color += bone * (macroRoughness - 0.5) * mix(0.05, 0.025, order);
+            float homeLight = 1.0 - smoothstep(0.35, 0.9, uState);
+            color += bone * max(dot(normal, viewDirection), 0.0)
+              * homeLight
+              * mix(0.18, 0.62, heroDistanceFill);
+
+            float innerLight = reflection
+              * exp(-pow(wrappedDistance(vParam.x, 0.815) / 0.11, 2.0))
+              * (0.42 + 0.58 * smoothstep(0.0, 0.8, abs(vParam.y)));
+            color += vec3(0.3, 0.32, 0.315) * innerLight * (0.34 + rim * 0.32);
 
             float fissureA = exp(-pow(wrappedDistance(vParam.x, 0.235) / 0.008, 2.0));
             float fissureB = exp(-pow(wrappedDistance(vParam.x, 0.715) / 0.006, 2.0))
@@ -1617,10 +1921,9 @@
             float edgeDepth = smoothstep(0.78, 1.0, abs(vParam.y));
             color = mix(color, deep, fissureA * 0.76 + fissureB * 0.42 + edgeDepth * 0.08);
 
-            float sediment = sin(vParam.x * 117.0 + vParam.y * 9.0)
-              * sin(vParam.x * 43.0 - vParam.y * 14.0);
-            color += sediment * 0.012;
-            color += (hash31(vWorld * 16.0) - 0.5) * 0.018;
+            float directionalSediment = valueNoise(vec3(vParam.x * 34.0, vParam.y * 4.0, vWorld.z * 1.6));
+            color += (directionalSediment - 0.5) * 0.038 * (0.12 + observation * 0.88);
+            color += (fineRoughness - 0.5) * 0.012;
 
             float scarV = masterScarV(vParam.x);
             float scarRange = smoothstep(0.225, 0.25, vParam.x)
@@ -1665,7 +1968,14 @@
             color = mix(color, bone * edgeLight, edgeBand * 0.72);
 
             float surfaceAlpha = 1.0 - smoothstep(13.25, 14.78, uState);
-            outColor = vec4(max(color, 0.0) * surfaceAlpha, surfaceAlpha);
+            float depthFog = smoothstep(7.5, 13.5, length(uCamera - vWorld))
+              * (1.0 - observation * 0.72)
+              * (1.0 - homeLight * 0.9);
+            color = mix(color, vec3(0.035, 0.038, 0.037), depthFog * 0.3);
+            color = max(color, vec3(0.0));
+            color = color / (color + vec3(0.34));
+            color = pow(color, vec3(0.9));
+            outColor = vec4(color * surfaceAlpha, surfaceAlpha);
           }
         `
 
@@ -1777,15 +2087,49 @@
 
           out vec4 outColor;
 
+          float hash31(vec3 p) {
+            p = fract(p * 0.1031);
+            p += dot(p, p.yzx + 33.33);
+            return fract((p.x + p.y) * p.z);
+          }
+
+          float valueNoise(vec3 p) {
+            vec3 cell = floor(p);
+            vec3 local = fract(p);
+            local = local * local * (3.0 - 2.0 * local);
+            float n000 = hash31(cell + vec3(0.0, 0.0, 0.0));
+            float n100 = hash31(cell + vec3(1.0, 0.0, 0.0));
+            float n010 = hash31(cell + vec3(0.0, 1.0, 0.0));
+            float n110 = hash31(cell + vec3(1.0, 1.0, 0.0));
+            float n001 = hash31(cell + vec3(0.0, 0.0, 1.0));
+            float n101 = hash31(cell + vec3(1.0, 0.0, 1.0));
+            float n011 = hash31(cell + vec3(0.0, 1.0, 1.0));
+            float n111 = hash31(cell + vec3(1.0, 1.0, 1.0));
+            return mix(
+              mix(mix(n000, n100, local.x), mix(n010, n110, local.x), local.y),
+              mix(mix(n001, n101, local.x), mix(n011, n111, local.x), local.y),
+              local.z
+            );
+          }
+
           void main() {
             vec3 normal = normalize(vDerivedNormal);
             if (!gl_FrontFacing) normal *= -1.0;
             vec3 viewDirection = normalize(uCamera - vDerivedWorld);
-            vec3 keyLight = normalize(vec3(-0.58, 0.82, 0.72));
-            float light = 0.28 + abs(dot(normal, keyLight)) * 0.58;
-            float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 2.6);
-            vec3 bone = vec3(0.93, 0.925, 0.89);
-            vec3 color = bone * (light + rim * 0.11);
+            float order = smoothstep(3.15, 4.15, uState) * (1.0 - smoothstep(8.0, 8.8, uState));
+            float reflection = smoothstep(8.0, 8.9, uState) * (1.0 - smoothstep(12.05, 12.8, uState));
+            float nature = smoothstep(12.05, 12.9, uState);
+            vec3 keyLight = normalize(mix(vec3(-0.72, 0.76, 0.42), vec3(-0.42, 0.94, 0.3), order));
+            keyLight = normalize(mix(keyLight, vec3(0.2, 0.5, -0.86), reflection));
+            float materialNoise = valueNoise(vDerivedWorld * 3.8) * 0.68 + valueNoise(vDerivedWorld * 16.0) * 0.32;
+            vec3 worldDx = normalize(dFdx(vDerivedWorld));
+            vec3 worldDy = normalize(dFdy(vDerivedWorld));
+            normal = normalize(normal - (worldDx * dFdx(materialNoise) + worldDy * dFdy(materialNoise)) * 0.12);
+            float diffuse = max(dot(normal, keyLight), 0.0);
+            float wrap = dot(normal, keyLight) * 0.5 + 0.5;
+            float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), mix(3.2, 2.3, nature));
+            vec3 bone = mix(vec3(0.57, 0.58, 0.565), vec3(0.94, 0.925, 0.865), 0.7 + (materialNoise - 0.5) * 0.12);
+            vec3 color = bone * (0.125 + diffuse * 0.9 + wrap * 0.075 + rim * 0.12);
             float alpha = vDerivedLife;
 
             if (vDerivedKind > 7.5) {
@@ -1819,7 +2163,14 @@
               alpha *= 0.92;
             }
 
-            outColor = vec4(max(color, 0.0) * alpha, alpha);
+            color += (materialNoise - 0.5) * 0.018;
+            float derivedHome = 1.0 - smoothstep(0.35, 0.9, uState);
+            float depthFog = smoothstep(7.5, 13.5, length(uCamera - vDerivedWorld)) * (1.0 - derivedHome * 0.9);
+            color = mix(color, vec3(0.035, 0.038, 0.037), depthFog * 0.3);
+            color = max(color, vec3(0.0));
+            color = color / (color + vec3(0.34));
+            color = pow(color, vec3(0.9));
+            outColor = vec4(color * alpha, alpha);
           }
         `
 
@@ -1929,7 +2280,7 @@
           const compact = innerWidth <= 720
           const wideDesktop = !compact && innerWidth / innerHeight > 1.45
           const heroEye = compact
-            ? [0.12, 2.35, 15.8]
+            ? [-1.25, 1.35, 14.8]
             : [0.2, wideDesktop ? 1.82 : 2.05, wideDesktop ? 8.45 : 9.65]
           const heroTarget = compact ? [0.1, 0.08, 0] : [-0.55, 0.02, 0]
           const targetU = TAU * 0.235
@@ -2051,24 +2402,24 @@
             case 6:
               return surfaceCamera({ u: 0.59, v: -0.02, height: compact ? 3.05 : 2.62, behind: 0.74, lateral: 1.48, ahead: 0.28, targetLift: 0.4, roll: 0.13, fov: compact ? 52 : 43 })
             case 7:
-              return surfaceCamera({ u: 0.635, v: 0.02, height: compact ? 2.2 : 1.82, behind: 0.9, lateral: -0.18, ahead: 0.38, targetLift: 0.4, roll: 0.04, fov: compact ? 50 : 41 })
+              return surfaceCamera({ u: 0.605, v: 0.01, height: compact ? 2.35 : 2.02, behind: 0.72, lateral: 0.78, ahead: 0.48, targetLift: 0.34, roll: 0.08, fov: compact ? 51 : 43 })
             case 8:
               return surfacePathCamera({ eyeU: 0.675, eyeV: -0.52, targetU: 0.715, targetV: 0.16, height: compact ? 0.28 : 0.17, targetLift: -0.025, fov: compact ? 55 : 49 })
             case 9:
-              return surfaceCamera({ u: 0.79, v: 0.02, height: compact ? 1.35 : 1.08, behind: 1.02, lateral: -0.74, ahead: 0.42, targetLift: 0.34, side: -1, roll: 0.18, fov: compact ? 53 : 45 })
+              return surfaceCamera({ u: 0.785, v: 0.02, height: compact ? 1.72 : 1.48, behind: 0.78, lateral: -0.92, ahead: 0.52, targetLift: 0.32, side: -1, roll: 0.12, fov: compact ? 53 : 45 })
             case 10:
-              return surfaceCamera({ u: 0.81, v: 0.02, height: compact ? 1.18 : 0.94, behind: 0.72, lateral: 0.42, ahead: 0.36, targetLift: 0.36, side: -1, roll: 0.08, fov: compact ? 52 : 44 })
+              return surfaceCamera({ u: 0.8, v: 0.02, height: compact ? 1.34 : 1.12, behind: 0.82, lateral: 0.18, ahead: 0.5, targetLift: 0.32, side: -1, roll: 0.04, fov: compact ? 52 : 44 })
             case 11:
-              return surfaceCamera({ u: 0.825, v: 0.02, height: compact ? 1.02 : 0.8, behind: 0.46, lateral: 0.06, ahead: 0.28, targetLift: 0.34, side: -1, roll: -0.04, fov: compact ? 50 : 42 })
+              return surfaceCamera({ u: 0.812, v: 0.02, height: compact ? 1.02 : 0.82, behind: 0.38, lateral: 0.02, ahead: 0.46, targetLift: 0.31, side: -1, roll: -0.02, fov: compact ? 50 : 42 })
             case 12:
               // Leave through the same room opening before the camera detaches
               // to reveal the whole object. The doorway remains behind us.
               return surfacePathCamera({
-                eyeU: 0.84,
+                eyeU: 0.89,
                 eyeV: 0.02,
-                targetU: 0.925,
+                targetU: 0.965,
                 targetV: -0.04,
-                height: compact ? 0.48 : 0.34,
+                height: compact ? 0.52 : 0.38,
                 targetLift: 0.08,
                 side: -1,
                 fov: compact ? 54 : 47,
@@ -2196,6 +2547,11 @@
         }
 
         function updateInterface(progress, stateFloat, timeSeconds) {
+          if (reducedMotion) {
+            const betweenStates = Math.abs(stateFloat - Math.round(stateFloat))
+            const reducedFade = Math.sin(clamp(betweenStates * 2) * Math.PI) * 0.28
+            root.style.setProperty('--reduced-fade', reducedFade.toFixed(3))
+          }
           const heroExit = smootherstep((progress - 0.08) / 0.26)
           const legacyLayer = 1 - smootherstep((stateFloat - 3.02) / 0.72)
           heroCopy.style.opacity = ((1 - heroExit * 0.88) * legacyLayer).toFixed(3)
@@ -2312,6 +2668,24 @@
           if (spokenState !== lastSpokenState) {
             lastSpokenState = spokenState
             status.textContent = spokenState
+            const stage = stateIndex <= 3
+              ? 'observation'
+              : stateIndex <= 7
+                ? 'order'
+                : stateIndex <= 11
+                  ? 'reflection'
+                  : 'nature'
+            const completedStages = new Set(experienceMemory.completedStages)
+            if (stateIndex === 3 || stateIndex === 7 || stateIndex === 11 || stateIndex === 15) {
+              completedStages.add(stage)
+            }
+            experienceMemory = {
+              ...experienceMemory,
+              completedStages: Array.from(completedStages),
+              lastState: stateIndex,
+            }
+            saveMemory()
+            emitAudioState(stateIndex)
           }
 
           debugState.textContent = `${String(stateIndex).padStart(2, '0')} / 15 · ${STATE_LABELS[stateIndex]}`
@@ -2324,7 +2698,8 @@
         function resize() {
           const width = Math.max(1, innerWidth)
           const height = Math.max(1, innerHeight)
-          dpr = Math.min(devicePixelRatio || 1, width <= 720 ? 1.2 : 1.45)
+          const dprCap = performanceTier === 'compact' ? 1.15 : performanceTier === 'balanced' ? 1.3 : 1.5
+          dpr = Math.min(devicePixelRatio || 1, dprCap)
           const backingWidth = Math.round(width * dpr)
           const backingHeight = Math.round(height * dpr)
           if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
@@ -2376,6 +2751,7 @@
         }
 
         function readScroll() {
+          if (immersionPaused) return
           const maximum = Math.max(1, document.documentElement.scrollHeight - innerHeight)
           targetScrollProgress = clamp(scrollY / maximum)
           const timeline = timelineAtScroll(targetScrollProgress)
@@ -2396,6 +2772,23 @@
           const delta = Math.min(50, Math.max(0, now - lastFrame)) / 1000
           lastFrame = now
           elapsed += reducedMotion ? 0 : delta
+          if (!captureMode && !demoMode && !immersionPaused) {
+            const stateIndex = Math.round(currentStateFloat)
+            const stage = stateIndex <= 3
+              ? 'observation'
+              : stateIndex <= 7
+                ? 'order'
+                : stateIndex <= 11
+                  ? 'reflection'
+                  : 'nature'
+            const dwellSeconds = { ...(experienceMemory.dwellSeconds || {}) }
+            dwellSeconds[stage] = (dwellSeconds[stage] || 0) + delta
+            experienceMemory = { ...experienceMemory, dwellSeconds }
+            if (elapsed - lastMemorySaveAt >= 5) {
+              lastMemorySaveAt = elapsed
+              saveMemory()
+            }
+          }
           pointerX = mix(pointerX, targetPointerX, reducedMotion ? 1 : 0.055)
           pointerY = mix(pointerY, targetPointerY, reducedMotion ? 1 : 0.055)
 
@@ -2545,6 +2938,8 @@
             }
 
             if (demoMode) body.classList.add('is-demo')
+            experienceMemory = { ...experienceMemory, visits: (experienceMemory.visits || 0) + 1 }
+            saveMemory()
             history.scrollRestoration = 'manual'
             scrollTo(0, 0)
             targetProgress = 0
@@ -2594,6 +2989,33 @@
           body.classList.toggle('has-fine-pointer', event.matches && !captureMode && !demoMode)
         })
 
+        realityAnchor.addEventListener('click', () => {
+          setRealityOpen(!realityPanel.classList.contains('is-open'))
+        })
+
+        document.querySelector('[data-reality-action="home"]').addEventListener('click', () => {
+          immersionPaused = false
+          body.classList.remove('is-immersion-paused')
+          immersionControl.textContent = '退出沉浸'
+          setRealityOpen(false)
+          scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' })
+        })
+
+        soundControl.addEventListener('click', () => {
+          soundEnabled = !soundEnabled
+          experienceMemory = { ...experienceMemory, soundEnabled }
+          saveMemory()
+          updateSoundControl()
+          emitAudioState(Math.round(currentStateFloat))
+        })
+
+        immersionControl.addEventListener('click', () => {
+          immersionPaused = !immersionPaused
+          body.classList.toggle('is-immersion-paused', immersionPaused)
+          immersionControl.textContent = immersionPaused ? '恢复沉浸' : '退出沉浸'
+          if (!immersionPaused) readScroll()
+        })
+
         document.querySelectorAll('[data-step]').forEach((button) => {
           button.addEventListener('click', () => {
             const direction = Number(button.dataset.step) || 0
@@ -2604,9 +3026,20 @@
         })
 
         addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && realityPanel.classList.contains('is-open')) {
+            setRealityOpen(false)
+            return
+          }
           if (event.key.toLowerCase() === 'd' && !event.metaKey && !event.ctrlKey && !event.altKey) {
             body.classList.toggle('is-clean')
           }
+        })
+
+        window.SelfAwakeRuntime = Object.freeze({
+          getMemory: () => ({ ...experienceMemory }),
+          getSoundEnabled: () => soundEnabled,
+          getCurrentAudioEvent: () => audioEventForState(Math.round(currentStateFloat)),
+          getPerformanceTier: () => performanceTier,
         })
 
         initialize()
