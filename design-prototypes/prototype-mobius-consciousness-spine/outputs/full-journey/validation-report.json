@@ -1,0 +1,599 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-07-12T19:51:42.150554+00:00",
+  "prototype": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine",
+  "url": "http://127.0.0.1:4173/design-prototypes/prototype-mobius-consciousness-spine/?capture=1&clean=1",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "motion": "normal",
+  "captureApi": "renderState",
+  "browser": {
+    "chromium": "/Users/apple/Library/Caches/ms-playwright/chromium-1161/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
+    "console_messages": []
+  },
+  "network": {
+    "request_count": 2
+  },
+  "stateCaptures": [
+    {
+      "state": 0,
+      "label": "首页 · 完整骨架",
+      "timeSeconds": 0.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-00-home-complete-spine.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 0,
+          "legacyProgress": 0,
+          "timeSeconds": 0,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "首页 · 完整骨架"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 1,
+      "label": "观象 · 显名",
+      "timeSeconds": 1.6,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-01-observation-name.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 1,
+          "legacyProgress": 0.68,
+          "timeSeconds": 1.6,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "观象 · 显名"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 2,
+      "label": "观象 · 信息经过",
+      "timeSeconds": 3.2,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-02-observation-information.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 2,
+          "legacyProgress": 0.82,
+          "timeSeconds": 3.2,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "观象 · 信息经过"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 3,
+      "label": "观象 · 印痕留下",
+      "timeSeconds": 4.800000000000001,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-03-observation-imprint.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 3,
+          "legacyProgress": 1,
+          "timeSeconds": 4.800000000000001,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "观象 · 印痕留下"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 4,
+      "label": "转场 · 观象至构序",
+      "timeSeconds": 6.4,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-04-transition-observation-to-order.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 4,
+          "legacyProgress": 1,
+          "timeSeconds": 6.4,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "转场 · 印痕成为轴线"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 5,
+      "label": "构序 · 归类",
+      "timeSeconds": 8.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-05-order-classification.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 5,
+          "legacyProgress": 1,
+          "timeSeconds": 8,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "构序 · 归类"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 6,
+      "label": "构序 · 空间邻接",
+      "timeSeconds": 9.600000000000001,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-06-order-spatial-adjacency.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 6,
+          "legacyProgress": 1,
+          "timeSeconds": 9.600000000000001,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "构序 · 空间邻接"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 7,
+      "label": "构序 · 跨时间文字对齐",
+      "timeSeconds": 11.200000000000001,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-07-order-cross-time-alignment.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 7,
+          "legacyProgress": 1,
+          "timeSeconds": 11.200000000000001,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "构序 · 跨时间对齐"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 8,
+      "label": "转场 · 构序至观心",
+      "timeSeconds": 12.8,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-08-transition-order-to-reflection.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 8,
+          "legacyProgress": 1,
+          "timeSeconds": 12.8,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "转场 · 进入曲面厚度"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 9,
+      "label": "观心 · 旧状态",
+      "timeSeconds": 14.4,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-09-reflection-old-state.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 9,
+          "legacyProgress": 1,
+          "timeSeconds": 14.4,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "观心 · 旧状态"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 10,
+      "label": "观心 · 时间重现",
+      "timeSeconds": 16.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-10-reflection-time-recurrence.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 10,
+          "legacyProgress": 1,
+          "timeSeconds": 16,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "观心 · 时间重现"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 11,
+      "label": "观心 · 空间反向观察",
+      "timeSeconds": 17.6,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-11-reflection-space-observes.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 11,
+          "legacyProgress": 1,
+          "timeSeconds": 17.6,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "观心 · 空间回望"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 12,
+      "label": "转场 · 观心至见性",
+      "timeSeconds": 19.200000000000003,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-12-transition-reflection-to-nature.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 12,
+          "legacyProgress": 1,
+          "timeSeconds": 19.200000000000003,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "转场 · 曲面开始回收"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 13,
+      "label": "见性 · 整体显现",
+      "timeSeconds": 20.8,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-13-nature-total-reveal.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 13,
+          "legacyProgress": 1,
+          "timeSeconds": 20.8,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "见性 · 整体显现"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 14,
+      "label": "见性 · 逐层剥离",
+      "timeSeconds": 22.400000000000002,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-14-nature-layer-removal.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 14,
+          "legacyProgress": 1,
+          "timeSeconds": 22.400000000000002,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "见性 · 逐层剥离"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    },
+    {
+      "state": 15,
+      "label": "见性 · 最终返照",
+      "timeSeconds": 24.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/states/state-15-nature-final-reflection.png",
+      "render": {
+        "method": "renderState",
+        "result": {
+          "stateFloat": 15,
+          "legacyProgress": 1,
+          "timeSeconds": 24,
+          "vertexCount": 104160,
+          "derivedVertexCount": 3852,
+          "label": "见性 · 最终返照"
+        }
+      },
+      "overflow": {
+        "viewportWidth": 1440,
+        "rootScrollWidth": 1440,
+        "bodyScrollWidth": 1440,
+        "overflowPixels": 0,
+        "offenders": []
+      }
+    }
+  ],
+  "keyframes": [
+    {
+      "stateFloat": 0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/01-home-complete-spine-state-00-00.png"
+    },
+    {
+      "stateFloat": 2,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/02-observation-state-02-00.png"
+    },
+    {
+      "stateFloat": 4,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/03-observation-to-order-state-04-00.png"
+    },
+    {
+      "stateFloat": 6,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/04-order-state-06-00.png"
+    },
+    {
+      "stateFloat": 8,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/05-order-to-reflection-state-08-00.png"
+    },
+    {
+      "stateFloat": 10,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/06-reflection-state-10-00.png"
+    },
+    {
+      "stateFloat": 12.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/07-reflection-to-nature-state-12-55.png"
+    },
+    {
+      "stateFloat": 13,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/08-nature-total-reveal-state-13-00.png"
+    },
+    {
+      "stateFloat": 15,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/keyframes/09-nature-removal-and-reflection-state-15-00.png"
+    }
+  ],
+  "continuityFrames": [
+    {
+      "stateFloat": 0.74,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/opening-outer-surface-before-turn-state-00-74.png"
+    },
+    {
+      "stateFloat": 0.78,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/opening-continuous-surface-turn-state-00-78.png"
+    },
+    {
+      "stateFloat": 0.82,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/opening-inner-surface-after-turn-state-00-82.png"
+    },
+    {
+      "stateFloat": 2.15,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/observation-route-begins-at-title-state-02-15.png"
+    },
+    {
+      "stateFloat": 2.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/observation-route-connects-phrases-state-02-55.png"
+    },
+    {
+      "stateFloat": 3.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/imprint-before-fold-state-03-00.png"
+    },
+    {
+      "stateFloat": 3.45,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/fold-off-axis-open-side-state-03-45.png"
+    },
+    {
+      "stateFloat": 4.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/imprint-stretches-into-axis-state-04-00.png"
+    },
+    {
+      "stateFloat": 4.45,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/axis-rises-from-surface-state-04-45.png"
+    },
+    {
+      "stateFloat": 4.85,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/curved-wall-nearly-formed-state-04-85.png"
+    },
+    {
+      "stateFloat": 7.45,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/past-present-separate-state-07-45.png"
+    },
+    {
+      "stateFloat": 7.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/past-thought-readable-without-blur-state-07-00.png"
+    },
+    {
+      "stateFloat": 8.2,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/past-beneath-present-state-08-20.png"
+    },
+    {
+      "stateFloat": 8.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/single-synchronization-state-08-55.png"
+    },
+    {
+      "stateFloat": 8.85,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/entering-one-room-state-08-85.png"
+    },
+    {
+      "stateFloat": 9.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/room-2019-outline-state-09-00.png"
+    },
+    {
+      "stateFloat": 9.5,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/room-2022-open-gap-state-09-50.png"
+    },
+    {
+      "stateFloat": 10.05,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/room-2026-apparent-whole-state-10-05.png"
+    },
+    {
+      "stateFloat": 10.85,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/room-now-gap-reopens-state-10-85.png"
+    },
+    {
+      "stateFloat": 11.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/room-remembers-passage-state-11-00.png"
+    },
+    {
+      "stateFloat": 11.45,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/reflection-exit-keeps-surface-visible-state-11-45.png"
+    },
+    {
+      "stateFloat": 12.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/no-black-flash-between-acts-state-12-00.png"
+    },
+    {
+      "stateFloat": 12.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/continuous-pullback-before-nature-state-12-55.png"
+    },
+    {
+      "stateFloat": 15.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/continuity/final-reflection-keeps-white-point-state-15-00.png"
+    }
+  ],
+  "directorFrames": [
+    {
+      "stateFloat": 0.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/home-sculptural-silhouette-state-00-00.png"
+    },
+    {
+      "stateFloat": 2.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/observation-oppressive-scale-state-02-55.png"
+    },
+    {
+      "stateFloat": 3.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/observation-one-scar-witnessed-state-03-00.png"
+    },
+    {
+      "stateFloat": 4.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/same-scar-becomes-bearing-axis-state-04-55.png"
+    },
+    {
+      "stateFloat": 6.85,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/order-precise-alignment-state-06-85.png"
+    },
+    {
+      "stateFloat": 8.55,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/single-time-synchronization-state-08-55.png"
+    },
+    {
+      "stateFloat": 9.95,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/reflection-one-room-many-times-state-09-95.png"
+    },
+    {
+      "stateFloat": 10.85,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/same-scar-reopens-room-gap-state-10-85.png"
+    },
+    {
+      "stateFloat": 13.0,
+      "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/director-frames/nature-whole-with-inherited-scar-state-13-00.png"
+    }
+  ],
+  "video": {
+    "encoded": true,
+    "file": "/Users/apple/Projects/My/se1f-aware-Blog/design-prototypes/prototype-mobius-consciousness-spine/outputs/full-journey/mobius-full-journey.mp4",
+    "frameCount": 1254,
+    "fps": 30,
+    "durationSeconds": 41.8,
+    "ffmpeg": "/opt/homebrew/Cellar/ffmpeg/8.1.2/bin/ffmpeg"
+  },
+  "checks": {
+    "console_errors": [],
+    "page_errors": [],
+    "failed_requests": [],
+    "http_errors": [],
+    "external_requests": [],
+    "horizontal_overflow": [],
+    "ignored_implicit_favicon_errors": []
+  },
+  "fatalError": null,
+  "passed": true,
+  "durationSeconds": 262.709
+}

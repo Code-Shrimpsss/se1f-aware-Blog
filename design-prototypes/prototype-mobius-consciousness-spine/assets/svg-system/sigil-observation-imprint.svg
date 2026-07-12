@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">观象 · 信息留痕</title><desc id="desc">信息经过意识表面，只有一道真实接触成为不可逆刻痕。</desc>
+  <path d="M12 18C31 26 48 35 66 47C74 52 82 55 88 55" fill="none" stroke="currentColor" stroke-opacity=".2" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M9 31C29 35 43 42 58 54C69 63 78 66 88 65" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M16 45C31 45 43 50 53 59C62 67 70 72 84 76" fill="none" stroke="currentColor" stroke-opacity=".12" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M59 19C54 33 62 41 56 53C50 64 58 70 51 82" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="59" cy="19" r="3.5" fill="currentColor"/>
+</svg>

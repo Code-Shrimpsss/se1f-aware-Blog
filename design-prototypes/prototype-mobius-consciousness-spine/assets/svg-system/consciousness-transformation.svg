@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">意识脊柱四阶段形态演化</title>
+  <desc id="desc">同一个表面依次承受信息留痕、秩序构筑、时间反观和结构退去，而非四个独立节点。</desc>
+  <rect width="1280" height="420" fill="#000"/>
+  <path d="M80 212C266 178 409 184 598 211C791 239 982 226 1200 202" fill="none" stroke="#eceae3" stroke-opacity=".08"/>
+  <g fill="#eceae3" font-family="Songti SC, STSong, serif">
+    <text x="84" y="70" font-size="26" letter-spacing="7">观象</text><text x="377" y="70" font-size="26" letter-spacing="7">构序</text><text x="674" y="70" font-size="26" letter-spacing="7">观心</text><text x="971" y="70" font-size="26" letter-spacing="7">见性</text>
+  </g>
+  <g fill="#eceae3" fill-opacity=".36" font-family="Outfit, Arial, sans-serif" font-size="9" letter-spacing="3">
+    <text x="84" y="94">INFORMATION LEAVES A SCAR</text><text x="377" y="94">THE SCAR BEGINS TO BEAR</text><text x="674" y="94">TIME TURNS TOWARD ITSELF</text><text x="971" y="94">ALL ADDED FORM RECEDES</text>
+  </g>
+  <g transform="translate(84 125)" color="#eceae3">
+    <path d="M0 28C54 38 105 63 160 106C185 126 211 135 242 134" fill="none" stroke="currentColor" stroke-opacity=".16" stroke-width="2"/>
+    <path d="M132 6C120 45 137 67 124 101C116 122 124 144 111 174" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="132" cy="6" r="5" fill="currentColor"/>
+  </g>
+  <g transform="translate(382 126)" color="#eceae3">
+    <path d="M0 169C61 157 127 157 237 174" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-width="3"/>
+    <path d="M35 164V91L67 80V160M82 160V33L122 19V165M139 164V68L174 57V169M188 169V105L218 94V173" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M31 146C88 133 143 144 226 157" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(674 137)" color="#eceae3">
+    <path d="M17 36C67 13 127 26 185 65C211 83 215 111 190 130C144 164 72 151 31 118C5 97-1 59 17 36Z" fill="none" stroke="currentColor" stroke-opacity=".17" stroke-width="2"/>
+    <path d="M33 58C80 34 136 52 177 87C195 103 186 130 161 143C117 166 63 147 36 119C18 100 16 76 33 58Z" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="3"/>
+    <path d="M108 30C125 73 120 109 95 150" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(968 133)" color="#eceae3">
+    <path fill="currentColor" fill-rule="evenodd" d="M5 92C8 35 65 8 129 17C196 26 239 69 226 118C213 167 151 190 86 174C35 162 2 132 5 92Zm70 31C96 151 142 154 168 132C191 113 178 83 149 74C113 62 82 85 75 123Z"/>
+    <path d="M85 25C101 61 98 89 79 113" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g fill="#eceae3" fill-opacity=".55" font-family="Songti SC, STSong, serif" font-size="13" letter-spacing="2">
+    <text x="84" y="378">被真正看见的事物，在表面留下不可逆的形状。</text>
+    <text x="377" y="378">痕迹开始决定方向、尺度、距离与承重。</text>
+    <text x="674" y="378">秩序回望，过去成为仍未结束的自己。</text>
+    <text x="971" y="378">附着物退去，显露始终只有一个面的主体。</text>
+  </g>
+</svg>

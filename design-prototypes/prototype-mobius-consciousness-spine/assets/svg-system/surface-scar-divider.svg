@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 32" preserveAspectRatio="none" role="img" aria-labelledby="title desc">
+  <title id="title">意识表面刻痕分隔线</title><desc id="desc">一道并不完全笔直、曾被压力改变方向的细微表面伤痕。</desc>
+  <path d="M3 17C119 16 190 18 286 16C322 15 335 9 350 16C365 23 384 16 420 15C523 13 611 17 717 16" fill="none" stroke="currentColor" stroke-opacity=".18" stroke-width="1"/>
+  <path d="M337 13C343 15 345 17 348 23C351 18 355 16 363 15" fill="none" stroke="currentColor" stroke-opacity=".66" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

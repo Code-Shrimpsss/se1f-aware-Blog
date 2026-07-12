@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Self-Awake 意识脊柱主标</title>
+  <desc id="desc">一条具有厚度、刻痕和暗面翻转的骨白单一表面。</desc>
+  <defs>
+    <linearGradient id="bone" x1="44" y1="44" x2="270" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f2f0e9"/><stop offset=".52" stop-color="#d8d6cf"/><stop offset="1" stop-color="#aaa9a3"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="84" y1="76" x2="235" y2="168" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#777772"/><stop offset=".62" stop-color="#252525"/><stop offset="1" stop-color="#090909"/>
+    </linearGradient>
+    <mask id="aperture">
+      <rect width="320" height="220" fill="white"/>
+      <path d="M97 128C118 98 164 87 204 105C230 117 234 144 212 158C180 178 127 166 97 128Z" fill="black"/>
+    </mask>
+  </defs>
+  <g mask="url(#aperture)">
+    <path d="M35 107C38 56 91 29 158 34C228 39 286 74 285 121C284 164 239 190 174 192C104 194 43 166 35 107Z" fill="url(#bone)"/>
+    <path d="M36 109C63 132 101 153 151 163C199 173 251 162 282 128C272 172 230 193 170 194C100 194 43 166 36 109Z" fill="url(#edge)" opacity=".88"/>
+    <path d="M41 87C83 101 127 98 166 80C202 64 246 73 280 103C259 62 211 37 157 34C101 31 54 49 41 87Z" fill="#f5f3ec" opacity=".56"/>
+    <path d="M61 72C118 84 175 68 231 78" fill="none" stroke="#fffef8" stroke-opacity=".54" stroke-width="2"/>
+    <path d="M49 141C101 171 175 180 235 158" fill="none" stroke="#050505" stroke-opacity=".62" stroke-width="4"/>
+    <g fill="none" stroke="#777772" stroke-opacity=".1" stroke-width="1">
+      <path d="M47 73C98 89 154 84 211 65"/><path d="M42 82C101 100 166 94 237 76"/><path d="M39 151C98 177 170 184 244 157"/><path d="M47 160C109 185 183 185 252 150"/>
+    </g>
+  </g>
+  <path d="M116 49C126 72 125 91 111 112" fill="none" stroke="#111" stroke-width="8" stroke-linecap="round" opacity=".72"/>
+  <path d="M118 48C125 64 126 75 122 86" fill="none" stroke="#eeeae2" stroke-width="1.3" stroke-linecap="round" opacity=".52"/>
+  <path d="M64 139C79 133 90 132 106 137" fill="none" stroke="#0b0b0b" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

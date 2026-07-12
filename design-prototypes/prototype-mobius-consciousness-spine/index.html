@@ -1,0 +1,2616 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M5 11c4-7 18-7 22 0 3 6-4 12-10 8-6-4-11 1-7 6' fill='none' stroke='%23eceae3' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <meta
+      name="description"
+      content="Self-Awake 莫比乌斯意识骨架：完整巨构、贴面穿梭、翻转进入观象与信息留痕。"
+    />
+    <title>莫比乌斯意识骨架 — Self-Awake</title>
+    <style>
+      @font-face {
+        font-family: "Instrument Serif Local";
+        src: url("../../public/static/fonts/InstrumentSerif-Italic.ttf") format("truetype");
+        font-display: swap;
+        font-style: italic;
+      }
+
+      @font-face {
+        font-family: "Outfit Local";
+        src: url("../../public/static/fonts/Outfit-Regular.ttf") format("truetype");
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: dark;
+        --bone: #eceae3;
+        --void: #000;
+        --pointer-x: 50vw;
+        --pointer-y: 50vh;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        min-height: 100%;
+        background: var(--void);
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100%;
+        margin: 0;
+        overflow-x: clip;
+        background: #000;
+        color: var(--bone);
+        cursor: none;
+      }
+
+      body.is-capture,
+      body.is-demo {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      body.is-clean .blockout-debug,
+      body.is-clean .state-rail {
+        display: none;
+      }
+
+      .stage {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+          radial-gradient(ellipse at 58% 45%, rgba(235, 233, 225, 0.025), transparent 43%),
+          #000;
+      }
+
+      .stage::before {
+        position: absolute;
+        z-index: 0;
+        inset: -18%;
+        content: "";
+        background:
+          radial-gradient(ellipse at 68% 34%, rgba(255, 255, 255, 0.018), transparent 31%),
+          radial-gradient(ellipse at 42% 72%, rgba(255, 255, 255, 0.014), transparent 28%);
+        filter: blur(42px);
+        pointer-events: none;
+      }
+
+      .hero-copy {
+        position: absolute;
+        z-index: 1;
+        top: 48%;
+        left: clamp(28px, 4.4vw, 64px);
+        width: min(320px, 30vw);
+        transform: translateY(-50%);
+        color: rgba(236, 234, 227, 0.88);
+        font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+        font-size: clamp(19px, 1.35vw, 22px);
+        font-weight: 300;
+        letter-spacing: 0.035em;
+        line-height: 1.72;
+        text-wrap: pretty;
+        pointer-events: none;
+        will-change: opacity, transform, filter;
+      }
+
+      .hero-copy p {
+        margin: 0;
+      }
+
+      .hero-copy p + p {
+        margin-left: clamp(14px, 2.2vw, 32px);
+        color: rgba(236, 234, 227, 0.54);
+      }
+
+      .signature {
+        display: block;
+        margin-top: 28px;
+        color: rgba(236, 234, 227, 0.32);
+        font-family: "Outfit Local", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.23em;
+        line-height: 1.45;
+        text-transform: lowercase;
+      }
+
+      #world {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 900ms cubic-bezier(0.2, 0.7, 0.1, 1);
+      }
+
+      body.is-ready #world {
+        opacity: 1;
+      }
+
+      .guanxiang {
+        position: absolute;
+        z-index: 3;
+        top: clamp(220px, 39%, 390px);
+        left: clamp(34px, 15vw, 216px);
+        width: min(520px, 44vw);
+        color: rgba(14, 14, 13, 0.78);
+        mix-blend-mode: multiply;
+        opacity: 0;
+        transform: perspective(900px) rotate(-4deg) skewY(-2.2deg) translate3d(0, 18px, 0);
+        transform-origin: left center;
+        pointer-events: none;
+        will-change: opacity, transform, filter;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.16);
+      }
+
+      .guanxiang h2 {
+        margin: 0 0 18px;
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(50px, 6.2vw, 94px);
+        font-weight: 400;
+        letter-spacing: 0.13em;
+        line-height: 1;
+      }
+
+      .guanxiang p {
+        width: min(32em, 100%);
+        margin: 0;
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(14px, 1.2vw, 18px);
+        letter-spacing: 0.08em;
+        line-height: 1.8;
+      }
+
+      .narrative-copy {
+        position: absolute;
+        z-index: 5;
+        max-width: min(560px, 48vw);
+        color: rgba(236, 234, 227, 0.86);
+        opacity: 0;
+        pointer-events: none;
+        transform: translate3d(0, 22px, 0);
+        filter: blur(4px);
+        will-change: opacity, transform, filter;
+      }
+
+      .narrative-copy[data-tone="surface"] {
+        color: rgba(15, 15, 14, 0.78);
+        mix-blend-mode: multiply;
+      }
+
+      .narrative-copy h2 {
+        margin: 0 0 16px;
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(50px, 6vw, 92px);
+        font-weight: 400;
+        letter-spacing: 0.13em;
+        line-height: 0.96;
+      }
+
+      .narrative-copy p {
+        max-width: 31em;
+        margin: 0;
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(14px, 1.15vw, 18px);
+        letter-spacing: 0.08em;
+        line-height: 1.8;
+      }
+
+      .narrative-copy .eyebrow {
+        display: block;
+        margin-bottom: 16px;
+        font-family: "Outfit Local", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.24em;
+        opacity: 0.48;
+      }
+
+      .copy-order {
+        top: 22%;
+        left: 8%;
+      }
+
+      .copy-heart {
+        top: 58%;
+        left: 9%;
+        transform: translate3d(0, 22px, 0);
+      }
+
+      .copy-nature {
+        top: 23%;
+        right: 8%;
+        text-align: right;
+      }
+
+      .paired-thought {
+        position: absolute;
+        z-index: 6;
+        inset: 0;
+        color: rgba(18, 18, 17, 0.86);
+        mix-blend-mode: multiply;
+        opacity: 0;
+        pointer-events: none;
+        will-change: opacity, transform;
+      }
+
+      .thought-half {
+        position: absolute;
+        top: 43%;
+        width: min(360px, 31vw);
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(15px, 1.28vw, 19px);
+        letter-spacing: 0.1em;
+        line-height: 1.7;
+      }
+
+      .thought-half:first-child {
+        left: 18%;
+        text-align: right;
+      }
+
+      .thought-half:last-child {
+        right: 10%;
+      }
+
+      .thought-half time {
+        display: block;
+        margin-bottom: 10px;
+        font-family: "Outfit Local", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.24em;
+        opacity: 0.48;
+      }
+
+      .time-echoes {
+        position: absolute;
+        z-index: 4;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+      }
+
+      .time-echoes span {
+        position: absolute;
+        top: 62%;
+        left: 13%;
+        color: rgba(18, 18, 17, 0.46);
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(13px, 1.08vw, 16px);
+        letter-spacing: 0.16em;
+        will-change: transform, opacity;
+      }
+
+      .time-echoes span::before {
+        display: inline-block;
+        width: 46px;
+        margin-right: 14px;
+        content: attr(data-year);
+        font-family: "Outfit Local", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        opacity: 0.56;
+      }
+
+      .reflection {
+        position: absolute;
+        z-index: 7;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .reflection-point {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(238, 236, 229, 0.92);
+        box-shadow: 0 0 26px rgba(238, 236, 229, 0.28);
+        transform: translate(-50%, -50%);
+      }
+
+      .reflection-response {
+        position: absolute;
+        top: 36%;
+        left: 74%;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgba(238, 236, 229, 0.72);
+        box-shadow: 0 0 18px rgba(238, 236, 229, 0.2);
+        opacity: 0;
+      }
+
+      .reflection p {
+        width: min(32em, 82vw);
+        margin: 0;
+        color: rgba(236, 234, 227, 0.82);
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(18px, 1.65vw, 25px);
+        letter-spacing: 0.08em;
+        line-height: 1.85;
+        text-align: center;
+        transform: translateY(16vh);
+      }
+
+      .state-rail {
+        position: fixed;
+        z-index: 10;
+        top: 50%;
+        right: 14px;
+        display: grid;
+        gap: 6px;
+        transform: translateY(-50%);
+      }
+
+      .state-rail i {
+        display: block;
+        width: 2px;
+        height: 12px;
+        background: rgba(236, 234, 227, 0.14);
+        transition: height 180ms ease, background 180ms ease;
+      }
+
+      .state-rail i.is-current {
+        height: 25px;
+        background: rgba(236, 234, 227, 0.58);
+      }
+
+      .blockout-debug {
+        position: fixed;
+        z-index: 12;
+        right: 22px;
+        bottom: 20px;
+        width: 226px;
+        padding: 13px 14px 12px;
+        border: 1px solid rgba(236, 234, 227, 0.18);
+        background: rgba(0, 0, 0, 0.74);
+        color: rgba(236, 234, 227, 0.68);
+        font-family: "Outfit Local", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        line-height: 1.45;
+        backdrop-filter: blur(12px);
+      }
+
+      .blockout-debug strong,
+      .blockout-debug output,
+      .blockout-debug small {
+        display: block;
+      }
+
+      .blockout-debug strong {
+        margin-bottom: 7px;
+        color: rgba(236, 234, 227, 0.42);
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+      }
+
+      .blockout-debug output {
+        color: rgba(236, 234, 227, 0.86);
+        font-size: 11px;
+      }
+
+      .blockout-debug small {
+        margin-top: 3px;
+        color: rgba(236, 234, 227, 0.38);
+        font-size: 8px;
+      }
+
+      .debug-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        margin-top: 10px;
+      }
+
+      .debug-actions button {
+        min-height: 28px;
+        border: 1px solid rgba(236, 234, 227, 0.16);
+        background: transparent;
+        color: rgba(236, 234, 227, 0.58);
+        font: inherit;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+      }
+
+      .debug-actions button:hover,
+      .debug-actions button:focus-visible {
+        border-color: rgba(236, 234, 227, 0.5);
+        color: rgba(236, 234, 227, 0.88);
+        outline: none;
+      }
+
+      .information-field {
+        position: absolute;
+        z-index: 3;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .information-field.back {
+        z-index: 1;
+      }
+
+      .information-fragment {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        color: rgba(18, 18, 17, 0.5);
+        font-family: "Outfit Local", "Songti SC", serif;
+        font-size: var(--size, 12px);
+        font-weight: 400;
+        letter-spacing: var(--tracking, 0.08em);
+        line-height: 1;
+        opacity: 0;
+        white-space: nowrap;
+        filter: blur(var(--blur, 0px));
+        transform: translate3d(-100px, -100px, 0);
+        will-change: transform, opacity, filter;
+        mix-blend-mode: multiply;
+      }
+
+      .information-field.back .information-fragment {
+        color: rgba(234, 232, 224, 0.46);
+        mix-blend-mode: screen;
+      }
+
+      .information-fragment.is-weighted {
+        color: rgba(10, 10, 9, 0.9);
+        font-family: "Songti SC", "STSong", serif;
+        letter-spacing: 0.15em;
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+      }
+
+      .impact-scar {
+        position: absolute;
+        z-index: 4;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        opacity: 0;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      .impact-scar path {
+        fill: none;
+        stroke: rgba(8, 8, 8, 0.7);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.2;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .impact-scar .route-node {
+        fill: rgba(8, 8, 8, 0.72);
+        stroke: rgba(244, 242, 234, 0.42);
+        stroke-width: 1;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .scroll-cue {
+        position: absolute;
+        z-index: 4;
+        bottom: max(34px, env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(236, 234, 227, 0.34);
+        font-family: "Outfit Local", "Songti SC", serif;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+      }
+
+      .scroll-cue::after {
+        display: block;
+        width: 1px;
+        height: 24px;
+        margin: 10px auto 0;
+        content: "";
+        background: linear-gradient(to bottom, rgba(236, 234, 227, 0.42), transparent);
+        animation: cue-pulse 2.4s cubic-bezier(0.55, 0, 0.25, 1) infinite;
+      }
+
+      @keyframes cue-pulse {
+        0%, 100% { transform: scaleY(0.45); transform-origin: top; opacity: 0.24; }
+        48% { transform: scaleY(1); transform-origin: top; opacity: 0.78; }
+      }
+
+      .perception-point {
+        position: fixed;
+        z-index: 8;
+        top: var(--pointer-y);
+        left: var(--pointer-x);
+        width: 5px;
+        height: 5px;
+        margin: -2.5px 0 0 -2.5px;
+        border-radius: 50%;
+        background: rgba(238, 236, 229, 0.58);
+        box-shadow: 0 0 8px rgba(238, 236, 229, 0.08);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+      }
+
+      body.has-fine-pointer .perception-point {
+        opacity: 1;
+      }
+
+      body.is-near-surface .perception-point,
+      body.is-capture .perception-point,
+      body.is-demo .perception-point {
+        opacity: 0;
+      }
+
+      .fallback {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 68%;
+        display: none;
+        width: min(45vw, 620px);
+        aspect-ratio: 1.38;
+        transform: translate(-50%, -50%) rotate(-11deg);
+        border: 34px solid #e8e6df;
+        border-right-width: 70px;
+        border-left-width: 48px;
+        border-radius: 50% 46% 52% 43% / 46% 55% 45% 52%;
+        clip-path: polygon(3% 31%, 12% 8%, 58% 0%, 92% 15%, 100% 53%, 84% 89%, 36% 100%, 4% 72%);
+        opacity: 0.78;
+      }
+
+      body:not(.has-webgl) .fallback {
+        display: block;
+      }
+
+      .scroll-space {
+        position: relative;
+        z-index: -1;
+        width: 1px;
+        height: 2200vh;
+        pointer-events: none;
+      }
+
+      .sr-only {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+
+      @media (max-width: 720px) {
+        .hero-copy {
+          top: 76%;
+          left: 24px;
+          width: calc(100vw - 48px);
+          font-size: clamp(18px, 5.4vw, 22px);
+        }
+
+        .signature {
+          margin-top: 18px;
+        }
+
+        .guanxiang {
+          top: clamp(270px, 36%, 360px);
+          left: 8%;
+          width: 78vw;
+        }
+
+        .guanxiang h2 {
+          font-size: clamp(52px, 18vw, 76px);
+        }
+
+        .guanxiang p {
+          font-size: 13px;
+        }
+
+        .narrative-copy {
+          left: 8%;
+          right: auto;
+          width: 84vw;
+          max-width: none;
+          text-align: left;
+        }
+
+        .narrative-copy h2 {
+          font-size: clamp(48px, 17vw, 74px);
+        }
+
+        .copy-order { top: 17%; }
+        .copy-heart { top: 66%; }
+        .copy-nature { top: 18%; }
+
+        .thought-half {
+          width: 36vw;
+          font-size: 12px;
+        }
+
+        .thought-half:first-child { left: 6%; }
+        .thought-half:last-child { right: 5%; }
+
+        .blockout-debug {
+          right: 10px;
+          bottom: max(10px, env(safe-area-inset-bottom));
+          width: 184px;
+        }
+
+        .state-rail { right: 7px; }
+
+        .scroll-cue {
+          bottom: max(20px, env(safe-area-inset-bottom));
+        }
+      }
+
+      @media (pointer: coarse) {
+        body {
+          cursor: auto;
+        }
+
+        .perception-point {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+
+      body.is-reduced-motion *,
+      body.is-reduced-motion *::before,
+      body.is-reduced-motion *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="莫比乌斯意识空间">
+      <h1 class="sr-only">Self-Awake：莫比乌斯意识骨架</h1>
+
+      <div class="hero-copy" aria-label="意识声明">
+        <p>我试图穿过世界的表象，</p>
+        <p>寻找未被命名的真实。</p>
+        <span class="signature">self-awake<br />self-awareness</span>
+      </div>
+
+      <div class="information-field back" aria-hidden="true"></div>
+      <canvas id="world" aria-hidden="true"></canvas>
+      <div class="fallback" aria-hidden="true"></div>
+
+      <section class="guanxiang" aria-label="观象">
+        <h2>观象</h2>
+        <p>世界不断经过，只有真正被看见的事物才留下形状。</p>
+      </section>
+
+      <div class="narrative-copy copy-order" data-copy="order" aria-hidden="true">
+        <span class="eyebrow">痕迹开始承重</span>
+        <h2>构序</h2>
+        <p>痕迹不再只是被保存；它们开始决定彼此的方向、尺度与距离。</p>
+      </div>
+
+      <div class="paired-thought" aria-hidden="true">
+        <p class="thought-half is-past"><time>2021</time>我以为答案藏在更完整的系统里，</p>
+        <p class="thought-half is-present"><time>2026</time>后来才明白，系统只是问题改变承重的方式。</p>
+      </div>
+
+      <div class="time-echoes" aria-hidden="true">
+        <span data-year="2019">只有轮廓，句子尚未成形</span>
+        <span data-year="2022">墙面出现，缺口无法闭合</span>
+        <span data-year="2026">结构看似终于完整</span>
+        <span data-year="此刻">我经过以后，缺口再次打开</span>
+      </div>
+
+      <div class="narrative-copy copy-heart" data-copy="heart" data-tone="surface" aria-hidden="true">
+        <span class="eyebrow">时间转向观看者</span>
+        <h2>观心</h2>
+        <p>当秩序开始回望，时间不再排列过去，而是排列仍未结束的我。</p>
+      </div>
+
+      <div class="narrative-copy copy-nature" data-copy="nature" aria-hidden="true">
+        <span class="eyebrow">内外原来同面</span>
+        <h2>见性</h2>
+        <p>我始终向前，却回到了开始；所谓内外，从来没有两面。</p>
+      </div>
+
+      <div class="reflection" aria-hidden="true">
+        <span class="reflection-point"></span>
+        <span class="reflection-response"></span>
+        <p>当所有可以证明的结构都退去，<br />你仍愿意为哪一个选择负责？</p>
+      </div>
+
+      <div class="information-field front" aria-hidden="true"></div>
+      <svg class="impact-scar" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          class="observation-route"
+          pathLength="1"
+          d="M 350 448 C 430 420 470 352 575 340 S 760 248 895 270 S 1110 330 1085 430 S 1010 560 915 510 S 765 670 650 620 S 560 520 720 513"
+        />
+        <circle class="route-node" cx="389" cy="390" r="3" />
+        <circle class="route-node" cx="575" cy="340" r="3" />
+        <circle class="route-node" cx="895" cy="270" r="3" />
+        <circle class="route-node" cx="1085" cy="430" r="3" />
+        <circle class="route-node" cx="915" cy="510" r="3" />
+        <circle class="route-node" cx="650" cy="620" r="3" />
+        <circle class="route-node" cx="720" cy="513" r="4" />
+      </svg>
+
+      <p class="scroll-cue">继续靠近</p>
+      <p class="sr-only" role="status" aria-live="polite" id="experience-state">
+        黑暗中出现一座完整的白色莫比乌斯巨构。
+      </p>
+    </main>
+
+    <div class="perception-point" aria-hidden="true"></div>
+    <div class="scroll-space" aria-hidden="true"></div>
+
+    <div class="state-rail" aria-hidden="true"></div>
+    <aside class="blockout-debug" aria-label="Blockout 调试工具">
+      <strong>BLOCKOUT DEBUG</strong>
+      <output id="debug-state">00 / 15 · 首页 · 完整骨架</output>
+      <small id="debug-values">stateFloat 0.00 · scroll 0.0%</small>
+      <div class="debug-actions">
+        <button type="button" data-step="-1" aria-label="上一个状态">← PREV</button>
+        <button type="button" data-step="1" aria-label="下一个状态">NEXT →</button>
+      </div>
+    </aside>
+
+    <script>
+      (() => {
+        'use strict'
+
+        // Assumption for this fast validation: material detail is provisional.
+        // The approved question is whether one continuous object can carry the whole camera chain.
+        const TAU = Math.PI * 2
+        const canvas = document.querySelector('#world')
+        const body = document.body
+        const root = document.documentElement
+        const heroCopy = document.querySelector('.hero-copy')
+        const guanxiang = document.querySelector('.guanxiang')
+        const scrollCue = document.querySelector('.scroll-cue')
+        const scar = document.querySelector('.impact-scar')
+        const observationRoute = document.querySelector('.observation-route')
+        const observationRouteNodes = Array.from(document.querySelectorAll('.route-node'))
+        const status = document.querySelector('#experience-state')
+        const backField = document.querySelector('.information-field.back')
+        const frontField = document.querySelector('.information-field.front')
+        const orderCopy = document.querySelector('[data-copy="order"]')
+        const heartCopy = document.querySelector('[data-copy="heart"]')
+        const natureCopy = document.querySelector('[data-copy="nature"]')
+        const pairedThought = document.querySelector('.paired-thought')
+        const timeEchoes = document.querySelector('.time-echoes')
+        const reflection = document.querySelector('.reflection')
+        const stateRail = document.querySelector('.state-rail')
+        const debugState = document.querySelector('#debug-state')
+        const debugValues = document.querySelector('#debug-values')
+        const params = new URLSearchParams(location.search)
+        const captureMode = params.get('capture') === '1'
+        const demoMode = params.get('demo') === '1'
+        const debugMode = params.get('debug') === '1'
+        const cleanMode = params.get('clean') === '1' || !debugMode
+        const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
+          || params.get('motion') === 'reduce'
+        const finePointer = matchMedia('(pointer: fine)')
+
+        const LAST_STATE = 15
+        const LEGACY_STATE_PROGRESS = [0, 0.68, 0.82, 1]
+        const SCROLL_PHASES = [
+          // Director's cut: contemplation, first velocity peak, witnessed scar,
+          // slow alignment, sudden loss of weight, time echo, reveal and silence.
+          { p0: 0, p1: 0, s0: 0, s1: 0, mode: 'hold' },
+          { p0: 0, p1: 0.12, s0: 0, s1: 1, mode: 'opening' },
+          { p0: 0.12, p1: 0.17, s0: 1, s1: 2, mode: 'burst' },
+          { p0: 0.17, p1: 0.205, s0: 2, s1: 3, mode: 'burst' },
+          { p0: 0.205, p1: 0.24, s0: 3, s1: 3, mode: 'hold' },
+          { p0: 0.24, p1: 0.33, s0: 3, s1: 5, mode: 'cinematic' },
+          { p0: 0.33, p1: 0.39, s0: 5, s1: 6, mode: 'direct' },
+          { p0: 0.39, p1: 0.49, s0: 6, s1: 7, mode: 'align' },
+          { p0: 0.49, p1: 0.515, s0: 7, s1: 7, mode: 'hold' },
+          { p0: 0.515, p1: 0.57, s0: 7, s1: 9, mode: 'plunge' },
+          { p0: 0.57, p1: 0.65, s0: 9, s1: 10, mode: 'echo' },
+          { p0: 0.65, p1: 0.74, s0: 10, s1: 11, mode: 'echo' },
+          { p0: 0.74, p1: 0.76, s0: 11, s1: 11, mode: 'hold' },
+          { p0: 0.76, p1: 0.84, s0: 11, s1: 13, mode: 'cinematic' },
+          { p0: 0.84, p1: 0.86, s0: 13, s1: 13, mode: 'hold' },
+          { p0: 0.86, p1: 0.9, s0: 13, s1: 14, mode: 'reveal' },
+          { p0: 0.9, p1: 0.98, s0: 14, s1: 15, mode: 'final' },
+          { p0: 0.98, p1: 1, s0: 15, s1: 15, mode: 'hold' },
+        ]
+        const STATE_SCROLL_ANCHORS = [0, 0.12, 0.17, 0.205, 0.285, 0.33, 0.39, 0.49, 0.5425, 0.57, 0.65, 0.74, 0.8, 0.84, 0.9, 0.98]
+        const DEMO_OPENING_HOLD = 1.4
+        const DEMO_TRAVEL_DURATION = 27
+        const DEMO_DURATION = DEMO_OPENING_HOLD + DEMO_TRAVEL_DURATION + 2.8
+        const STATE_LABELS = [
+          '首页 · 完整骨架',
+          '观象 · 显名',
+          '观象 · 信息经过',
+          '观象 · 印痕留下',
+          '转场 · 印痕成为轴线',
+          '构序 · 归类',
+          '构序 · 空间邻接',
+          '构序 · 跨时间对齐',
+          '转场 · 进入曲面厚度',
+          '观心 · 旧状态',
+          '观心 · 时间重现',
+          '观心 · 空间回望',
+          '转场 · 曲面开始回收',
+          '见性 · 整体显现',
+          '见性 · 逐层剥离',
+          '见性 · 最终返照',
+        ]
+
+        let gl
+        let program
+        let vertexBuffer
+        let vertexCount = 0
+        let ringVertexArray
+        let derivedProgram
+        let derivedVertexBuffer
+        let derivedVertexCount = 0
+        let derivedVertexArray
+        let dpr = 1
+        let currentProgress = 0
+        let targetProgress = 0
+        let currentStateFloat = 0
+        let targetStateFloat = 0
+        let targetScrollProgress = 0
+        let targetSegmentIndex = 0
+        let targetSegmentMode = SCROLL_PHASES[0].mode
+        let pointerX = 0
+        let pointerY = 0
+        let targetPointerX = 0
+        let targetPointerY = 0
+        let elapsed = 0
+        let lastFrame = performance.now()
+        let animationFrame = 0
+        let visible = !document.hidden
+        let lastSpokenState = ''
+        let finalSilenceStartedAt = null
+        let forceFinalQuestion = false
+
+        STATE_LABELS.forEach((_, index) => {
+          const marker = document.createElement('i')
+          marker.dataset.stateMarker = String(index)
+          stateRail.append(marker)
+        })
+
+        const fragments = [
+          { text: '未保存的照片', start: [-0.12, 0.2], end: [0.27, 0.39], size: 11, blur: 0.3, front: false },
+          { text: '光先留下边缘', start: [0.42, -0.14], end: [0.4, 0.31], size: 12, blur: 0.15, front: true },
+          { text: '2023 · 问题第一次出现', start: [1.12, 0.12], end: [0.62, 0.28], size: 12, blur: 0, front: true },
+          { text: '雨向玻璃左侧', start: [1.1, 0.78], end: [0.77, 0.38], size: 10, blur: 0.7, front: false },
+          { text: '04:17 · 句子没有寄出', start: [-0.18, 0.88], end: [0.68, 0.55], size: 10, blur: 0.4, front: true },
+          { text: '旧墙的裂口', start: [1.15, 0.32], end: [0.49, 0.65], size: 12, blur: 0.2, front: false },
+          { text: '反复出现的问题', start: [-0.2, 0.58], end: [0.36, 0.55], size: 12, blur: 0.25, front: false },
+          { text: '真正看见', start: [1.12, 0.25], end: [0.5, 0.57], size: 14, blur: 0, front: true, weighted: true },
+        ].map((item, index) => {
+          const element = document.createElement('span')
+          element.className = `information-fragment${item.weighted ? ' is-weighted' : ''}`
+          element.textContent = item.text
+          element.style.setProperty('--size', `${item.size}px`)
+          element.style.setProperty('--blur', `${item.blur}px`)
+          element.style.setProperty('--tracking', index % 3 === 0 ? '0.16em' : '0.08em')
+          ;(item.front ? frontField : backField).append(element)
+          return { ...item, element, index }
+        })
+
+        function clamp(value, minimum = 0, maximum = 1) {
+          return Math.min(maximum, Math.max(minimum, value))
+        }
+
+        function mix(a, b, amount) {
+          return a + (b - a) * amount
+        }
+
+        function smoothstep(value) {
+          const t = clamp(value)
+          return t * t * (3 - 2 * t)
+        }
+
+        function smootherstep(value) {
+          const t = clamp(value)
+          return t * t * t * (t * (t * 6 - 15) + 10)
+        }
+
+        function easeInOutExpo(value) {
+          const t = clamp(value)
+          if (t === 0 || t === 1) return t
+          return t < 0.5
+            ? Math.pow(2, 20 * t - 10) / 2
+            : (2 - Math.pow(2, -20 * t + 10)) / 2
+        }
+
+        function timelineEase(value, mode) {
+          const t = clamp(value)
+          if (mode === 'direct') return t
+          if (mode === 'opening') return 1 - Math.pow(1 - t, 2)
+          if (mode === 'cinematic') return smootherstep(t)
+          if (mode === 'burst') return 1 - Math.pow(1 - t, 2.4)
+          if (mode === 'align') return smootherstep(t)
+          if (mode === 'plunge') return t < 0.3 ? t * 0.18 : 0.054 + Math.pow((t - 0.3) / 0.7, 1.45) * 0.946
+          if (mode === 'echo') return t * t * (3 - 2 * t)
+          if (mode === 'reveal') return 1 - Math.pow(1 - t, 3.4)
+          if (mode === 'settle') return 1 - Math.pow(1 - t, 3)
+          if (mode === 'final') return smootherstep(t)
+          if (mode === 'hold') return 0
+          return t
+        }
+
+        function timelineAtScroll(progress) {
+          const value = clamp(progress)
+          for (let index = 0; index < SCROLL_PHASES.length; index += 1) {
+            const phase = SCROLL_PHASES[index]
+            if (value <= phase.p1 + 1e-6) {
+              const local = clamp((value - phase.p0) / Math.max(0.0001, phase.p1 - phase.p0))
+              const stateFloat = mix(phase.s0, phase.s1, timelineEase(local, phase.mode))
+              return {
+                stateFloat: reducedMotion ? reducedStateAtScroll(value) : stateFloat,
+                segmentIndex: index,
+                mode: phase.mode,
+                local,
+              }
+            }
+          }
+          return { stateFloat: LAST_STATE, segmentIndex: SCROLL_PHASES.length - 1, mode: 'hold', local: 1 }
+        }
+
+        function reducedStateAtScroll(progress) {
+          const value = clamp(progress)
+          let state = 0
+          for (let index = 1; index < STATE_SCROLL_ANCHORS.length; index += 1) {
+            if (value >= STATE_SCROLL_ANCHORS[index]) state = index
+          }
+          return state
+        }
+
+        function followRateFor(mode, target) {
+          const baseRate = {
+            direct: 24,
+            opening: 12,
+            cinematic: 7.5,
+            burst: 30,
+            align: 5.2,
+            plunge: 15,
+            echo: 5.8,
+            reveal: 13,
+            settle: 11,
+            final: 6,
+            hold: 15,
+          }[mode] || 8
+          const anchorDistance = Math.abs(target - Math.round(target))
+          return anchorDistance < 0.055 && mode !== 'direct' && mode !== 'opening' ? baseRate * 0.58 : baseRate
+        }
+
+        function legacyProgressForState(stateFloat) {
+          const state = clamp(stateFloat, 0, 3)
+          const lower = Math.floor(state)
+          if (lower >= 3) return 1
+          return mix(
+            LEGACY_STATE_PROGRESS[lower],
+            LEGACY_STATE_PROGRESS[lower + 1],
+            state - lower,
+          )
+        }
+
+        function stateForLegacyProgress(progress) {
+          const value = clamp(progress)
+          for (let index = 0; index < LEGACY_STATE_PROGRESS.length - 1; index += 1) {
+            const start = LEGACY_STATE_PROGRESS[index]
+            const end = LEGACY_STATE_PROGRESS[index + 1]
+            if (value <= end) return index + (value - start) / Math.max(0.0001, end - start)
+          }
+          return 3
+        }
+
+        function statePulse(stateFloat, center, radius = 0.95) {
+          return smoothstep(1 - Math.abs(stateFloat - center) / radius)
+        }
+
+        function add(a, b) {
+          return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
+        }
+
+        function subtract(a, b) {
+          return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
+        }
+
+        function scale(a, amount) {
+          return [a[0] * amount, a[1] * amount, a[2] * amount]
+        }
+
+        function dot(a, b) {
+          return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+        }
+
+        function cross(a, b) {
+          return [
+            a[1] * b[2] - a[2] * b[1],
+            a[2] * b[0] - a[0] * b[2],
+            a[0] * b[1] - a[1] * b[0],
+          ]
+        }
+
+        function length(a) {
+          return Math.hypot(a[0], a[1], a[2])
+        }
+
+        function normalize(a) {
+          const magnitude = Math.max(1e-6, length(a))
+          return scale(a, 1 / magnitude)
+        }
+
+        function vectorMix(a, b, amount) {
+          return [mix(a[0], b[0], amount), mix(a[1], b[1], amount), mix(a[2], b[2], amount)]
+        }
+
+        function rotateX(point, angle) {
+          const cosine = Math.cos(angle)
+          const sine = Math.sin(angle)
+          return [point[0], point[1] * cosine - point[2] * sine, point[1] * sine + point[2] * cosine]
+        }
+
+        function rotateY(point, angle) {
+          const cosine = Math.cos(angle)
+          const sine = Math.sin(angle)
+          return [point[0] * cosine + point[2] * sine, point[1], -point[0] * sine + point[2] * cosine]
+        }
+
+        function rotateZ(point, angle) {
+          const cosine = Math.cos(angle)
+          const sine = Math.sin(angle)
+          return [point[0] * cosine - point[1] * sine, point[0] * sine + point[1] * cosine, point[2]]
+        }
+
+        function worldTransform(point) {
+          return rotateZ(rotateX(rotateY(point, 0.16), -0.52), -0.16)
+        }
+
+        function wrap01(value) {
+          return ((value % 1) + 1) % 1
+        }
+
+        function wrappedDistance(a, b) {
+          const distance = Math.abs(wrap01(a) - wrap01(b))
+          return Math.min(distance, 1 - distance)
+        }
+
+        // One authored scar survives every act. Its shallow S-bend, abrupt
+        // shoulder and paired dark thread make it recognisable without labels.
+        function masterScarV(uNormalized) {
+          const u = wrap01(uNormalized)
+          if (u <= 0.55) {
+            const t = clamp((u - 0.235) / 0.315)
+            return -0.08 + Math.sin(t * Math.PI) * 0.13 + Math.sin(t * TAU) * 0.035
+          }
+          const t = clamp((u - 0.55) / 0.265)
+          return mix(-0.08, 0.02, smootherstep(t)) - Math.sin(t * Math.PI) * 0.04
+        }
+
+        function mobiusPoint(u, vNormalized) {
+          const width = 0.76 * (1 + Math.sin(u * 3 + 0.35) * 0.18 + Math.sin(u * 7 - 0.7) * 0.07)
+          const v = vNormalized * width
+          const radius = 2.48 + Math.sin(u * 2 - 0.2) * 0.15 + Math.sin(u * 5) * 0.055
+          const twist = u * 0.5 + Math.sin(u * 3) * 0.035
+          const projected = radius + v * Math.cos(twist)
+          const sculpt = Math.sin(u * 5 + vNormalized * 2.7) * 0.035
+            + Math.sin(u * 11 - vNormalized * 4.2) * 0.014
+          const indentation = Math.exp(
+            -Math.pow(wrappedDistance(u / TAU, 0.62) / 0.055, 2)
+            -Math.pow((vNormalized + 0.24) / 0.36, 2)
+          ) * -0.14
+          const rise = Math.exp(
+            -Math.pow(wrappedDistance(u / TAU, 0.18) / 0.045, 2)
+            -Math.pow((vNormalized - 0.36) / 0.3, 2)
+          ) * 0.11
+
+          const point = [
+            projected * Math.cos(u),
+            v * Math.sin(twist) + Math.sin(u * 3 - 0.4) * 0.13,
+            projected * Math.sin(u),
+          ]
+          const provisional = worldTransform(point)
+          return add(provisional, scale(mobiusNormalBase(u, vNormalized), sculpt + indentation + rise))
+        }
+
+        function mobiusPointBase(u, vNormalized) {
+          const width = 0.76 * (1 + Math.sin(u * 3 + 0.35) * 0.18 + Math.sin(u * 7 - 0.7) * 0.07)
+          const v = vNormalized * width
+          const radius = 2.48 + Math.sin(u * 2 - 0.2) * 0.15 + Math.sin(u * 5) * 0.055
+          const twist = u * 0.5 + Math.sin(u * 3) * 0.035
+          const projected = radius + v * Math.cos(twist)
+          return worldTransform([
+            projected * Math.cos(u),
+            v * Math.sin(twist) + Math.sin(u * 3 - 0.4) * 0.13,
+            projected * Math.sin(u),
+          ])
+        }
+
+        function mobiusNormalBase(u, vNormalized) {
+          const epsilon = 0.001
+          const along = subtract(
+            mobiusPointBase(u + epsilon, vNormalized),
+            mobiusPointBase(u - epsilon, vNormalized),
+          )
+          const across = subtract(
+            mobiusPointBase(u, clamp(vNormalized + epsilon, -1, 1)),
+            mobiusPointBase(u, clamp(vNormalized - epsilon, -1, 1)),
+          )
+          return normalize(cross(along, across))
+        }
+
+        function mobiusFrame(u, vNormalized = 0) {
+          const epsilon = 0.002
+          const point = mobiusPoint(u, vNormalized)
+          const tangent = normalize(subtract(mobiusPoint(u + epsilon, vNormalized), point))
+          let normal = mobiusNormalBase(u, vNormalized)
+          const lateral = normalize(cross(normal, tangent))
+          normal = normalize(cross(tangent, lateral))
+          return { point, tangent, lateral, normal }
+        }
+
+        function architecturalLift(uNormalized, vNormalized) {
+          const ribA = Math.exp(
+            -Math.pow(wrappedDistance(uNormalized, 0.11) / 0.025, 4)
+            -Math.pow((vNormalized + 0.36) / 0.34, 4)
+          ) * 0.105
+          const ribB = Math.exp(
+            -Math.pow(wrappedDistance(uNormalized, 0.76) / 0.018, 4)
+            -Math.pow((vNormalized - 0.28) / 0.42, 4)
+          ) * 0.075
+          return ribA + ribB
+        }
+
+        function createGeometry() {
+          const longitudinalSegments = innerWidth <= 720 ? 190 : 280
+          const widthSegments = innerWidth <= 720 ? 20 : 30
+          const vertices = []
+
+          function pushVertex(position, normal, uNormalized, vNormalized) {
+            vertices.push(
+              position[0], position[1], position[2],
+              normal[0], normal[1], normal[2],
+              uNormalized, vNormalized,
+            )
+          }
+
+          function pushTriangle(a, b, c, normalA, normalB, normalC, params) {
+            pushVertex(a, normalA, params[0][0], params[0][1])
+            pushVertex(b, normalB, params[1][0], params[1][1])
+            pushVertex(c, normalC, params[2][0], params[2][1])
+          }
+
+          function surfaceVertex(u, vNormalized, side) {
+            const base = mobiusPoint(u, vNormalized)
+            const normal = mobiusNormalBase(u, vNormalized)
+            const uNormalized = wrap01(u / TAU)
+            const thickness = 0.13
+              + Math.sin(u * 4 - 0.3) * 0.018
+              + (1 - Math.abs(vNormalized)) * 0.018
+            const lift = side > 0 ? architecturalLift(uNormalized, vNormalized) : 0
+            return {
+              position: add(base, scale(normal, side * thickness * 0.5 + lift)),
+              normal: scale(normal, side),
+            }
+          }
+
+          for (let longitudinal = 0; longitudinal < longitudinalSegments; longitudinal += 1) {
+            const u0 = longitudinal / longitudinalSegments * TAU
+            const u1 = (longitudinal + 1) / longitudinalSegments * TAU
+            for (let width = 0; width < widthSegments; width += 1) {
+              const v0 = mix(-1, 1, width / widthSegments)
+              const v1 = mix(-1, 1, (width + 1) / widthSegments)
+              const params = [[u0 / TAU, v0], [u1 / TAU, v0], [u1 / TAU, v1], [u0 / TAU, v1]]
+
+              const top00 = surfaceVertex(u0, v0, 1)
+              const top10 = surfaceVertex(u1, v0, 1)
+              const top11 = surfaceVertex(u1, v1, 1)
+              const top01 = surfaceVertex(u0, v1, 1)
+              pushTriangle(top00.position, top10.position, top11.position, top00.normal, top10.normal, top11.normal, [params[0], params[1], params[2]])
+              pushTriangle(top00.position, top11.position, top01.position, top00.normal, top11.normal, top01.normal, [params[0], params[2], params[3]])
+
+              const bottom00 = surfaceVertex(u0, v0, -1)
+              const bottom10 = surfaceVertex(u1, v0, -1)
+              const bottom11 = surfaceVertex(u1, v1, -1)
+              const bottom01 = surfaceVertex(u0, v1, -1)
+              pushTriangle(bottom00.position, bottom11.position, bottom10.position, bottom00.normal, bottom11.normal, bottom10.normal, [params[0], params[2], params[1]])
+              pushTriangle(bottom00.position, bottom01.position, bottom11.position, bottom00.normal, bottom01.normal, bottom11.normal, [params[0], params[3], params[2]])
+            }
+
+            for (const edge of [-1, 1]) {
+              const top0 = surfaceVertex(u0, edge, 1)
+              const top1 = surfaceVertex(u1, edge, 1)
+              const bottom0 = surfaceVertex(u0, edge, -1)
+              const bottom1 = surfaceVertex(u1, edge, -1)
+              const edgeNormal = normalize(cross(subtract(top1.position, top0.position), subtract(bottom0.position, top0.position)))
+              const u0Normalized = u0 / TAU
+              const u1Normalized = u1 / TAU
+              pushTriangle(top0.position, bottom0.position, bottom1.position, edgeNormal, edgeNormal, edgeNormal, [[u0Normalized, edge], [u0Normalized, edge], [u1Normalized, edge]])
+              pushTriangle(top0.position, bottom1.position, top1.position, edgeNormal, edgeNormal, edgeNormal, [[u0Normalized, edge], [u1Normalized, edge], [u1Normalized, edge]])
+            }
+          }
+
+          return new Float32Array(vertices)
+        }
+
+        function createDerivedGeometry() {
+          const vertices = []
+
+          function pushVertex(base, final, normal, uNormalized, vNormalized, kind, birth) {
+            vertices.push(
+              base[0], base[1], base[2],
+              final[0], final[1], final[2],
+              normal[0], normal[1], normal[2],
+              uNormalized, vNormalized,
+              kind, birth,
+            )
+          }
+
+          function addBox({
+            u, v, length: alongLength, width, height, yaw = 0, kind = 1,
+            birth = 0, normalSide = 1, offsetAlong = 0, offsetAcross = 0,
+            baseHeight = 0,
+          }) {
+            const frame = mobiusFrame(u * TAU, v)
+            const axisX = normalize(add(scale(frame.tangent, Math.cos(yaw)), scale(frame.lateral, Math.sin(yaw))))
+            const axisY = normalize(add(scale(frame.lateral, Math.cos(yaw)), scale(frame.tangent, -Math.sin(yaw))))
+            let axisZ = frame.normal
+            const outward = normalize(frame.point)
+            if (dot(axisZ, outward) < 0) axisZ = scale(axisZ, -1)
+            axisZ = scale(axisZ, normalSide)
+            const baseLift = 0.045
+            const center = add(
+              add(frame.point, add(scale(frame.tangent, offsetAlong), scale(frame.lateral, offsetAcross))),
+              scale(axisZ, baseLift + baseHeight),
+            )
+            const corners = [
+              [-0.5, -0.5, 0], [0.5, -0.5, 0], [0.5, 0.5, 0], [-0.5, 0.5, 0],
+              [-0.5, -0.5, 1], [0.5, -0.5, 1], [0.5, 0.5, 1], [-0.5, 0.5, 1],
+            ].map(([x, y, z]) => {
+              const footprint = add(center, add(scale(axisX, x * alongLength), scale(axisY, y * width)))
+              return {
+                base: footprint,
+                final: add(footprint, scale(axisZ, z * height)),
+              }
+            })
+            const faces = [
+              { indices: [0, 1, 2, 0, 2, 3], normal: scale(axisZ, -1) },
+              { indices: [4, 6, 5, 4, 7, 6], normal: axisZ },
+              { indices: [0, 4, 5, 0, 5, 1], normal: scale(axisY, -1) },
+              { indices: [3, 2, 6, 3, 6, 7], normal: axisY },
+              { indices: [0, 3, 7, 0, 7, 4], normal: scale(axisX, -1) },
+              { indices: [1, 5, 6, 1, 6, 2], normal: axisX },
+            ]
+            faces.forEach((face) => {
+              face.indices.forEach((index) => {
+                const vertex = corners[index]
+                pushVertex(vertex.base, vertex.final, face.normal, u, v, kind, birth)
+              })
+            })
+          }
+
+          function addCurvedWall({
+            u0, u1, v0, v1 = v0, height, halfWidth = 0.018,
+            birth = 0, kind = 1, normalSide = 1, segments = 20,
+            pathV = null,
+          }) {
+            function wallSample(u, v) {
+              const frame = mobiusFrame(u * TAU, v)
+              let normal = frame.normal
+              if (dot(normal, frame.point) < 0) normal = scale(normal, -1)
+              normal = scale(normal, normalSide)
+              const center = add(frame.point, scale(normal, 0.052))
+              return {
+                center,
+                normal,
+                lateral: frame.lateral,
+              }
+            }
+
+            for (let index = 0; index < segments; index += 1) {
+              const amount0 = index / segments
+              const amount1 = (index + 1) / segments
+              const uA = mix(u0, u1, amount0)
+              const uB = mix(u0, u1, amount1)
+              const vA = pathV ? pathV(uA) : mix(v0, v1, amount0)
+              const vB = pathV ? pathV(uB) : mix(v0, v1, amount1)
+              const a = wallSample(uA, vA)
+              const b = wallSample(uB, vB)
+              const localBirth = birth + amount0 * 0.12
+
+              const aLeft = add(a.center, scale(a.lateral, -halfWidth))
+              const aRight = add(a.center, scale(a.lateral, halfWidth))
+              const bLeft = add(b.center, scale(b.lateral, -halfWidth))
+              const bRight = add(b.center, scale(b.lateral, halfWidth))
+              const aTopLeft = add(aLeft, scale(a.normal, height))
+              const aTopRight = add(aRight, scale(a.normal, height))
+              const bTopLeft = add(bLeft, scale(b.normal, height))
+              const bTopRight = add(bRight, scale(b.normal, height))
+              const averageNormal = normalize(add(a.normal, b.normal))
+              const averageLateral = normalize(add(a.lateral, b.lateral))
+
+              const faces = [
+                { points: [aLeft, bLeft, bTopLeft, aLeft, bTopLeft, aTopLeft], normal: scale(averageLateral, -1) },
+                { points: [aRight, aTopRight, bTopRight, aRight, bTopRight, bRight], normal: averageLateral },
+                { points: [aTopLeft, bTopLeft, bTopRight, aTopLeft, bTopRight, aTopRight], normal: averageNormal },
+              ]
+
+              faces.forEach((face) => {
+                face.points.forEach((finalPoint) => {
+                  const isA = finalPoint === aLeft
+                    || finalPoint === aRight
+                    || finalPoint === aTopLeft
+                    || finalPoint === aTopRight
+                  const nearestBase = finalPoint === aTopRight || finalPoint === aRight
+                    ? aRight
+                    : finalPoint === bTopRight || finalPoint === bRight
+                      ? bRight
+                      : finalPoint === bTopLeft || finalPoint === bLeft
+                        ? bLeft
+                        : aLeft
+                  pushVertex(nearestBase, finalPoint, face.normal, wrap01(isA ? uA : uB), isA ? vA : vB, kind, localBirth)
+                })
+              })
+            }
+          }
+
+          function addPathRibbon() {
+            const segments = innerWidth <= 720 ? 110 : 180
+            const start = 0.225
+            const distance = 0.77
+            for (let index = 0; index < segments; index += 1) {
+              const u0 = start + distance * index / segments
+              const u1 = start + distance * (index + 1) / segments
+              const v0 = masterScarV(u0)
+              const v1 = masterScarV(u1)
+              const frame0 = mobiusFrame(u0 * TAU, v0)
+              const frame1 = mobiusFrame(u1 * TAU, v1)
+              let normal0 = frame0.normal
+              let normal1 = frame1.normal
+              if (dot(normal0, frame0.point) < 0) normal0 = scale(normal0, -1)
+              if (dot(normal1, frame1.point) < 0) normal1 = scale(normal1, -1)
+              const halfWidth = 0.018 + Math.sin(index * 0.71) * 0.003
+              const p00 = add(add(frame0.point, scale(frame0.lateral, -halfWidth)), scale(normal0, 0.075))
+              const p01 = add(add(frame0.point, scale(frame0.lateral, halfWidth)), scale(normal0, 0.075))
+              const p10 = add(add(frame1.point, scale(frame1.lateral, -halfWidth)), scale(normal1, 0.075))
+              const p11 = add(add(frame1.point, scale(frame1.lateral, halfWidth)), scale(normal1, 0.075))
+              const pathNormal = normalize(add(normal0, normal1))
+              ;[p00, p10, p11, p00, p11, p01].forEach((point) => {
+                pushVertex(point, point, pathNormal, wrap01(u0), v0, 3, index / segments)
+              })
+            }
+          }
+
+          // Four observation imprints remain visible while the exact same vertices
+          // rise into curved load-bearing surfaces. Nothing is spawned in a new world.
+          addCurvedWall({ u0: 0.235, u1: 0.55, v0: -0.08, height: 0.18, halfWidth: 0.024, birth: 0, pathV: masterScarV })
+          addCurvedWall({ u0: 0.235, u1: 0.55, v0: -0.08, height: 0.195, halfWidth: 0.0045, birth: 0, kind: 7, pathV: masterScarV })
+          addCurvedWall({ u0: 0.34, u1: 0.5, v0: -0.52, v1: -0.38, height: 0.54, halfWidth: 0.019, birth: 0.18 })
+          addCurvedWall({ u0: 0.38, u1: 0.56, v0: 0.14, v1: 0.24, height: 0.92, halfWidth: 0.022, birth: 0.36 })
+          addCurvedWall({ u0: 0.44, u1: 0.62, v0: 0.52, v1: 0.4, height: 0.68, halfWidth: 0.016, birth: 0.54 })
+
+          // The two thought surfaces retain their own curvature; they never fly together.
+          addCurvedWall({ u0: 0.54, u1: 0.625, v0: -0.4, v1: -0.3, height: 1.02, halfWidth: 0.026, birth: 0.7, segments: 14 })
+          addCurvedWall({ u0: 0.605, u1: 0.69, v0: 0.36, v1: 0.26, height: 0.94, halfWidth: 0.026, birth: 0.8, segments: 14 })
+
+          // Only the transition owns multiple temporal membranes. Past is sparse;
+          // the present is clearer; both synchronize once before the room appears.
+          addBox({ u: 0.69, v: -0.44, length: 1.05, width: 0.022, height: 0.58, yaw: 0.08, kind: 2, birth: 0.1, normalSide: -1 })
+          addBox({ u: 0.705, v: 0.34, length: 1.2, width: 0.024, height: 0.72, yaw: -0.06, kind: 2, birth: 0.68, normalSide: -1 })
+          addBox({ u: 0.72, v: 0.02, length: 0.76, width: 0.02, height: 0.5, yaw: 0.02, kind: 2, birth: 0.92, normalSide: -1 })
+
+          // One room, one anchor, four temporal states. The Möbius surface is its floor.
+          const room = { u: 0.815, v: 0.02, normalSide: -1 }
+          addBox({ ...room, length: 0.06, width: 0.06, height: 0.92, offsetAlong: 0.5, offsetAcross: -0.5, kind: 4, birth: 0.06 })
+          addBox({ ...room, length: 0.06, width: 0.06, height: 0.92, offsetAlong: 0.5, offsetAcross: 0.5, kind: 4, birth: 0.12 })
+          addBox({ ...room, length: 0.06, width: 1.04, height: 0.07, offsetAlong: 0.5, baseHeight: 0.84, kind: 4, birth: 0.18 })
+          addBox({ ...room, length: 1.02, width: 0.055, height: 0.88, offsetAcross: -0.5, kind: 5, birth: 0.28 })
+          addBox({ ...room, length: 1.02, width: 0.055, height: 0.88, offsetAcross: 0.5, kind: 5, birth: 0.34 })
+          addBox({ ...room, length: 0.07, width: 0.38, height: 0.88, offsetAlong: 0.5, offsetAcross: -0.33, kind: 5, birth: 0.42 })
+          addBox({ ...room, length: 0.07, width: 0.38, height: 0.88, offsetAlong: 0.5, offsetAcross: 0.33, kind: 5, birth: 0.48 })
+          addBox({ ...room, length: 0.075, width: 0.25, height: 0.88, offsetAlong: 0.5, kind: 6, birth: 0.78 })
+          // The scar becomes the two dark inner edges of the room's one gap.
+          addBox({ ...room, length: 0.078, width: 0.012, height: 0.885, offsetAlong: 0.502, offsetAcross: -0.135, kind: 8, birth: 0.18 })
+          addBox({ ...room, length: 0.078, width: 0.012, height: 0.885, offsetAlong: 0.502, offsetAcross: 0.135, kind: 8, birth: 0.24 })
+
+          addPathRibbon()
+          return new Float32Array(vertices)
+        }
+
+        const vertexSource = `#version 300 es
+          precision highp float;
+
+          in vec3 aPosition;
+          in vec3 aNormal;
+          in vec2 aParam;
+
+          uniform mat4 uViewProjection;
+          uniform float uTime;
+          uniform float uProgress;
+          uniform float uState;
+
+          out vec3 vWorld;
+          out vec3 vNormal;
+          out vec2 vParam;
+
+          const float TAU = 6.28318530718;
+
+          float saturate(float value) {
+            return clamp(value, 0.0, 1.0);
+          }
+
+          float wrappedDistance(float a, float b) {
+            float distance = abs(fract(a) - fract(b));
+            return min(distance, 1.0 - distance);
+          }
+
+          float masterScarV(float u) {
+            if (u <= 0.55) {
+              float t = clamp((u - 0.235) / 0.315, 0.0, 1.0);
+              return -0.08 + sin(t * 3.14159265) * 0.13 + sin(t * TAU) * 0.035;
+            }
+            float t = clamp((u - 0.55) / 0.265, 0.0, 1.0);
+            return mix(-0.08, 0.02, smoothstep(0.0, 1.0, t)) - sin(t * 3.14159265) * 0.04;
+          }
+
+          void main() {
+            float travellingPressure = sin(aParam.x * TAU * 3.0 - uTime * 0.72);
+            float delayedPressure = sin(aParam.x * TAU * 1.25 - uTime * 0.46 + aParam.y * 1.6);
+            float breath = travellingPressure * 0.022 + delayedPressure * 0.009;
+
+            float eventTime = saturate((uProgress - 0.87) / 0.13);
+            float scarV = masterScarV(aParam.x);
+            float impactDistance = length(vec2((aParam.x - 0.235) * 5.0, (aParam.y - scarV) * 0.65));
+            float impactWave = sin(impactDistance * 42.0 - eventTime * 15.0)
+              * exp(-impactDistance * 8.0)
+              * sin(eventTime * 3.14159265)
+              * 0.055;
+
+            float orderPass = smoothstep(3.05, 3.5, uState) * (1.0 - smoothstep(4.55, 5.08, uState));
+            float orderRange = smoothstep(0.22, 0.3, aParam.x) * (1.0 - smoothstep(0.48, 0.57, aParam.x));
+            float scarRange = smoothstep(0.225, 0.25, aParam.x)
+              * (1.0 - smoothstep(0.815, 0.85, aParam.x));
+            float inheritedGroove = exp(-pow((aParam.y - scarV) / 0.065, 2.0)) * orderRange;
+            float scarMemory = exp(-pow((aParam.y - scarV) / 0.026, 2.0))
+              * scarRange
+              * smoothstep(3.18, 3.52, uState)
+              * (1.0 - smoothstep(14.35, 14.82, uState));
+            float foldAlong = smoothstep(0.22, 0.3, aParam.x)
+              * (1.0 - smoothstep(0.53, 0.62, aParam.x));
+            float nearWing = smoothstep(0.08, 0.92, -aParam.y);
+            float openWing = smoothstep(0.42, 0.96, aParam.y);
+            float oneSidedFold = (nearWing * 0.58 - openWing * 0.045)
+              * foldAlong
+              * orderPass;
+
+            float adjacencyPass = smoothstep(5.15, 5.85, uState) * (1.0 - smoothstep(7.3, 8.0, uState));
+            float adjacencyA = exp(-pow(wrappedDistance(aParam.x, 0.575) / 0.042, 2.0));
+            float adjacencyB = exp(-pow(wrappedDistance(aParam.x, 0.655) / 0.038, 2.0));
+            float adjacencyLift = (adjacencyA * 0.19 + adjacencyB * 0.15) * adjacencyPass;
+
+            float seamPass = smoothstep(7.25, 7.9, uState) * (1.0 - smoothstep(8.35, 9.1, uState));
+            float seam = exp(-pow(wrappedDistance(aParam.x, 0.69) / 0.016, 2.0))
+              * (0.5 + 0.5 * smoothstep(0.05, 0.8, abs(aParam.y)))
+              * seamPass;
+
+            float roomMemory = smoothstep(10.58, 11.05, uState)
+              * (1.0 - smoothstep(13.7, 14.5, uState))
+              * exp(-pow(wrappedDistance(aParam.x, 0.815) / 0.035, 2.0))
+              * exp(-pow((aParam.y - 0.02) / 0.28, 2.0));
+
+            vec3 position = aPosition + aNormal * (
+              breath
+              + impactWave
+              - inheritedGroove * orderPass * 0.075
+              - scarMemory * 0.006
+              + oneSidedFold
+              + adjacencyLift
+              - seam * 0.09
+              - roomMemory * 0.032
+            );
+            vWorld = position;
+            vNormal = normalize(aNormal);
+            vParam = aParam;
+            gl_Position = uViewProjection * vec4(position, 1.0);
+          }
+        `
+
+        const fragmentSource = `#version 300 es
+          precision highp float;
+
+          in vec3 vWorld;
+          in vec3 vNormal;
+          in vec2 vParam;
+
+          uniform vec3 uCamera;
+          uniform float uTime;
+          uniform float uProgress;
+          uniform float uState;
+
+          out vec4 outColor;
+
+          float hash31(vec3 p) {
+            p = fract(p * 0.1031);
+            p += dot(p, p.yzx + 33.33);
+            return fract((p.x + p.y) * p.z);
+          }
+
+          float wrappedDistance(float a, float b) {
+            float distance = abs(fract(a) - fract(b));
+            return min(distance, 1.0 - distance);
+          }
+
+          float masterScarV(float u) {
+            if (u <= 0.55) {
+              float t = clamp((u - 0.235) / 0.315, 0.0, 1.0);
+              return -0.08 + sin(t * 3.14159265) * 0.13 + sin(t * 6.28318531) * 0.035;
+            }
+            float t = clamp((u - 0.55) / 0.265, 0.0, 1.0);
+            return mix(-0.08, 0.02, smoothstep(0.0, 1.0, t)) - sin(t * 3.14159265) * 0.04;
+          }
+
+          void main() {
+            vec3 normal = normalize(vNormal);
+            if (!gl_FrontFacing) normal *= -1.0;
+            vec3 viewDirection = normalize(uCamera - vWorld);
+            vec3 keyLight = normalize(vec3(-0.62, 0.84, 0.66));
+            vec3 fillLight = normalize(vec3(0.58, -0.18, 0.48));
+
+            float key = abs(dot(normal, keyLight));
+            float fill = abs(dot(normal, fillLight));
+            float halfLambert = abs(dot(normal, keyLight)) * 0.5 + 0.5;
+            float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 3.0);
+
+            vec3 bone = vec3(0.93, 0.925, 0.89);
+            vec3 deep = vec3(0.105, 0.11, 0.108);
+            vec3 color = bone * (0.31 + key * 0.56 + fill * 0.1 + halfLambert * 0.05);
+            color += bone * rim * 0.08;
+
+            float fissureA = exp(-pow(wrappedDistance(vParam.x, 0.235) / 0.008, 2.0));
+            float fissureB = exp(-pow(wrappedDistance(vParam.x, 0.715) / 0.006, 2.0))
+              * smoothstep(0.1, 0.75, abs(vParam.y));
+            float edgeDepth = smoothstep(0.78, 1.0, abs(vParam.y));
+            color = mix(color, deep, fissureA * 0.76 + fissureB * 0.42 + edgeDepth * 0.08);
+
+            float sediment = sin(vParam.x * 117.0 + vParam.y * 9.0)
+              * sin(vParam.x * 43.0 - vParam.y * 14.0);
+            color += sediment * 0.012;
+            color += (hash31(vWorld * 16.0) - 0.5) * 0.018;
+
+            float scarV = masterScarV(vParam.x);
+            float scarRange = smoothstep(0.225, 0.25, vParam.x)
+              * (1.0 - smoothstep(0.815, 0.85, vParam.x));
+            float scarDistance = exp(-pow((vParam.y - scarV) / 0.032, 2.0)) * scarRange;
+            float eventMark = smoothstep(0.93, 1.0, uProgress)
+              * exp(-pow(wrappedDistance(vParam.x, 0.235) / 0.016, 2.0))
+              * exp(-pow((vParam.y - scarV) / 0.24, 2.0));
+            color = mix(color, deep * 0.58, eventMark * 0.82);
+
+            float orderAxis = smoothstep(3.2, 4.0, uState)
+              * exp(-pow((vParam.y - scarV) / 0.028, 2.0))
+              * smoothstep(0.22, 0.29, vParam.x)
+              * (1.0 - smoothstep(0.52, 0.64, vParam.x));
+            color = mix(color, deep * 0.42, orderAxis * 0.74);
+
+            float scarRecall = smoothstep(12.25, 13.0, uState)
+              * (1.0 - smoothstep(14.25, 14.78, uState));
+            color = mix(color, deep * 0.52, scarDistance * scarRecall * 0.68);
+
+            float timeSediment = smoothstep(8.25, 9.0, uState)
+              * (1.0 - smoothstep(11.7, 12.45, uState))
+              * smoothstep(0.66, 0.7, vParam.x)
+              * (1.0 - smoothstep(0.88, 0.93, vParam.x));
+            float timeBands = 0.5 + 0.5 * sin(vParam.x * 420.0 + vParam.y * 7.0);
+            color = mix(color, bone * (0.38 + timeBands * 0.28), timeSediment * 0.34);
+
+            float topologyWindow = smoothstep(0.72, 1.0, uState)
+              * (1.0 - smoothstep(11.8, 12.35, uState));
+            float topologyEdge = smoothstep(0.88, 0.985, abs(vParam.y)) * topologyWindow;
+            color = mix(color, deep, topologyEdge * 0.2);
+            color += bone * topologyEdge * rim * 0.18;
+
+            float timeWindow = smoothstep(8.1, 8.7, uState)
+              * (1.0 - smoothstep(11.75, 12.3, uState));
+            float edgeBand = smoothstep(0.91, 0.985, abs(vParam.y)) * timeWindow;
+            float presentSide = smoothstep(0.775, 0.815, vParam.x);
+            float syncPulse = 1.0 - smoothstep(0.0, 0.15, abs(uState - 8.55));
+            float pastLight = 0.36;
+            float presentLight = 0.78 + sin(uTime * 0.82) * 0.055 * (1.0 - syncPulse);
+            float edgeLight = mix(pastLight, presentLight, presentSide);
+            color = mix(color, bone * edgeLight, edgeBand * 0.72);
+
+            float surfaceAlpha = 1.0 - smoothstep(13.25, 14.78, uState);
+            outColor = vec4(max(color, 0.0) * surfaceAlpha, surfaceAlpha);
+          }
+        `
+
+        const derivedVertexSource = `#version 300 es
+          precision highp float;
+
+          in vec3 aBasePosition;
+          in vec3 aFinalPosition;
+          in vec3 aDerivedNormal;
+          in vec2 aDerivedParam;
+          in vec2 aDerivedMeta;
+
+          uniform mat4 uViewProjection;
+          uniform float uState;
+          uniform float uTime;
+
+          out vec3 vDerivedWorld;
+          out vec3 vDerivedNormal;
+          out float vDerivedKind;
+          out float vDerivedLife;
+          out float vDerivedBirth;
+          out float vDerivedGrow;
+
+          float saturate(float value) { return clamp(value, 0.0, 1.0); }
+          float smoothRange(float value, float enterStart, float enterEnd, float exitStart, float exitEnd) {
+            return smoothstep(enterStart, enterEnd, value) * (1.0 - smoothstep(exitStart, exitEnd, value));
+          }
+
+          void main() {
+            float kind = aDerivedMeta.x;
+            float birth = aDerivedMeta.y;
+            float recall = smoothRange(uState, 12.35, 13.0, 13.72, 14.45);
+            float life = 0.0;
+            float grow = 0.0;
+
+            if (kind > 7.5) {
+              life = max(smoothRange(uState, 9.08, 9.5, 11.85, 12.45), recall);
+              grow = max(smoothstep(9.18, 9.72, uState), recall);
+            } else if (kind > 6.5) {
+              life = max(smoothRange(uState, 3.06, 3.38, 7.72, 8.55), recall);
+              grow = max(smoothstep(3.48, 4.82, uState), recall);
+            } else if (kind < 1.5) {
+              float primary = smoothRange(uState, 3.06 + birth * 0.18, 3.38 + birth * 0.18, 7.72, 8.55);
+              life = max(primary, recall);
+              grow = max(smoothstep(3.48 + birth * 0.46, 4.82 + birth * 0.46, uState), recall);
+            } else if (kind < 2.5) {
+              life = smoothRange(uState, 7.25 + birth * 0.08, 7.62 + birth * 0.08, 8.86, 9.16);
+              grow = 1.0;
+            } else if (kind < 3.5) {
+              life = smoothRange(uState, 12.25, 12.92, 14.62, 15.0);
+              grow = 1.0;
+            } else if (kind < 4.5) {
+              life = max(smoothRange(uState, 8.72, 8.96, 11.85, 12.45), recall);
+              grow = max(smoothstep(8.75, 9.08, uState), recall);
+            } else if (kind < 5.5) {
+              life = max(smoothRange(uState, 9.12, 9.5, 11.85, 12.45), recall);
+              grow = max(smoothstep(9.18, 9.72, uState), recall);
+            } else {
+              life = smoothRange(uState, 9.72, 10.02, 10.58, 10.98);
+              grow = smoothRange(uState, 9.72, 10.06, 10.54, 10.98);
+            }
+
+            float collapse = smoothstep(13.45, 14.42, uState);
+            if (kind != 3.0) grow *= 1.0 - collapse;
+            vec3 position = mix(aBasePosition, aFinalPosition, saturate(grow));
+
+            if (kind > 2.5 && kind < 3.5) {
+              float pathCollapse = smoothstep(14.12, 14.96, uState);
+              position = mix(position, vec3(0.0), pathCollapse);
+            }
+
+            if (kind > 1.5 && kind < 2.5) {
+              float past = 1.0 - smoothstep(0.28, 0.38, birth);
+              float present = 1.0 - past;
+              float sync = 1.0 - smoothstep(0.0, 0.15, abs(uState - 8.55));
+              float pastOffset = sin(uTime * 0.11 + birth * 7.0) * 0.007;
+              float presentOffset = sin(uTime * 0.82 + birth * 7.0) * 0.021;
+              float timeOffset = mix(pastOffset, presentOffset, present) * (1.0 - sync) * life;
+              position += normalize(aDerivedNormal) * timeOffset;
+            }
+            if (kind < 1.5) {
+              float inheritedPressure = sin(aDerivedParam.x * 31.0 + aDerivedParam.y * 4.0 + uTime * 0.12);
+              position += normalize(aDerivedNormal) * inheritedPressure * 0.004 * life;
+            }
+
+            vDerivedWorld = position;
+            vDerivedNormal = normalize(aDerivedNormal);
+            vDerivedKind = kind;
+            vDerivedLife = life;
+            vDerivedBirth = birth;
+            vDerivedGrow = saturate(grow);
+            gl_Position = uViewProjection * vec4(position, 1.0);
+          }
+        `
+
+        const derivedFragmentSource = `#version 300 es
+          precision highp float;
+
+          in vec3 vDerivedWorld;
+          in vec3 vDerivedNormal;
+          in float vDerivedKind;
+          in float vDerivedLife;
+          in float vDerivedBirth;
+          in float vDerivedGrow;
+
+          uniform vec3 uCamera;
+          uniform float uState;
+          uniform float uTime;
+
+          out vec4 outColor;
+
+          void main() {
+            vec3 normal = normalize(vDerivedNormal);
+            if (!gl_FrontFacing) normal *= -1.0;
+            vec3 viewDirection = normalize(uCamera - vDerivedWorld);
+            vec3 keyLight = normalize(vec3(-0.58, 0.82, 0.72));
+            float light = 0.28 + abs(dot(normal, keyLight)) * 0.58;
+            float rim = pow(1.0 - max(dot(normal, viewDirection), 0.0), 2.6);
+            vec3 bone = vec3(0.93, 0.925, 0.89);
+            vec3 color = bone * (light + rim * 0.11);
+            float alpha = vDerivedLife;
+
+            if (vDerivedKind > 7.5) {
+              color = vec3(0.055, 0.058, 0.056) * (0.76 + rim * 0.1);
+              alpha *= 0.88;
+            } else if (vDerivedKind > 6.5) {
+              color = vec3(0.075, 0.078, 0.076) * (0.72 + rim * 0.12);
+              alpha *= 0.92;
+            } else if (vDerivedKind < 1.5) {
+              vec3 imprint = vec3(0.11, 0.115, 0.11);
+              color = mix(imprint, color, smoothstep(0.08, 0.76, vDerivedGrow));
+              alpha *= mix(0.52, 1.0, vDerivedGrow);
+            } else if (vDerivedKind < 2.5) {
+              float past = 1.0 - smoothstep(0.28, 0.38, vDerivedBirth);
+              float present = 1.0 - past;
+              float sync = 1.0 - smoothstep(0.0, 0.15, abs(uState - 8.55));
+              vec3 presentColor = bone * (0.78 + sin(uTime * 0.9) * 0.025 * (1.0 - sync));
+              color = mix(vec3(0.25, 0.255, 0.25), presentColor, present);
+              alpha *= mix(0.22, 0.62, present);
+            } else if (vDerivedKind > 2.5 && vDerivedKind < 3.5) {
+              color = vec3(0.09, 0.093, 0.09) * (0.7 + rim * 0.16);
+              alpha *= 0.78;
+            } else if (vDerivedKind < 4.5) {
+              color *= 0.54;
+              alpha *= 0.78;
+            } else if (vDerivedKind < 5.5) {
+              color *= 0.78;
+              alpha *= 0.88;
+            } else {
+              color *= 0.94;
+              alpha *= 0.92;
+            }
+
+            outColor = vec4(max(color, 0.0) * alpha, alpha);
+          }
+        `
+
+        function compileShader(type, source) {
+          const shader = gl.createShader(type)
+          gl.shaderSource(shader, source)
+          gl.compileShader(shader)
+          if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            const message = gl.getShaderInfoLog(shader) || 'Unknown shader error.'
+            gl.deleteShader(shader)
+            throw new Error(message)
+          }
+          return shader
+        }
+
+        function createProgram() {
+          const vertexShader = compileShader(gl.VERTEX_SHADER, vertexSource)
+          const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentSource)
+          const nextProgram = gl.createProgram()
+          gl.attachShader(nextProgram, vertexShader)
+          gl.attachShader(nextProgram, fragmentShader)
+          gl.linkProgram(nextProgram)
+          gl.deleteShader(vertexShader)
+          gl.deleteShader(fragmentShader)
+          if (!gl.getProgramParameter(nextProgram, gl.LINK_STATUS)) {
+            const message = gl.getProgramInfoLog(nextProgram) || 'Unknown program link error.'
+            gl.deleteProgram(nextProgram)
+            throw new Error(message)
+          }
+          return nextProgram
+        }
+
+        function createDerivedProgram() {
+          const vertexShader = compileShader(gl.VERTEX_SHADER, derivedVertexSource)
+          const fragmentShader = compileShader(gl.FRAGMENT_SHADER, derivedFragmentSource)
+          const nextProgram = gl.createProgram()
+          gl.attachShader(nextProgram, vertexShader)
+          gl.attachShader(nextProgram, fragmentShader)
+          gl.linkProgram(nextProgram)
+          gl.deleteShader(vertexShader)
+          gl.deleteShader(fragmentShader)
+          if (!gl.getProgramParameter(nextProgram, gl.LINK_STATUS)) {
+            const message = gl.getProgramInfoLog(nextProgram) || 'Unknown derived program link error.'
+            gl.deleteProgram(nextProgram)
+            throw new Error(message)
+          }
+          return nextProgram
+        }
+
+        function perspectiveMatrix(fov, aspect, near, far) {
+          const f = 1 / Math.tan(fov / 2)
+          const inverse = 1 / (near - far)
+          return new Float32Array([
+            f / aspect, 0, 0, 0,
+            0, f, 0, 0,
+            0, 0, (far + near) * inverse, -1,
+            0, 0, 2 * far * near * inverse, 0,
+          ])
+        }
+
+        function lookAtMatrix(eye, target, up) {
+          const zAxis = normalize(subtract(eye, target))
+          const xAxis = normalize(cross(up, zAxis))
+          const yAxis = cross(zAxis, xAxis)
+          return new Float32Array([
+            xAxis[0], yAxis[0], zAxis[0], 0,
+            xAxis[1], yAxis[1], zAxis[1], 0,
+            xAxis[2], yAxis[2], zAxis[2], 0,
+            -dot(xAxis, eye), -dot(yAxis, eye), -dot(zAxis, eye), 1,
+          ])
+        }
+
+        function multiplyMatrices(a, b) {
+          const output = new Float32Array(16)
+          for (let column = 0; column < 4; column += 1) {
+            for (let row = 0; row < 4; row += 1) {
+              output[column * 4 + row] =
+                a[0 * 4 + row] * b[column * 4 + 0]
+                + a[1 * 4 + row] * b[column * 4 + 1]
+                + a[2 * 4 + row] * b[column * 4 + 2]
+                + a[3 * 4 + row] * b[column * 4 + 3]
+            }
+          }
+          return output
+        }
+
+        function rotateAroundAxis(vector, axis, angle) {
+          const unitAxis = normalize(axis)
+          const cosine = Math.cos(angle)
+          const sine = Math.sin(angle)
+          return add(
+            add(scale(vector, cosine), scale(cross(unitAxis, vector), sine)),
+            scale(unitAxis, dot(unitAxis, vector) * (1 - cosine)),
+          )
+        }
+
+        function bezierPoint(a, b, c, d, t) {
+          const oneMinus = 1 - t
+          return [0, 1, 2].map((index) =>
+            oneMinus ** 3 * a[index]
+              + 3 * oneMinus ** 2 * t * b[index]
+              + 3 * oneMinus * t ** 2 * c[index]
+              + t ** 3 * d[index])
+        }
+
+        function cameraFor(progress) {
+          const compact = innerWidth <= 720
+          const wideDesktop = !compact && innerWidth / innerHeight > 1.45
+          const heroEye = compact
+            ? [0.12, 2.35, 15.8]
+            : [0.2, wideDesktop ? 1.82 : 2.05, wideDesktop ? 8.45 : 9.65]
+          const heroTarget = compact ? [0.1, 0.08, 0] : [-0.55, 0.02, 0]
+          const targetU = TAU * 0.235
+          const targetFrame = mobiusFrame(targetU, -0.08)
+          let entryNormal = targetFrame.normal
+          if (dot(entryNormal, subtract(heroEye, targetFrame.point)) < 0) entryNormal = scale(entryNormal, -1)
+          let eye = heroEye
+          let target = heroTarget
+
+          const approach = smoothstep(progress / 0.5)
+          if (approach > 0) {
+            const facingNormal = entryNormal
+            const nearEye = add(
+              add(targetFrame.point, scale(facingNormal, compact ? 0.72 : 0.58)),
+              add(scale(targetFrame.lateral, 0.28), scale(targetFrame.tangent, -0.24)),
+            )
+            eye = bezierPoint(
+              heroEye,
+              compact ? [1.8, 2.45, 12.2] : [1.45, 2.02, wideDesktop ? 7.6 : 8.2],
+              add(targetFrame.point, add(scale(facingNormal, 2.55), scale(targetFrame.tangent, -0.82))),
+              nearEye,
+              approach,
+            )
+            target = vectorMix(heroTarget, add(targetFrame.point, scale(targetFrame.tangent, 0.12)), smootherstep(approach))
+          }
+
+          const flight = smootherstep((progress - 0.4) / 0.18)
+          if (flight > 0) {
+            const travelU = mix(targetU, targetU + TAU * 0.092, flight)
+            const travelFrame = mobiusFrame(travelU, mix(-0.08, 0.24, flight))
+            let flightNormal = travelFrame.normal
+            // Preserve the entering side throughout this short arc. Choosing a
+            // normal from the moving eye caused a one-frame outer/inner swap.
+            if (dot(flightNormal, entryNormal) < 0) flightNormal = scale(flightNormal, -1)
+            const flightEye = add(
+              add(travelFrame.point, scale(flightNormal, compact ? 0.47 : 0.36)),
+              add(scale(travelFrame.lateral, 0.36), scale(travelFrame.tangent, -0.18)),
+            )
+            const flightTarget = add(
+              add(travelFrame.point, scale(travelFrame.tangent, 0.92)),
+              scale(travelFrame.lateral, -0.48),
+            )
+            eye = vectorMix(eye, flightEye, flight)
+            target = vectorMix(target, flightTarget, flight)
+          }
+
+          const settle = smootherstep((progress - 0.58) / 0.14)
+          if (settle > 0) {
+            const settleFrame = mobiusFrame(targetU + TAU * 0.105, 0.18)
+            let settleNormal = settleFrame.normal
+            if (dot(settleNormal, entryNormal) < 0) settleNormal = scale(settleNormal, -1)
+            const settleEye = add(
+              add(settleFrame.point, scale(settleNormal, compact ? 1.82 : 1.12)),
+              add(scale(settleFrame.lateral, compact ? 0.72 : 0.43), scale(settleFrame.tangent, -0.12)),
+            )
+            const settleTarget = add(settleFrame.point, add(scale(settleFrame.lateral, compact ? -0.34 : -0.22), scale(settleFrame.tangent, 0.12)))
+            eye = vectorMix(eye, settleEye, settle)
+            target = vectorMix(target, settleTarget, settle)
+          }
+
+          const pointerStrength = 1 - smoothstep((progress - 0.32) / 0.2)
+          eye = add(eye, [pointerX * 0.055 * pointerStrength, pointerY * 0.042 * pointerStrength, 0])
+          target = add(target, [pointerX * 0.02 * pointerStrength, pointerY * 0.018 * pointerStrength, 0])
+
+          const viewDirection = normalize(subtract(target, eye))
+          const roll = -Math.PI * 0.5 * smootherstep((progress - 0.3) / 0.3)
+          const up = rotateAroundAxis([0, 1, 0], viewDirection, roll)
+          return { eye, target, up, fov: compact ? 54 : 45 }
+        }
+
+        function surfaceCamera({
+          u, v = 0, height = 1, behind = 0.45, lateral = 0,
+          ahead = 0.7, targetLift = 0.06, side = 1, roll = 0, fov = 43,
+        }) {
+          const frame = mobiusFrame(u * TAU, v)
+          let normal = frame.normal
+          if (dot(normal, frame.point) < 0) normal = scale(normal, -1)
+          normal = scale(normal, side)
+          const eye = add(
+            add(frame.point, scale(normal, height)),
+            add(scale(frame.tangent, -behind), scale(frame.lateral, lateral)),
+          )
+          const target = add(
+            add(frame.point, scale(frame.tangent, ahead)),
+            scale(normal, targetLift),
+          )
+          const direction = normalize(subtract(target, eye))
+          const up = rotateAroundAxis(normal, direction, roll)
+          return { eye, target, up, fov }
+        }
+
+        function surfacePathCamera({
+          eyeU, eyeV, targetU, targetV, height = 0.3,
+          targetLift = 0.03, side = 1, fov = 46,
+        }) {
+          const eyeFrame = mobiusFrame(eyeU * TAU, eyeV)
+          const targetFrame = mobiusFrame(targetU * TAU, targetV)
+          let eyeNormal = eyeFrame.normal
+          let targetNormal = targetFrame.normal
+          if (dot(eyeNormal, eyeFrame.point) < 0) eyeNormal = scale(eyeNormal, -1)
+          if (dot(targetNormal, targetFrame.point) < 0) targetNormal = scale(targetNormal, -1)
+          eyeNormal = scale(eyeNormal, side)
+          targetNormal = scale(targetNormal, side)
+          const eye = add(eyeFrame.point, scale(eyeNormal, height))
+          const target = add(targetFrame.point, scale(targetNormal, targetLift))
+          const up = normalize(vectorMix(eyeNormal, targetNormal, 0.28))
+          return { eye, target, up, fov }
+        }
+
+        function cameraKey(state) {
+          const compact = innerWidth <= 720
+          switch (state) {
+            case 3:
+              return cameraFor(1)
+            case 4:
+              return surfacePathCamera({ eyeU: 0.405, eyeV: 0.7, targetU: 0.47, targetV: -0.14, height: compact ? 0.62 : 0.48, targetLift: 0.02, fov: compact ? 53 : 47 })
+            case 5:
+              return surfaceCamera({ u: 0.51, v: -0.03, height: compact ? 2.05 : 1.58, behind: 0.78, lateral: -1.04, ahead: 0.38, targetLift: 0.3, roll: -0.04, fov: compact ? 51 : 44 })
+            case 6:
+              return surfaceCamera({ u: 0.59, v: -0.02, height: compact ? 3.05 : 2.62, behind: 0.74, lateral: 1.48, ahead: 0.28, targetLift: 0.4, roll: 0.13, fov: compact ? 52 : 43 })
+            case 7:
+              return surfaceCamera({ u: 0.635, v: 0.02, height: compact ? 2.2 : 1.82, behind: 0.9, lateral: -0.18, ahead: 0.38, targetLift: 0.4, roll: 0.04, fov: compact ? 50 : 41 })
+            case 8:
+              return surfacePathCamera({ eyeU: 0.675, eyeV: -0.52, targetU: 0.715, targetV: 0.16, height: compact ? 0.28 : 0.17, targetLift: -0.025, fov: compact ? 55 : 49 })
+            case 9:
+              return surfaceCamera({ u: 0.79, v: 0.02, height: compact ? 1.35 : 1.08, behind: 1.02, lateral: -0.74, ahead: 0.42, targetLift: 0.34, side: -1, roll: 0.18, fov: compact ? 53 : 45 })
+            case 10:
+              return surfaceCamera({ u: 0.81, v: 0.02, height: compact ? 1.18 : 0.94, behind: 0.72, lateral: 0.42, ahead: 0.36, targetLift: 0.36, side: -1, roll: 0.08, fov: compact ? 52 : 44 })
+            case 11:
+              return surfaceCamera({ u: 0.825, v: 0.02, height: compact ? 1.02 : 0.8, behind: 0.46, lateral: 0.06, ahead: 0.28, targetLift: 0.34, side: -1, roll: -0.04, fov: compact ? 50 : 42 })
+            case 12:
+              // Leave through the same room opening before the camera detaches
+              // to reveal the whole object. The doorway remains behind us.
+              return surfacePathCamera({
+                eyeU: 0.84,
+                eyeV: 0.02,
+                targetU: 0.925,
+                targetV: -0.04,
+                height: compact ? 0.48 : 0.34,
+                targetLift: 0.08,
+                side: -1,
+                fov: compact ? 54 : 47,
+              })
+            case 13:
+              return {
+                eye: compact ? [0.45, -0.15, 16.2] : [0.75, -0.08, 9.75],
+                target: [-0.1, 0.02, 0],
+                up: [0.08, 1, 0.02],
+                fov: compact ? 48 : 41,
+              }
+            case 14:
+            case 15:
+            default:
+              return {
+                eye: compact ? [0.15, 0.8, 17.2] : [0.35, 0.82, 10.8],
+                target: [0, 0, 0],
+                up: [-0.06, 1, 0],
+                fov: compact ? 47 : 39,
+              }
+          }
+        }
+
+        function catmullScalar(p0, p1, p2, p3, amount) {
+          const t2 = amount * amount
+          const t3 = t2 * amount
+          return 0.5 * (
+            2 * p1
+            + (-p0 + p2) * amount
+            + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2
+            + (-p0 + 3 * p1 - 3 * p2 + p3) * t3
+          )
+        }
+
+        function catmullVector(p0, p1, p2, p3, amount) {
+          return p1.map((_, index) => catmullScalar(p0[index], p1[index], p2[index], p3[index], amount))
+        }
+
+        function splineCameraForState(stateFloat) {
+          const index1 = Math.floor(stateFloat)
+          const index2 = Math.min(LAST_STATE, index1 + 1)
+          const amount = stateFloat - index1
+          const index0 = Math.max(3, index1 - 1)
+          const index3 = Math.min(LAST_STATE, index2 + 1)
+          const a = cameraKey(index0)
+          const b = cameraKey(index1)
+          const c = cameraKey(index2)
+          const d = cameraKey(index3)
+          return {
+            eye: catmullVector(a.eye, b.eye, c.eye, d.eye, amount),
+            target: catmullVector(a.target, b.target, c.target, d.target, amount),
+            up: normalize(catmullVector(a.up, b.up, c.up, d.up, amount)),
+            fov: catmullScalar(a.fov, b.fov, c.fov, d.fov, amount),
+          }
+        }
+
+        function isCinematicState(stateFloat) {
+          return (stateFloat > 3 && stateFloat < 5)
+            || (stateFloat > 7 && stateFloat < 9)
+            || (stateFloat > 11 && stateFloat < 13)
+        }
+
+        function cameraForState(stateFloat) {
+          if (stateFloat <= 3) return cameraFor(legacyProgressForState(stateFloat))
+          if (isCinematicState(stateFloat)) return splineCameraForState(stateFloat)
+          const lower = Math.max(3, Math.floor(stateFloat))
+          const upper = Math.min(LAST_STATE, lower + 1)
+          const amount = stateFloat - lower
+          const from = cameraKey(lower)
+          const to = cameraKey(upper)
+          return {
+            eye: vectorMix(from.eye, to.eye, amount),
+            target: vectorMix(from.target, to.target, amount),
+            up: normalize(vectorMix(from.up, to.up, amount)),
+            fov: mix(from.fov, to.fov, amount),
+          }
+        }
+
+        function updateFragments(progress, stateFloat) {
+          const eventProgress = clamp((progress - 0.72) / 0.28)
+          const movement = smootherstep(Math.min(eventProgress / 0.56, 1))
+          const impactTravel = smootherstep((eventProgress - 0.56) / 0.36)
+          const impactDone = smoothstep((eventProgress - 0.88) / 0.12)
+          const legacyExit = 1 - smootherstep((stateFloat - 3.02) / 0.72)
+
+          fragments.forEach((fragment) => {
+            const phaseOffset = (fragment.index % 5) * 0.025
+            const fragmentMovement = smootherstep(clamp(movement - phaseOffset, 0, 1))
+            let x = mix(fragment.start[0], fragment.end[0], fragmentMovement)
+            let y = mix(fragment.start[1], fragment.end[1], fragmentMovement)
+            let opacity = smoothstep(eventProgress / 0.2) * (fragment.front ? 0.8 : 0.48)
+
+            if (fragment.weighted) {
+              x = mix(x, 0.5, impactTravel)
+              y = mix(y, 0.57, impactTravel)
+              opacity = mix(opacity, 1, impactTravel) * (1 - impactDone * 0.94)
+            } else if (eventProgress > 0.58) {
+              opacity *= 1 - smoothstep((eventProgress - 0.82) / 0.16) * 0.72
+            }
+
+            const depthScale = fragment.front ? 1 : 0.92
+            fragment.element.style.opacity = (opacity * legacyExit).toFixed(3)
+            fragment.element.style.transform = `translate3d(${x * innerWidth}px, ${y * innerHeight}px, 0) scale(${depthScale})`
+          })
+
+          const routeEnter = smoothstep((progress - 0.64) / 0.08)
+          const routeExit = 1 - smootherstep((stateFloat - 3.32) / 0.55)
+          const routeDraw = smootherstep((eventProgress - 0.04) / 0.9)
+          scar.style.opacity = (routeEnter * routeExit).toFixed(3)
+          scar.style.transform = 'none'
+          observationRoute.style.strokeDashoffset = (1 - routeDraw).toFixed(4)
+          observationRouteNodes.forEach((node, index) => {
+            const nodeThreshold = (index + 1) / (observationRouteNodes.length + 1)
+            const nodeOpacity = smoothstep((routeDraw - nodeThreshold) / 0.08) * routeExit
+            node.style.opacity = nodeOpacity.toFixed(3)
+            node.style.transformOrigin = `${node.getAttribute('cx')}px ${node.getAttribute('cy')}px`
+            node.style.transform = `scale(${mix(0.45, 1, nodeOpacity)})`
+          })
+        }
+
+        function showNarrative(element, opacity, y = 0, blur = 0) {
+          element.style.opacity = clamp(opacity).toFixed(3)
+          element.style.transform = `translate3d(0, ${y}px, 0)`
+          element.style.filter = `blur(${blur}px)`
+        }
+
+        function updateInterface(progress, stateFloat, timeSeconds) {
+          const heroExit = smootherstep((progress - 0.08) / 0.26)
+          const legacyLayer = 1 - smootherstep((stateFloat - 3.02) / 0.72)
+          heroCopy.style.opacity = ((1 - heroExit * 0.88) * legacyLayer).toFixed(3)
+          heroCopy.style.transform = `translate3d(${mix(0, 36, heroExit)}px, -50%, 0)`
+          heroCopy.style.filter = `blur(${mix(0, 2.4, heroExit)}px)`
+
+          const titleEnter = smootherstep((progress - 0.64) / 0.1)
+          const titleRecede = smootherstep((progress - 0.76) / 0.16)
+          const titleOpacity = titleEnter * mix(0.86, 0.28, titleRecede)
+          guanxiang.style.opacity = (titleOpacity * legacyLayer).toFixed(3)
+          const titleSurfaceSettle = smoothstep((progress - 0.68) / 0.18)
+          guanxiang.style.left = innerWidth <= 720
+            ? `${mix(Math.max(38, innerWidth * 0.18), Math.max(28, innerWidth * 0.08), titleSurfaceSettle)}px`
+            : `${mix(clamp(innerWidth * 0.3, 250, 440), clamp(innerWidth * 0.15, 72, 216), titleSurfaceSettle)}px`
+          guanxiang.style.top = innerWidth <= 720
+            ? `${clamp(innerHeight * 0.36, 250, 360)}px`
+            : `${clamp(innerHeight * 0.39, 220, 390)}px`
+          guanxiang.style.transform = `perspective(900px) rotate(-4deg) skewY(-2.2deg) translate3d(0, ${mix(18, 0, titleEnter)}px, 0)`
+          guanxiang.style.filter = `blur(${mix(1.8, 0, titleEnter)}px)`
+
+          const orderOpacity = statePulse(stateFloat, 5, 0.92)
+          showNarrative(orderCopy, orderOpacity, mix(18, 0, orderOpacity), mix(3, 0, orderOpacity))
+          orderCopy.style.transformOrigin = '0 50%'
+          orderCopy.style.transform = `perspective(1200px) translate3d(${mix(-22, 0, orderOpacity)}px, ${mix(18, 0, orderOpacity)}px, 0) rotateY(${mix(-11, -3, orderOpacity)}deg) rotateZ(-0.7deg)`
+
+          const thoughtEnter = smoothstep((stateFloat - 6.45) / 0.42)
+          const thoughtExit = 1 - smoothstep((stateFloat - 8.58) / 0.22)
+          const pairedOpacity = thoughtEnter * thoughtExit
+          const thoughtSync = 1 - smoothstep(Math.abs(stateFloat - 8.55) / 0.2)
+          pairedThought.style.opacity = pairedOpacity.toFixed(3)
+          pairedThought.style.transform = `perspective(1000px) rotateY(${mix(-6, 0, pairedOpacity)}deg) scale(${mix(0.97, 1, pairedOpacity)})`
+          const pastThought = pairedThought.querySelector('.is-past')
+          const presentThought = pairedThought.querySelector('.is-present')
+          pastThought.style.opacity = (pairedOpacity * mix(0.58, 0.82, thoughtSync)).toFixed(3)
+          pastThought.style.filter = 'none'
+          pastThought.style.transform = `translate3d(${mix(0, 64, thoughtSync) - pointerX * 12}px, 0, 0)`
+          presentThought.style.opacity = (pairedOpacity * 0.84).toFixed(3)
+          presentThought.style.transform = `translate3d(${mix(0, -64, thoughtSync) + pointerX * 12}px, ${Math.sin(timeSeconds * 0.82) * (1 - thoughtSync) * 1.5}px, 0)`
+
+          const heartOpacity = statePulse(stateFloat, 9, 0.86)
+          showNarrative(heartCopy, heartOpacity, mix(20, 0, heartOpacity), mix(3.2, 0, heartOpacity))
+          const heartDepth = smoothstep((stateFloat - 8.7) / 0.65)
+          heartCopy.style.transformOrigin = '0 50%'
+          heartCopy.style.transform = `perspective(1100px) translate3d(${mix(-16, 0, heartDepth)}px, ${mix(18, 0, heartOpacity)}px, 0) rotateY(${mix(12, 4, heartDepth)}deg) rotateX(${mix(3, 0, heartDepth)}deg)`
+          heartCopy.style.textShadow = `${mix(18, 5, heartDepth)}px ${mix(-9, -2, heartDepth)}px rgba(28, 28, 26, ${mix(0.16, 0.04, heartDepth)})`
+
+          const echoOpacity = smoothstep((stateFloat - 8.72) / 0.3) * (1 - smoothstep((stateFloat - 11.25) / 0.35))
+          timeEchoes.style.opacity = echoOpacity.toFixed(3)
+          const roomYears = [
+            { center: 9.02, radius: 0.28 },
+            { center: 9.52, radius: 0.3 },
+            { center: 10.08, radius: 0.34 },
+            { center: 10.88, radius: 0.38 },
+          ]
+          Array.from(timeEchoes.children).forEach((element, index) => {
+            const year = roomYears[index]
+            const opacity = statePulse(stateFloat, year.center, year.radius) * echoOpacity
+            const temporalDepth = index / Math.max(1, roomYears.length - 1)
+            element.style.transform = `perspective(900px) translate3d(${mix(-18, 10, temporalDepth)}px, ${mix(10, 0, opacity)}px, 0) scale(${mix(0.965, 1, temporalDepth)})`
+            element.style.filter = `blur(${mix(1.6, 0.15, temporalDepth) * (1 - opacity * 0.72)}px)`
+            element.style.opacity = (opacity * 0.78).toFixed(3)
+          })
+
+          const natureOpacity = statePulse(stateFloat, 13, 0.86)
+          showNarrative(natureCopy, natureOpacity, mix(18, 0, natureOpacity), mix(3, 0, natureOpacity))
+          const natureAlignment = smoothstep((stateFloat - 12.55) / 0.45)
+          natureCopy.style.transformOrigin = '100% 50%'
+          natureCopy.style.transform = `perspective(1400px) translate3d(${mix(42, 0, natureAlignment)}px, ${mix(-16, 0, natureAlignment)}px, 0) rotateY(${mix(13, 0, natureAlignment)}deg)`
+          natureCopy.querySelector('h2').style.letterSpacing = `${mix(0.34, 0.13, natureAlignment)}em`
+          natureCopy.querySelector('p').style.letterSpacing = `${mix(0.18, 0.08, natureAlignment)}em`
+
+          const pointEnter = smoothstep((stateFloat - 14.28) / 0.18)
+          const pointBeforeFinal = pointEnter * (1 - smoothstep((stateFloat - 14.74) / 0.14))
+          if (stateFloat >= 14.94) {
+            if (finalSilenceStartedAt === null || finalSilenceStartedAt > timeSeconds) {
+              finalSilenceStartedAt = timeSeconds
+            }
+          } else {
+            finalSilenceStartedAt = null
+          }
+          const silenceElapsed = finalSilenceStartedAt === null ? 0 : Math.max(0, timeSeconds - finalSilenceStartedAt)
+          const finalPointOpacity = stateFloat >= 14.94
+            ? 1 - smoothstep((silenceElapsed - 2.4) / 0.8)
+            : 0
+          const pointOpacity = Math.max(pointBeforeFinal, finalPointOpacity)
+          const questionReady = forceFinalQuestion || reducedMotion || silenceElapsed >= 4.6
+          const questionOpacity = questionReady
+            ? (forceFinalQuestion || reducedMotion ? 1 : smoothstep((silenceElapsed - 4.6) / 1.15))
+            : 0
+          const questionAlignment = forceFinalQuestion || reducedMotion
+            ? 1
+            : smoothstep((silenceElapsed - 4.6) / 1.4)
+          const responseOpacity = forceFinalQuestion || reducedMotion
+            ? 1
+            : smoothstep((silenceElapsed - 6.8) / 0.9)
+          const question = reflection.querySelector('p')
+          reflection.style.opacity = Math.max(pointOpacity, questionOpacity, responseOpacity).toFixed(3)
+          question.style.opacity = questionOpacity.toFixed(3)
+          question.style.letterSpacing = `${mix(0.22, 0.08, questionAlignment)}em`
+          question.style.filter = `blur(${mix(3.6, 0, questionAlignment)}px)`
+          question.style.transform = `perspective(900px) translate3d(${mix(22, 0, questionAlignment)}px, ${mix(-14, 0, questionAlignment)}px, 0) rotateY(${mix(9, 0, questionAlignment)}deg)`
+          question.style.textShadow = `${mix(-18, 0, questionAlignment)}px ${mix(8, 0, questionAlignment)}px rgba(238, 236, 229, ${mix(0.16, 0, questionAlignment)})`
+          reflection.querySelector('.reflection-point').style.opacity = pointOpacity.toFixed(3)
+          reflection.querySelector('.reflection-point').style.transform = `translate(-50%, -50%) scale(${mix(1.8, 0.82, pointEnter)})`
+          reflection.querySelector('.reflection-response').style.opacity = responseOpacity.toFixed(3)
+          reflection.querySelector('.reflection-response').style.transform = `scale(${mix(0.35, 1, responseOpacity)})`
+
+          scrollCue.style.opacity = ((1 - smootherstep(progress / 0.12)) * (1 - smoothstep(stateFloat / 0.3))).toFixed(3)
+          body.classList.toggle('is-near-surface', stateFloat > 0.45 && stateFloat < 14.2)
+          updateFragments(progress, stateFloat)
+
+          const stateIndex = Math.round(clamp(stateFloat, 0, LAST_STATE))
+          const spokenState = STATE_LABELS[stateIndex]
+          if (spokenState !== lastSpokenState) {
+            lastSpokenState = spokenState
+            status.textContent = spokenState
+          }
+
+          debugState.textContent = `${String(stateIndex).padStart(2, '0')} / 15 · ${STATE_LABELS[stateIndex]}`
+          debugValues.textContent = `stateFloat ${stateFloat.toFixed(2)} · scroll ${(targetScrollProgress * 100).toFixed(1)}% · ${targetSegmentMode}`
+          Array.from(stateRail.children).forEach((marker, index) => {
+            marker.classList.toggle('is-current', index === stateIndex)
+          })
+        }
+
+        function resize() {
+          const width = Math.max(1, innerWidth)
+          const height = Math.max(1, innerHeight)
+          dpr = Math.min(devicePixelRatio || 1, width <= 720 ? 1.2 : 1.45)
+          const backingWidth = Math.round(width * dpr)
+          const backingHeight = Math.round(height * dpr)
+          if (canvas.width !== backingWidth || canvas.height !== backingHeight) {
+            canvas.width = backingWidth
+            canvas.height = backingHeight
+            canvas.style.width = `${width}px`
+            canvas.style.height = `${height}px`
+          }
+          gl.viewport(0, 0, backingWidth, backingHeight)
+        }
+
+        function renderScene(stateFloat, legacyProgress, timeSeconds, cameraOverride = null) {
+          const camera = cameraOverride || cameraForState(stateFloat)
+          const projection = perspectiveMatrix(camera.fov * Math.PI / 180, canvas.width / canvas.height, 0.03, 40)
+          const view = lookAtMatrix(camera.eye, camera.target, camera.up)
+          const viewProjection = multiplyMatrices(projection, view)
+
+          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+          gl.useProgram(program)
+          gl.bindVertexArray(ringVertexArray)
+          gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uViewProjection'), false, viewProjection)
+          gl.uniform3f(gl.getUniformLocation(program, 'uCamera'), camera.eye[0], camera.eye[1], camera.eye[2])
+          gl.uniform1f(gl.getUniformLocation(program, 'uTime'), timeSeconds)
+          gl.uniform1f(gl.getUniformLocation(program, 'uProgress'), legacyProgress)
+          gl.uniform1f(gl.getUniformLocation(program, 'uState'), stateFloat)
+          gl.drawArrays(gl.TRIANGLES, 0, vertexCount)
+
+          gl.useProgram(derivedProgram)
+          gl.bindVertexArray(derivedVertexArray)
+          gl.uniformMatrix4fv(gl.getUniformLocation(derivedProgram, 'uViewProjection'), false, viewProjection)
+          gl.uniform3f(gl.getUniformLocation(derivedProgram, 'uCamera'), camera.eye[0], camera.eye[1], camera.eye[2])
+          gl.uniform1f(gl.getUniformLocation(derivedProgram, 'uTime'), timeSeconds)
+          gl.uniform1f(gl.getUniformLocation(derivedProgram, 'uState'), stateFloat)
+          gl.drawArrays(gl.TRIANGLES, 0, derivedVertexCount)
+          gl.bindVertexArray(null)
+
+          updateInterface(legacyProgress, stateFloat, timeSeconds)
+        }
+
+        function renderState(stateFloat, timeSeconds) {
+          const state = clamp(stateFloat, 0, LAST_STATE)
+          renderScene(state, legacyProgressForState(state), timeSeconds)
+        }
+
+        function renderLegacy(progress, timeSeconds) {
+          const legacy = clamp(progress)
+          const state = stateForLegacyProgress(legacy)
+          renderScene(state, legacy, timeSeconds, cameraFor(legacy))
+        }
+
+        function readScroll() {
+          const maximum = Math.max(1, document.documentElement.scrollHeight - innerHeight)
+          targetScrollProgress = clamp(scrollY / maximum)
+          const timeline = timelineAtScroll(targetScrollProgress)
+          targetStateFloat = timeline.stateFloat
+          targetSegmentIndex = timeline.segmentIndex
+          targetSegmentMode = timeline.mode
+          targetProgress = legacyProgressForState(Math.min(targetStateFloat, 3))
+        }
+
+        function demoStateAt(seconds) {
+          if (seconds < DEMO_OPENING_HOLD) return 0
+          const progress = clamp((seconds - DEMO_OPENING_HOLD) / DEMO_TRAVEL_DURATION)
+          return timelineAtScroll(progress).stateFloat
+        }
+
+        function tick(now) {
+          if (!visible) return
+          const delta = Math.min(50, Math.max(0, now - lastFrame)) / 1000
+          lastFrame = now
+          elapsed += reducedMotion ? 0 : delta
+          pointerX = mix(pointerX, targetPointerX, reducedMotion ? 1 : 0.055)
+          pointerY = mix(pointerY, targetPointerY, reducedMotion ? 1 : 0.055)
+
+          if (demoMode) {
+            currentStateFloat = demoStateAt(elapsed)
+          } else {
+            const followRate = followRateFor(targetSegmentMode, targetStateFloat)
+            const followAmount = reducedMotion ? 1 : 1 - Math.exp(-delta * followRate)
+            currentStateFloat = mix(currentStateFloat, targetStateFloat, followAmount)
+          }
+
+          currentProgress = legacyProgressForState(Math.min(currentStateFloat, 3))
+          forceFinalQuestion = false
+          renderState(currentStateFloat, elapsed)
+          if (!(demoMode && elapsed >= DEMO_DURATION)) animationFrame = requestAnimationFrame(tick)
+        }
+
+        function initializeWebGL() {
+          gl = canvas.getContext('webgl2', {
+            alpha: true,
+            antialias: true,
+            depth: true,
+            premultipliedAlpha: true,
+            preserveDrawingBuffer: true,
+            powerPreference: 'high-performance',
+          })
+          if (!gl) throw new Error('WebGL2 is required.')
+
+          program = createProgram()
+          derivedProgram = createDerivedProgram()
+          const geometry = createGeometry()
+          vertexCount = geometry.length / 8
+          vertexBuffer = gl.createBuffer()
+          ringVertexArray = gl.createVertexArray()
+          gl.bindVertexArray(ringVertexArray)
+          gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
+          gl.bufferData(gl.ARRAY_BUFFER, geometry, gl.STATIC_DRAW)
+          gl.useProgram(program)
+
+          const stride = 8 * Float32Array.BYTES_PER_ELEMENT
+          const positionLocation = gl.getAttribLocation(program, 'aPosition')
+          const normalLocation = gl.getAttribLocation(program, 'aNormal')
+          const paramLocation = gl.getAttribLocation(program, 'aParam')
+          gl.enableVertexAttribArray(positionLocation)
+          gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, stride, 0)
+          gl.enableVertexAttribArray(normalLocation)
+          gl.vertexAttribPointer(normalLocation, 3, gl.FLOAT, false, stride, 3 * Float32Array.BYTES_PER_ELEMENT)
+          gl.enableVertexAttribArray(paramLocation)
+          gl.vertexAttribPointer(paramLocation, 2, gl.FLOAT, false, stride, 6 * Float32Array.BYTES_PER_ELEMENT)
+
+          const derivedGeometry = createDerivedGeometry()
+          derivedVertexCount = derivedGeometry.length / 13
+          derivedVertexBuffer = gl.createBuffer()
+          derivedVertexArray = gl.createVertexArray()
+          gl.bindVertexArray(derivedVertexArray)
+          gl.bindBuffer(gl.ARRAY_BUFFER, derivedVertexBuffer)
+          gl.bufferData(gl.ARRAY_BUFFER, derivedGeometry, gl.STATIC_DRAW)
+          gl.useProgram(derivedProgram)
+
+          const derivedStride = 13 * Float32Array.BYTES_PER_ELEMENT
+          const baseLocation = gl.getAttribLocation(derivedProgram, 'aBasePosition')
+          const finalLocation = gl.getAttribLocation(derivedProgram, 'aFinalPosition')
+          const derivedNormalLocation = gl.getAttribLocation(derivedProgram, 'aDerivedNormal')
+          const derivedParamLocation = gl.getAttribLocation(derivedProgram, 'aDerivedParam')
+          const derivedMetaLocation = gl.getAttribLocation(derivedProgram, 'aDerivedMeta')
+          gl.enableVertexAttribArray(baseLocation)
+          gl.vertexAttribPointer(baseLocation, 3, gl.FLOAT, false, derivedStride, 0)
+          gl.enableVertexAttribArray(finalLocation)
+          gl.vertexAttribPointer(finalLocation, 3, gl.FLOAT, false, derivedStride, 3 * Float32Array.BYTES_PER_ELEMENT)
+          gl.enableVertexAttribArray(derivedNormalLocation)
+          gl.vertexAttribPointer(derivedNormalLocation, 3, gl.FLOAT, false, derivedStride, 6 * Float32Array.BYTES_PER_ELEMENT)
+          gl.enableVertexAttribArray(derivedParamLocation)
+          gl.vertexAttribPointer(derivedParamLocation, 2, gl.FLOAT, false, derivedStride, 9 * Float32Array.BYTES_PER_ELEMENT)
+          gl.enableVertexAttribArray(derivedMetaLocation)
+          gl.vertexAttribPointer(derivedMetaLocation, 2, gl.FLOAT, false, derivedStride, 11 * Float32Array.BYTES_PER_ELEMENT)
+          gl.bindVertexArray(null)
+
+          gl.enable(gl.DEPTH_TEST)
+          gl.depthFunc(gl.LEQUAL)
+          gl.disable(gl.CULL_FACE)
+          gl.enable(gl.BLEND)
+          gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA)
+          gl.clearColor(0, 0, 0, 0)
+
+          resize()
+          body.classList.add('has-webgl', 'is-ready')
+          body.classList.toggle('has-fine-pointer', finePointer.matches && !captureMode && !demoMode)
+          window.__ready = true
+        }
+
+        function initialize() {
+          try {
+            body.classList.toggle('is-clean', cleanMode)
+            body.classList.toggle('is-reduced-motion', reducedMotion)
+            initializeWebGL()
+            window.__recording = captureMode
+            window.MobiusCapture = {
+              ready: true,
+              renderAt(progress, timeSeconds = progress * 12) {
+                currentProgress = clamp(Number(progress) || 0)
+                currentStateFloat = stateForLegacyProgress(currentProgress)
+                targetStateFloat = currentStateFloat
+                elapsed = Math.max(0, Number(timeSeconds) || 0)
+                pointerX = 0
+                pointerY = 0
+                renderLegacy(currentProgress, elapsed)
+                gl.finish()
+                return { progress: currentProgress, timeSeconds: elapsed, vertexCount }
+              },
+              renderState(stateFloat, timeSeconds = stateFloat * 2.1, options = {}) {
+                const requestedState = clamp(Number(stateFloat) || 0, 0, LAST_STATE)
+                currentStateFloat = reducedMotion ? Math.round(requestedState) : requestedState
+                targetStateFloat = currentStateFloat
+                currentProgress = legacyProgressForState(Math.min(currentStateFloat, 3))
+                elapsed = reducedMotion ? 0 : Math.max(0, Number(timeSeconds) || 0)
+                forceFinalQuestion = Boolean(options.forceQuestion)
+                pointerX = 0
+                pointerY = 0
+                renderState(currentStateFloat, elapsed)
+                gl.finish()
+                return {
+                  stateFloat: currentStateFloat,
+                  legacyProgress: currentProgress,
+                  timeSeconds: elapsed,
+                  vertexCount,
+                  derivedVertexCount,
+                  label: STATE_LABELS[Math.round(currentStateFloat)],
+                }
+              },
+              renderStateAt(stateFloat, timeSeconds = stateFloat * 2.1) {
+                return this.renderState(stateFloat, timeSeconds)
+              },
+            }
+
+            if (captureMode) {
+              body.classList.add('is-capture')
+              if (params.has('state')) {
+                const captureState = clamp(Number(params.get('state')) || 0, 0, LAST_STATE)
+                const captureTime = Math.max(0, Number(params.get('time')) || captureState * 2.1)
+                window.MobiusCapture.renderState(captureState, captureTime)
+              } else {
+                const captureProgress = clamp(Number(params.get('progress')) || 0)
+                const captureTime = Math.max(0, Number(params.get('time')) || captureProgress * 12)
+                window.MobiusCapture.renderAt(captureProgress, captureTime)
+              }
+              return
+            }
+
+            if (demoMode) body.classList.add('is-demo')
+            history.scrollRestoration = 'manual'
+            scrollTo(0, 0)
+            targetProgress = 0
+            targetStateFloat = 0
+            targetScrollProgress = 0
+            targetSegmentIndex = 0
+            targetSegmentMode = SCROLL_PHASES[0].mode
+            currentStateFloat = 0
+            lastFrame = performance.now()
+            animationFrame = requestAnimationFrame(tick)
+          } catch (error) {
+            console.error('The Möbius consciousness spine could not be rendered.', error)
+            body.classList.remove('has-webgl')
+            body.classList.add('is-ready')
+            status.textContent = '当前浏览器无法显示 WebGL2，已启用静态莫比乌斯构图。'
+          }
+        }
+
+        addEventListener('scroll', readScroll, { passive: true })
+        addEventListener('pointermove', (event) => {
+          if (event.pointerType === 'touch') return
+          root.style.setProperty('--pointer-x', `${event.clientX}px`)
+          root.style.setProperty('--pointer-y', `${event.clientY}px`)
+          targetPointerX = clamp((event.clientX / innerWidth - 0.5) * 2, -1, 1)
+          targetPointerY = clamp((event.clientY / innerHeight - 0.5) * 2, -1, 1)
+        }, { passive: true })
+        addEventListener('pointerleave', () => {
+          targetPointerX = 0
+          targetPointerY = 0
+        }, { passive: true })
+        addEventListener('resize', () => {
+          if (!gl) return
+          resize()
+          renderState(currentStateFloat, elapsed)
+        })
+        document.addEventListener('visibilitychange', () => {
+          visible = !document.hidden
+          if (!visible) {
+            cancelAnimationFrame(animationFrame)
+            animationFrame = 0
+            return
+          }
+          lastFrame = performance.now()
+          if (!captureMode && !animationFrame) animationFrame = requestAnimationFrame(tick)
+        })
+        finePointer.addEventListener('change', (event) => {
+          body.classList.toggle('has-fine-pointer', event.matches && !captureMode && !demoMode)
+        })
+
+        document.querySelectorAll('[data-step]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const direction = Number(button.dataset.step) || 0
+            const nextState = clamp(Math.round(targetStateFloat) + direction, 0, LAST_STATE)
+            const maximum = Math.max(1, document.documentElement.scrollHeight - innerHeight)
+            scrollTo({ top: maximum * STATE_SCROLL_ANCHORS[nextState], behavior: reducedMotion ? 'auto' : 'smooth' })
+          })
+        })
+
+        addEventListener('keydown', (event) => {
+          if (event.key.toLowerCase() === 'd' && !event.metaKey && !event.ctrlKey && !event.altKey) {
+            body.classList.toggle('is-clean')
+          }
+        })
+
+        initialize()
+      })()
+    </script>
+  </body>
+</html>

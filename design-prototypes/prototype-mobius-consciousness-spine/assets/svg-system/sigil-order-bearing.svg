@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">构序 · 关系承重</title><desc id="desc">一道旧刻痕从表面生长为高低不等、互相承重的空间构筑。</desc>
+  <path d="M10 78C30 72 50 73 86 80" fill="none" stroke="currentColor" stroke-opacity=".36" stroke-width="2" stroke-linecap="round"/>
+  <path d="M19 75V45L31 40V73M38 73V20L53 14V75M60 76V35L72 30V78M77 79V53L86 49V80" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M31 40 19 35v40M53 14 38 9v64M72 30l-12-5v51M86 49l-9-4v34" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="M17 68C38 63 55 66 87 73" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+</svg>

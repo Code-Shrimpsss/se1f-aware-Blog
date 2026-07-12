@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-labelledby="title desc">
+  <title id="title">Self-Awake 意识脊柱横向组合标</title>
+  <desc id="desc">骨白意识脊柱与 Self-Awake 名称及意识声明的组合。</desc>
+  <defs>
+    <linearGradient id="bone" x1="30" y1="30" x2="290" y2="190"><stop stop-color="#f2f0e9"/><stop offset=".58" stop-color="#d2d0c9"/><stop offset="1" stop-color="#74746f"/></linearGradient>
+  </defs>
+  <rect width="720" height="220" fill="#000"/>
+  <path fill="url(#bone)" fill-rule="evenodd" d="M25 107C28 56 81 29 148 34C218 39 276 74 275 121C274 164 229 190 164 192C94 194 33 166 25 107ZM87 128C117 166 170 178 202 158C224 144 220 117 194 105C154 87 108 98 87 128Z"/>
+  <path d="M29 115C57 143 101 163 149 169C198 175 242 159 270 129" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+  <path d="M106 49C116 72 115 91 101 112" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+  <text x="330" y="94" fill="#eceae3" font-family="Instrument Serif, Georgia, serif" font-size="54" font-style="italic">Self-Awake</text>
+  <path d="M332 115H650" stroke="#eceae3" stroke-opacity=".18"/>
+  <text x="332" y="143" fill="#eceae3" fill-opacity=".52" font-family="Outfit, Arial, sans-serif" font-size="10" letter-spacing="4.2">THE SINGLE SURFACE REVEALED</text>
+  <text x="332" y="169" fill="#eceae3" fill-opacity=".78" font-family="Songti SC, STSong, serif" font-size="14" letter-spacing="2">穿过表象，直到观看者也成为所见。</text>
+</svg>

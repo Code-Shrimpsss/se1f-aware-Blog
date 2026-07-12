@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Self-Awake 意识脊柱单色标</title>
+  <desc id="desc">由一个连续轮廓、中央负形和翻转暗面构成的单色意识脊柱。</desc>
+  <defs><mask id="cuts"><rect width="320" height="220" fill="white"/><path d="M39 115C67 143 111 163 159 169C208 175 252 159 280 129M116 49C126 72 125 91 111 112" fill="none" stroke="black" stroke-width="7" stroke-linecap="round"/></mask></defs>
+  <path fill="currentColor" fill-rule="evenodd" mask="url(#cuts)" d="M35 107C38 56 91 29 158 34C228 39 286 74 285 121C284 164 239 190 174 192C104 194 43 166 35 107ZM97 128C127 166 180 178 212 158C234 144 230 117 204 105C164 87 118 98 97 128Z"/>
+</svg>
