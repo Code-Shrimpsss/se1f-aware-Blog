@@ -494,6 +494,15 @@
         outline: none;
       }
 
+      .debug-actions [data-copy-breakpoint] {
+        grid-column: 1 / -1;
+      }
+
+      .debug-actions [data-copy-breakpoint].is-copied {
+        border-color: rgba(236, 234, 227, 0.42);
+        color: rgba(236, 234, 227, 0.92);
+      }
+
       .information-field {
         position: absolute;
         z-index: 3;
@@ -966,6 +975,7 @@
       <div class="debug-actions">
         <button type="button" data-step="-1" aria-label="上一个状态">← PREV</button>
         <button type="button" data-step="1" aria-label="下一个状态">NEXT →</button>
+        <button type="button" data-copy-breakpoint aria-label="复制当前调试断点">COPY POINT</button>
       </div>
     </aside>
 
@@ -999,6 +1009,7 @@
         const stateRail = document.querySelector('.state-rail')
         const debugState = document.querySelector('#debug-state')
         const debugValues = document.querySelector('#debug-values')
+        const copyBreakpointControl = document.querySelector('[data-copy-breakpoint]')
         const realityAnchor = document.querySelector('.reality-anchor')
         const realityPanel = document.querySelector('.reality-panel')
         const soundControl = document.querySelector('[data-reality-action="sound"]')
@@ -3164,6 +3175,51 @@
             scrollTo({ top: maximum * STATE_SCROLL_ANCHORS[nextState], behavior: reducedMotion ? 'auto' : 'smooth' })
           })
         })
+
+        function currentBreakpointText() {
+          const stateIndex = Math.round(clamp(currentStateFloat, 0, LAST_STATE))
+          const maximum = Math.max(1, document.documentElement.scrollHeight - innerHeight)
+          const scrollProgress = clamp(scrollY / maximum)
+          const locationUrl = new URL(location.href)
+          locationUrl.search = ''
+          locationUrl.searchParams.set('debug', '1')
+          return [
+            '[Self-Awake 调试断点]',
+            `状态：${String(stateIndex).padStart(2, '0')} / ${LAST_STATE} · ${STATE_LABELS[stateIndex]}`,
+            `stateFloat：${currentStateFloat.toFixed(4)}`,
+            `targetStateFloat：${targetStateFloat.toFixed(4)}`,
+            `scroll：${(scrollProgress * 100).toFixed(3)}% (${Math.round(scrollY)} / ${Math.round(maximum)}px)`,
+            `segment：${targetSegmentIndex} · ${targetSegmentMode}`,
+            `viewport：${innerWidth} × ${innerHeight}`,
+            `URL：${locationUrl.toString()}`,
+          ].join('\n')
+        }
+
+        async function copyCurrentBreakpoint() {
+          const breakpointText = currentBreakpointText()
+          try {
+            await navigator.clipboard.writeText(breakpointText)
+          } catch {
+            const field = document.createElement('textarea')
+            field.value = breakpointText
+            field.setAttribute('readonly', '')
+            field.style.position = 'fixed'
+            field.style.opacity = '0'
+            document.body.append(field)
+            field.select()
+            document.execCommand('copy')
+            field.remove()
+          }
+          copyBreakpointControl.textContent = 'COPIED · 断点已复制'
+          copyBreakpointControl.classList.add('is-copied')
+          clearTimeout(copyCurrentBreakpoint.resetTimer)
+          copyCurrentBreakpoint.resetTimer = setTimeout(() => {
+            copyBreakpointControl.textContent = 'COPY POINT'
+            copyBreakpointControl.classList.remove('is-copied')
+          }, 1800)
+        }
+
+        copyBreakpointControl.addEventListener('click', copyCurrentBreakpoint)
 
         addEventListener('keydown', (event) => {
           if (event.key === 'Escape' && realityPanel.classList.contains('is-open')) {
