@@ -1990,7 +1990,15 @@
             float fissureB = exp(-pow(wrappedDistance(vParam.x, 0.715) / 0.006, 2.0))
               * smoothstep(0.1, 0.75, abs(vParam.y));
             float edgeDepth = smoothstep(0.78, 1.0, abs(vParam.y));
-            color = mix(color, deep, fissureA * 0.76 + fissureB * 0.42 + edgeDepth * 0.08);
+            // These authored topology seams belong to the close surface reading.
+            // Keeping them active in the distant opening creates two accidental
+            // black lines on the front and rear faces of the complete ring.
+            float topologySeams = smoothstep(0.58, 0.96, uState);
+            color = mix(
+              color,
+              deep,
+              (fissureA * 0.58 + fissureB * 0.3) * topologySeams + edgeDepth * 0.08
+            );
 
             float directionalSediment = valueNoise(vec3(vParam.x * 34.0, vParam.y * 4.0, vWorld.z * 1.6));
             color += (directionalSediment - 0.5) * 0.038 * (0.12 + observation * 0.88);
