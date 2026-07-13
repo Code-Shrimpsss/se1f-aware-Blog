@@ -295,6 +295,38 @@
         opacity: 0.48;
       }
 
+      .generated-viewpoint {
+        position: absolute;
+        z-index: 7;
+        top: 48%;
+        left: 50%;
+        width: min(31em, 68vw);
+        color: rgba(18, 18, 17, 0.9);
+        mix-blend-mode: multiply;
+        opacity: 0;
+        pointer-events: none;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        will-change: opacity, filter, transform;
+      }
+
+      .generated-viewpoint span {
+        display: block;
+        margin-bottom: 12px;
+        font-family: "Outfit Local", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        opacity: 0.46;
+      }
+
+      .generated-viewpoint p {
+        margin: 0;
+        font-family: "Songti SC", "STSong", serif;
+        font-size: clamp(16px, 1.4vw, 21px);
+        letter-spacing: 0.1em;
+        line-height: 1.8;
+      }
+
       .time-echoes {
         position: absolute;
         z-index: 4;
@@ -505,7 +537,7 @@
         text-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
       }
 
-      .impact-scar {
+      .thought-route {
         position: absolute;
         z-index: 4;
         top: 0;
@@ -518,7 +550,7 @@
         pointer-events: none;
       }
 
-      .impact-scar path {
+      .thought-route path {
         fill: none;
         stroke: rgba(8, 8, 8, 0.7);
         stroke-linecap: round;
@@ -529,7 +561,7 @@
         vector-effect: non-scaling-stroke;
       }
 
-      .impact-scar .route-node {
+      .thought-route .route-node {
         fill: rgba(8, 8, 8, 0.72);
         stroke: rgba(244, 242, 234, 0.42);
         stroke-width: 1;
@@ -653,8 +685,9 @@
       body.is-immersion-paused .narrative-copy,
       body.is-immersion-paused .paired-thought,
       body.is-immersion-paused .time-echoes,
+      body.is-immersion-paused .generated-viewpoint,
       body.is-immersion-paused .information-field,
-      body.is-immersion-paused .impact-scar,
+      body.is-immersion-paused .thought-route,
       body.is-immersion-paused .reflection,
       body.is-immersion-paused .scroll-cue {
         opacity: 0 !important;
@@ -849,43 +882,48 @@
       </section>
 
       <div class="narrative-copy copy-order" data-copy="order" aria-hidden="true">
-        <span class="eyebrow">痕迹开始承重</span>
+        <span class="eyebrow">关系开始生成</span>
         <h2>构序</h2>
-        <p>痕迹不再只是被保存；它们开始决定彼此的方向、尺度与距离。</p>
+        <p>新信息与已有知识改变彼此的曲率，一个此前不存在的观点由关系生成。</p>
       </div>
 
       <div class="paired-thought" aria-hidden="true">
-        <p class="thought-half is-past"><time>2021</time>我以为答案藏在更完整的系统里，</p>
-        <p class="thought-half is-present"><time>2026</time>后来才明白，系统只是问题改变承重的方式。</p>
+        <p class="thought-half is-past"><time>已有节点</time>经验提供了可用的解释，</p>
+        <p class="thought-half is-present"><time>新观点</time>关系改变之后，解释的边界也随之改变。</p>
+      </div>
+
+      <div class="generated-viewpoint" aria-hidden="true">
+        <span>关系生成的新观点</span>
+        <p>关系改变之后，解释的边界也随之改变。</p>
       </div>
 
       <div class="time-echoes" aria-hidden="true">
-        <span data-year="2019">只有轮廓，句子尚未成形</span>
-        <span data-year="2022">墙面出现，缺口无法闭合</span>
-        <span data-year="2026">结构看似终于完整</span>
-        <span data-year="此刻">我经过以后，缺口再次打开</span>
+        <span data-year="输入">事实进入，尚未拥有解释</span>
+        <span data-year="经验">旧知识参与了判断的形成</span>
+        <span data-year="关系">矛盾与情境改变了它的方向</span>
+        <span data-year="此刻">系统看见自己为何这样判断</span>
       </div>
 
       <div class="narrative-copy copy-heart" data-copy="heart" data-tone="surface" aria-hidden="true">
-        <span class="eyebrow">时间转向观看者</span>
+        <span class="eyebrow">系统开始观察自身</span>
         <h2>观心</h2>
-        <p>当秩序开始回望，时间不再排列过去，而是排列仍未结束的我。</p>
+        <p>当秩序开始回望，系统不再排列过去，而是看见一个判断如何形成。</p>
       </div>
 
       <div class="narrative-copy copy-nature" data-copy="nature" aria-hidden="true">
-        <span class="eyebrow">内外原来同面</span>
+        <span class="eyebrow">观点融入自身</span>
         <h2>见性</h2>
-        <p>我始终向前，却回到了开始；所谓内外，从来没有两面。</p>
+        <p>新观点不再独立存在；它改变整体的运行方式，然后观察短暂安静。</p>
       </div>
 
       <div class="reflection" aria-hidden="true">
         <span class="reflection-point"></span>
         <span class="reflection-response"></span>
-        <p>当所有可以证明的结构都退去，<br />你仍愿意为哪一个选择负责？</p>
+        <p>当判断暂时安静，<br />你如何看见正在形成判断的自己？</p>
       </div>
 
       <div class="information-field front" aria-hidden="true"></div>
-      <svg class="impact-scar" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+      <svg class="thought-route" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
         <path
           class="observation-route"
           pathLength="1"
@@ -945,7 +983,7 @@
         const heroCopy = document.querySelector('.hero-copy')
         const guanxiang = document.querySelector('.guanxiang')
         const scrollCue = document.querySelector('.scroll-cue')
-        const scar = document.querySelector('.impact-scar')
+        const thoughtRoute = document.querySelector('.thought-route')
         const observationRoute = document.querySelector('.observation-route')
         const observationRouteNodes = Array.from(document.querySelectorAll('.route-node'))
         const status = document.querySelector('#experience-state')
@@ -955,6 +993,7 @@
         const heartCopy = document.querySelector('[data-copy="heart"]')
         const natureCopy = document.querySelector('[data-copy="nature"]')
         const pairedThought = document.querySelector('.paired-thought')
+        const generatedViewpoint = document.querySelector('.generated-viewpoint')
         const timeEchoes = document.querySelector('.time-echoes')
         const reflection = document.querySelector('.reflection')
         const stateRail = document.querySelector('.state-rail')
@@ -987,11 +1026,12 @@
             element.querySelector('p').textContent = entry.body
           })
 
-          const thought = contentById.get('order-cross-time-thought')
+          const thought = contentById.get('order-generated-viewpoint')
           const past = pairedThought.querySelector('.is-past')
           const present = pairedThought.querySelector('.is-present')
           past.innerHTML = `<time>${thought.past.year}</time>${thought.past.text}`
           present.innerHTML = `<time>${thought.present.year}</time>${thought.present.text}`
+          generatedViewpoint.querySelector('p').textContent = thought.present.text
 
           const room = contentById.get('reflection-room-years')
           Array.from(timeEchoes.children).forEach((element, index) => {
@@ -1052,7 +1092,7 @@
         function audioEventForState(stateIndex) {
           if (stateIndex <= 0) return 'prologue-pressure'
           if (stateIndex <= 3) return 'observation-impact'
-          if (stateIndex <= 7) return 'order-bearing'
+          if (stateIndex <= 7) return 'order-generative-relation'
           if (stateIndex <= 11) return 'reflection-time-layer'
           if (stateIndex <= 14) return 'nature-removal'
           return 'final-response'
@@ -1075,6 +1115,10 @@
         const demoMode = params.get('demo') === '1'
         const debugMode = params.get('debug') === '1'
         const cleanMode = params.get('clean') === '1' || !debugMode
+        let systemMemory = params.get('memory') === '1'
+          || experienceMemory.completedStages.includes('nature')
+          ? 1
+          : 0
         const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
           || params.get('motion') === 'reduce'
         const finePointer = matchMedia('(pointer: fine)')
@@ -1091,8 +1135,8 @@
         const LAST_STATE = 15
         const LEGACY_STATE_PROGRESS = [0, 0.68, 0.82, 1]
         const SCROLL_PHASES = [
-          // Director's cut: contemplation, first velocity peak, witnessed scar,
-          // slow alignment, sudden loss of weight, time echo, reveal and silence.
+          // Director's cut: contemplation, first velocity peak, node absorption,
+          // generative relation, sudden loss of weight, self-observation, fusion and silence.
           { p0: 0, p1: 0, s0: 0, s1: 0, mode: 'hold' },
           { p0: 0, p1: 0.12, s0: 0, s1: 1, mode: 'opening' },
           { p0: 0.12, p1: 0.17, s0: 1, s1: 2, mode: 'burst' },
@@ -1350,9 +1394,9 @@
           return Math.min(distance, 1 - distance)
         }
 
-        // One authored scar survives every act. Its shallow S-bend, abrupt
-        // shoulder and paired dark thread make it recognisable without labels.
-        function masterScarV(uNormalized) {
+        // One thought node survives every act. Its shallow S-bend is the stable
+        // identity carried through absorption, relation, reflection and fusion.
+        function thoughtNodePathV(uNormalized) {
           const u = wrap01(uNormalized)
           if (u <= 0.55) {
             const t = clamp((u - 0.235) / 0.315)
@@ -1637,8 +1681,8 @@
             for (let index = 0; index < segments; index += 1) {
               const u0 = start + distance * index / segments
               const u1 = start + distance * (index + 1) / segments
-              const v0 = masterScarV(u0)
-              const v1 = masterScarV(u1)
+              const v0 = thoughtNodePathV(u0)
+              const v1 = thoughtNodePathV(u1)
               const frame0 = mobiusFrame(u0 * TAU, v0)
               const frame1 = mobiusFrame(u1 * TAU, v1)
               let normal0 = frame0.normal
@@ -1657,17 +1701,16 @@
             }
           }
 
-          // Four observation imprints remain visible while the exact same vertices
-          // rise into curved load-bearing surfaces. Nothing is spawned in a new world.
-          addCurvedWall({ u0: 0.235, u1: 0.55, v0: -0.08, height: 0.18, halfWidth: 0.024, birth: 0, pathV: masterScarV })
-          addCurvedWall({ u0: 0.235, u1: 0.55, v0: -0.08, height: 0.195, halfWidth: 0.0045, birth: 0, kind: 7, pathV: masterScarV })
-          addCurvedWall({ u0: 0.34, u1: 0.5, v0: -0.52, v1: -0.38, height: 0.54, halfWidth: 0.019, birth: 0.18 })
-          addCurvedWall({ u0: 0.38, u1: 0.56, v0: 0.14, v1: 0.24, height: 0.92, halfWidth: 0.022, birth: 0.36 })
-          addCurvedWall({ u0: 0.44, u1: 0.62, v0: 0.52, v1: 0.4, height: 0.68, halfWidth: 0.016, birth: 0.54 })
-
-          // The two thought surfaces retain their own curvature; they never fly together.
-          addCurvedWall({ u0: 0.54, u1: 0.625, v0: -0.4, v1: -0.3, height: 1.02, halfWidth: 0.026, birth: 0.7, segments: 14 })
-          addCurvedWall({ u0: 0.605, u1: 0.69, v0: 0.36, v1: 0.26, height: 0.94, halfWidth: 0.026, birth: 0.8, segments: 14 })
+          // The absorbed node rises from the same surface. Two existing knowledge
+          // surfaces join it; all three acquire one curvature without becoming a graph.
+          addCurvedWall({ u0: 0.235, u1: 0.55, v0: -0.08, height: 0.18, halfWidth: 0.024, birth: 0, pathV: thoughtNodePathV })
+          addCurvedWall({ u0: 0.235, u1: 0.55, v0: -0.08, height: 0.195, halfWidth: 0.0045, birth: 0, kind: 7, pathV: thoughtNodePathV })
+          addCurvedWall({ u0: 0.4, u1: 0.6, v0: -0.44, v1: -0.24, height: 0.72, halfWidth: 0.026, birth: 0.12, kind: 9, segments: 22 })
+          addCurvedWall({ u0: 0.43, u1: 0.63, v0: 0.02, v1: 0.12, height: 0.94, halfWidth: 0.026, birth: 0.46, kind: 9, segments: 22 })
+          addCurvedWall({ u0: 0.46, u1: 0.66, v0: 0.48, v1: 0.28, height: 0.76, halfWidth: 0.026, birth: 0.78, kind: 9, segments: 22 })
+          // This membrane is not a fourth source node. It is the boundary of the
+          // negative space created only after the three relations begin to operate.
+          addCurvedWall({ u0: 0.515, u1: 0.645, v0: -0.04, v1: 0.08, height: 0.2, halfWidth: 0.008, birth: 0.5, kind: 10, segments: 24 })
 
           // Only the transition owns multiple temporal membranes. Past is sparse;
           // the present is clearer; both synchronize once before the room appears.
@@ -1685,7 +1728,7 @@
           addBox({ ...room, length: 0.07, width: 0.38, height: 0.88, offsetAlong: 0.5, offsetAcross: -0.33, kind: 5, birth: 0.42 })
           addBox({ ...room, length: 0.07, width: 0.38, height: 0.88, offsetAlong: 0.5, offsetAcross: 0.33, kind: 5, birth: 0.48 })
           addBox({ ...room, length: 0.075, width: 0.25, height: 0.88, offsetAlong: 0.5, kind: 6, birth: 0.78 })
-          // The scar becomes the two dark inner edges of the room's one gap.
+          // The thought node becomes the room's stable judgment interface.
           addBox({ ...room, length: 0.078, width: 0.012, height: 0.885, offsetAlong: 0.502, offsetAcross: -0.135, kind: 8, birth: 0.18 })
           addBox({ ...room, length: 0.078, width: 0.012, height: 0.885, offsetAlong: 0.502, offsetAcross: 0.135, kind: 8, birth: 0.24 })
 
@@ -1704,6 +1747,7 @@
           uniform float uTime;
           uniform float uProgress;
           uniform float uState;
+          uniform float uSystemMemory;
 
           out vec3 vWorld;
           out vec3 vNormal;
@@ -1720,7 +1764,7 @@
             return min(distance, 1.0 - distance);
           }
 
-          float masterScarV(float u) {
+          float thoughtNodePathV(float u) {
             if (u <= 0.55) {
               float t = clamp((u - 0.235) / 0.315, 0.0, 1.0);
               return -0.08 + sin(t * 3.14159265) * 0.13 + sin(t * TAU) * 0.035;
@@ -1743,20 +1787,27 @@
               + reflectionPressure;
 
             float eventTime = saturate((uProgress - 0.87) / 0.13);
-            float scarV = masterScarV(aParam.x);
-            float impactDistance = length(vec2((aParam.x - 0.235) * 5.0, (aParam.y - scarV) * 0.65));
-            float impactWave = sin(impactDistance * 42.0 - eventTime * 15.0)
-              * exp(-impactDistance * 8.0)
-              * sin(eventTime * 3.14159265)
-              * 0.055;
+            float nodeV = thoughtNodePathV(aParam.x);
+            float contactDistance = length(vec2((aParam.x - 0.235) * 5.0, (aParam.y - nodeV) * 0.65));
+            float contact = smoothstep(0.02, 0.16, eventTime) * (1.0 - smoothstep(0.22, 0.36, eventTime));
+            float deposition = smoothstep(0.16, 0.46, eventTime);
+            float absorption = smoothstep(0.42, 0.92, eventTime);
+            float contactCompression = -exp(-contactDistance * 10.0) * contact * 0.038;
+            float depositPressure = sin(contactDistance * 35.0 - eventTime * 10.0)
+              * exp(-contactDistance * 7.0)
+              * deposition * (1.0 - absorption * 0.7) * 0.034;
+            float absorbedPath = exp(-pow((aParam.y - nodeV) / 0.055, 2.0))
+              * smoothstep(0.22, 0.26, aParam.x)
+              * (1.0 - smoothstep(0.53, 0.59, aParam.x))
+              * absorption * 0.016;
 
             float orderPass = smoothstep(3.05, 3.5, uState) * (1.0 - smoothstep(4.55, 5.08, uState));
             float orderRange = smoothstep(0.22, 0.3, aParam.x) * (1.0 - smoothstep(0.48, 0.57, aParam.x));
-            float scarRange = smoothstep(0.225, 0.25, aParam.x)
+            float nodeRange = smoothstep(0.225, 0.25, aParam.x)
               * (1.0 - smoothstep(0.815, 0.85, aParam.x));
-            float inheritedGroove = exp(-pow((aParam.y - scarV) / 0.065, 2.0)) * orderRange;
-            float scarMemory = exp(-pow((aParam.y - scarV) / 0.026, 2.0))
-              * scarRange
+            float inheritedNode = exp(-pow((aParam.y - nodeV) / 0.065, 2.0)) * orderRange;
+            float nodeMemory = exp(-pow((aParam.y - nodeV) / 0.026, 2.0))
+              * nodeRange
               * smoothstep(3.18, 3.52, uState)
               * (1.0 - smoothstep(14.35, 14.82, uState));
             float foldAlong = smoothstep(0.22, 0.3, aParam.x)
@@ -1782,15 +1833,35 @@
               * exp(-pow(wrappedDistance(aParam.x, 0.815) / 0.035, 2.0))
               * exp(-pow((aParam.y - 0.02) / 0.28, 2.0));
 
+            // The generated viewpoint dissolves into the single Möbius surface.
+            // The pulse travels rather than attaching a new object, and leaves a
+            // small permanent curvature/rhythm change behind.
+            float integration = smoothstep(12.34, 12.66, uState);
+            float integrated = smoothstep(12.72, 13.08, uState);
+            float integrationFront = exp(-pow((wrappedDistance(aParam.x, mix(0.58, 0.96, integration))) / 0.075, 2.0));
+            float nodeBand = exp(-pow((aParam.y - nodeV) / 0.22, 2.0));
+            float integrationPulse = integrationFront * nodeBand * (1.0 - integrated) * 0.075;
+            float updatedCurvature = nodeBand
+              * smoothstep(0.5, 0.78, aParam.x)
+              * (1.0 - smoothstep(0.94, 0.99, aParam.x))
+              * (integrated + uSystemMemory) * 0.022;
+            float updatedRhythm = sin(aParam.x * TAU * 2.0 - uTime * 0.54)
+              * nodeBand * max(integrated, uSystemMemory) * 0.0045;
+
             vec3 position = aPosition + aNormal * (
               breath
-              + impactWave
-              - inheritedGroove * orderPass * 0.075
-              - scarMemory * 0.006
+              + contactCompression
+              + depositPressure
+              + absorbedPath
+              - inheritedNode * orderPass * 0.048
+              + nodeMemory * 0.004
               + oneSidedFold
               + adjacencyLift
               - seam * 0.09
               - roomMemory * 0.032
+              + integrationPulse
+              + updatedCurvature
+              + updatedRhythm
             );
             vWorld = position;
             vNormal = normalize(aNormal);
@@ -1850,7 +1921,7 @@
             return min(distance, 1.0 - distance);
           }
 
-          float masterScarV(float u) {
+          float thoughtNodePathV(float u) {
             if (u <= 0.55) {
               float t = clamp((u - 0.235) / 0.315, 0.0, 1.0);
               return -0.08 + sin(t * 3.14159265) * 0.13 + sin(t * 6.28318531) * 0.035;
@@ -1925,24 +1996,36 @@
             color += (directionalSediment - 0.5) * 0.038 * (0.12 + observation * 0.88);
             color += (fineRoughness - 0.5) * 0.012;
 
-            float scarV = masterScarV(vParam.x);
-            float scarRange = smoothstep(0.225, 0.25, vParam.x)
+            float nodeV = thoughtNodePathV(vParam.x);
+            float nodeRange = smoothstep(0.225, 0.25, vParam.x)
               * (1.0 - smoothstep(0.815, 0.85, vParam.x));
-            float scarDistance = exp(-pow((vParam.y - scarV) / 0.032, 2.0)) * scarRange;
-            float eventMark = smoothstep(0.93, 1.0, uProgress)
+            float nodeDistance = exp(-pow((vParam.y - nodeV) / 0.042, 2.0)) * nodeRange;
+            float contactResidue = smoothstep(0.895, 0.945, uProgress)
               * exp(-pow(wrappedDistance(vParam.x, 0.235) / 0.016, 2.0))
-              * exp(-pow((vParam.y - scarV) / 0.24, 2.0));
-            color = mix(color, deep * 0.58, eventMark * 0.82);
+              * exp(-pow((vParam.y - nodeV) / 0.24, 2.0));
+            float absorbedResidue = smoothstep(0.94, 1.0, uProgress) * nodeDistance;
+            color += boneLight * contactResidue * (0.24 + rim * 0.28);
+            color = mix(color, bone * 0.72, absorbedResidue * 0.46);
+            color += vec3(0.22, 0.24, 0.235) * absorbedResidue * 0.18;
 
             float orderAxis = smoothstep(3.2, 4.0, uState)
-              * exp(-pow((vParam.y - scarV) / 0.028, 2.0))
+              * exp(-pow((vParam.y - nodeV) / 0.028, 2.0))
               * smoothstep(0.22, 0.29, vParam.x)
               * (1.0 - smoothstep(0.52, 0.64, vParam.x));
             color = mix(color, deep * 0.42, orderAxis * 0.74);
 
-            float scarRecall = smoothstep(12.25, 13.0, uState)
+            float nodeRecall = smoothstep(12.25, 13.0, uState)
               * (1.0 - smoothstep(14.25, 14.78, uState));
-            color = mix(color, deep * 0.52, scarDistance * scarRecall * 0.68);
+            color = mix(color, bone * 0.9, nodeDistance * nodeRecall * 0.44);
+            color += boneLight * nodeDistance * nodeRecall * 0.1;
+
+            float integration = smoothstep(12.34, 12.72, uState);
+            float integrationFront = exp(-pow(wrappedDistance(vParam.x, mix(0.58, 0.96, integration)) / 0.075, 2.0));
+            float integrationBand = exp(-pow((vParam.y - nodeV) / 0.24, 2.0));
+            float integrationLight = integrationFront * integrationBand;
+            color += boneLight * integrationLight * (0.34 + rim * 0.4);
+            float integratedLight = smoothstep(12.7, 13.05, uState) * nodeDistance;
+            color += boneLight * integratedLight * (0.12 + rim * 0.18);
 
             float timeSediment = smoothstep(8.25, 9.0, uState)
               * (1.0 - smoothstep(11.7, 12.45, uState))
@@ -2011,7 +2094,14 @@
             float life = 0.0;
             float grow = 0.0;
 
-            if (kind > 7.5) {
+            if (kind > 9.5) {
+              life = smoothRange(uState, 6.12, 6.5, 12.34, 12.76);
+              grow = smoothstep(6.18, 6.62, uState);
+            } else if (kind > 8.5) {
+              float relationLife = smoothRange(uState, 3.2 + birth * 0.14, 3.62 + birth * 0.14, 8.0, 8.62);
+              life = max(relationLife, recall);
+              grow = max(smoothstep(3.7 + birth * 0.34, 4.7 + birth * 0.34, uState), recall);
+            } else if (kind > 7.5) {
               life = max(smoothRange(uState, 9.08, 9.5, 11.85, 12.45), recall);
               grow = max(smoothstep(9.18, 9.72, uState), recall);
             } else if (kind > 6.5) {
@@ -2041,6 +2131,23 @@
             float collapse = smoothstep(13.45, 14.42, uState);
             if (kind != 3.0) grow *= 1.0 - collapse;
             vec3 position = mix(aBasePosition, aFinalPosition, saturate(grow));
+
+            if (kind > 8.5 && kind < 9.5) {
+              float convergence = smoothstep(5.55, 6.5, uState);
+              float sharedCurve = sin((aDerivedParam.x - 0.5) * 13.0) * 0.12
+                + cos((aDerivedParam.x - 0.53) * 6.0) * 0.055;
+              float individualCurve = sin(aDerivedParam.x * 24.0 + birth * 9.0) * 0.05;
+              position += normalize(aDerivedNormal)
+                * mix(individualCurve, sharedCurve, convergence)
+                * life;
+            }
+
+            if (kind > 9.5) {
+              float generated = smoothstep(6.22, 6.72, uState);
+              float integration = smoothstep(12.34, 12.74, uState);
+              position += normalize(aDerivedNormal) * sin(aDerivedParam.x * 18.0) * generated * 0.045;
+              position = mix(position, aBasePosition, integration);
+            }
 
             if (kind > 2.5 && kind < 3.5) {
               float pathCollapse = smoothstep(14.12, 14.96, uState);
@@ -2132,7 +2239,14 @@
             vec3 color = bone * (0.125 + diffuse * 0.9 + wrap * 0.075 + rim * 0.12);
             float alpha = vDerivedLife;
 
-            if (vDerivedKind > 7.5) {
+            if (vDerivedKind > 9.5) {
+              color = vec3(0.055, 0.058, 0.056) * (0.84 + rim * 0.16);
+              alpha *= 0.64;
+            } else if (vDerivedKind > 8.5) {
+              float relation = smoothstep(5.45, 6.55, uState);
+              color = mix(color * 0.78, bone * (0.72 + rim * 0.18), relation);
+              alpha *= mix(0.72, 0.96, relation);
+            } else if (vDerivedKind > 7.5) {
               color = vec3(0.055, 0.058, 0.056) * (0.76 + rim * 0.1);
               alpha *= 0.88;
             } else if (vDerivedKind > 6.5) {
@@ -2528,8 +2642,8 @@
           const routeEnter = smoothstep((progress - 0.64) / 0.08)
           const routeExit = 1 - smootherstep((stateFloat - 3.32) / 0.55)
           const routeDraw = smootherstep((eventProgress - 0.04) / 0.9)
-          scar.style.opacity = (routeEnter * routeExit).toFixed(3)
-          scar.style.transform = 'none'
+          thoughtRoute.style.opacity = (routeEnter * routeExit).toFixed(3)
+          thoughtRoute.style.transform = 'none'
           observationRoute.style.strokeDashoffset = (1 - routeDraw).toFixed(4)
           observationRouteNodes.forEach((node, index) => {
             const nodeThreshold = (index + 1) / (observationRouteNodes.length + 1)
@@ -2577,8 +2691,8 @@
           orderCopy.style.transformOrigin = '0 50%'
           orderCopy.style.transform = `perspective(1200px) translate3d(${mix(-22, 0, orderOpacity)}px, ${mix(18, 0, orderOpacity)}px, 0) rotateY(${mix(-11, -3, orderOpacity)}deg) rotateZ(-0.7deg)`
 
-          const thoughtEnter = smoothstep((stateFloat - 6.45) / 0.42)
-          const thoughtExit = 1 - smoothstep((stateFloat - 8.58) / 0.22)
+          const thoughtEnter = smoothstep((stateFloat - 5.2) / 0.46)
+          const thoughtExit = 1 - smoothstep((stateFloat - 6.46) / 0.34)
           const pairedOpacity = thoughtEnter * thoughtExit
           const thoughtSync = 1 - smoothstep(Math.abs(stateFloat - 8.55) / 0.2)
           pairedThought.style.opacity = pairedOpacity.toFixed(3)
@@ -2590,6 +2704,22 @@
           pastThought.style.transform = `translate3d(${mix(0, 64, thoughtSync) - pointerX * 12}px, 0, 0)`
           presentThought.style.opacity = (pairedOpacity * 0.84).toFixed(3)
           presentThought.style.transform = `translate3d(${mix(0, -64, thoughtSync) + pointerX * 12}px, ${Math.sin(timeSeconds * 0.82) * (1 - thoughtSync) * 1.5}px, 0)`
+
+          const viewpointGenerated = smoothstep((stateFloat - 6.18) / 0.5)
+            * (1 - smoothstep((stateFloat - 7.82) / 0.36))
+          const viewpointFusion = smoothstep((stateFloat - 12.18) / 0.22)
+            * (1 - smoothstep((stateFloat - 12.76) / 0.18))
+          const viewpointOpacity = Math.max(viewpointGenerated, viewpointFusion)
+          const viewpointSpread = smoothstep((stateFloat - 12.34) / 0.42)
+          generatedViewpoint.style.opacity = viewpointOpacity.toFixed(3)
+          generatedViewpoint.style.filter = `blur(${mix(0, 7, viewpointSpread)}px)`
+          const viewpointOnDark = innerWidth <= 720 || viewpointFusion > viewpointGenerated
+          generatedViewpoint.style.color = viewpointOnDark
+            ? 'rgba(238, 236, 229, 0.9)'
+            : 'rgba(18, 18, 17, 0.9)'
+          generatedViewpoint.style.mixBlendMode = viewpointOnDark ? 'screen' : 'multiply'
+          generatedViewpoint.style.letterSpacing = `${mix(0, 0.18, viewpointSpread)}em`
+          generatedViewpoint.style.transform = `translate(-50%, -50%) scale(${mix(0.94, 1, viewpointGenerated) + viewpointSpread * 0.08})`
 
           const heartOpacity = statePulse(stateFloat, 9, 0.86)
           showNarrative(heartCopy, heartOpacity, mix(20, 0, heartOpacity), mix(3.2, 0, heartOpacity))
@@ -2679,6 +2809,7 @@
             if (stateIndex === 3 || stateIndex === 7 || stateIndex === 11 || stateIndex === 15) {
               completedStages.add(stage)
             }
+            if (stateIndex === 15) systemMemory = 1
             experienceMemory = {
               ...experienceMemory,
               completedStages: Array.from(completedStages),
@@ -2725,6 +2856,7 @@
           gl.uniform1f(gl.getUniformLocation(program, 'uTime'), timeSeconds)
           gl.uniform1f(gl.getUniformLocation(program, 'uProgress'), legacyProgress)
           gl.uniform1f(gl.getUniformLocation(program, 'uState'), stateFloat)
+          gl.uniform1f(gl.getUniformLocation(program, 'uSystemMemory'), systemMemory)
           gl.drawArrays(gl.TRIANGLES, 0, vertexCount)
 
           gl.useProgram(derivedProgram)
