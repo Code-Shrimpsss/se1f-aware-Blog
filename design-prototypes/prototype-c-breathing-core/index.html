@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#030303" />
+    <meta name="description" content="Self-Awake 呼吸核心高保真原型：思想在时间、停留与阅读中持续形成。" />
+    <title>呼吸核心 C — Self-Awake</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M11.7 3.8A5.3 5.3 0 1 0 12.8 9' fill='none' stroke='%23e9e7df' stroke-width='.8'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="../shared/content.js" defer></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#scene-core">跳到意识空间</a>
+
+    <div class="formation-layer" aria-label="意识核心正在形成">
+      <div class="formation-copy">
+        <span class="formation-mark" aria-hidden="true"></span>
+        <p class="formation-state" role="status" aria-live="polite">黑暗仍未发生。</p>
+        <p class="formation-count" aria-hidden="true"><span>形成</span><output>00</output></p>
+      </div>
+      <button class="formation-skip" type="button">跳过形成</button>
+    </div>
+
+    <canvas id="breathing-core" aria-hidden="true"></canvas>
+    <div class="canvas-fallback" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <header class="edge-signature" aria-label="网站署名">
+      <a href="#scene-core" data-go-scene="0">
+        <span>self-awake</span>
+        <span>self-awareness</span>
+      </a>
+      <p>BREATHING STUDY / C</p>
+    </header>
+
+    <nav class="scene-rail" aria-label="意识层级">
+      <p class="scene-progress"><span class="current-scene">00</span><span aria-hidden="true">/</span><span>04</span></p>
+      <ol>
+        <li><a href="#scene-core" data-scene-link="0" aria-current="step"><span>00</span><b>形成</b></a></li>
+        <li><a href="#scene-observe" data-scene-link="1"><span>01</span><b>观象</b></a></li>
+        <li><a href="#scene-order" data-scene-link="2"><span>02</span><b>构序</b></a></li>
+        <li><a href="#scene-inward" data-scene-link="3"><span>03</span><b>观心</b></a></li>
+        <li><a href="#scene-reflect" data-scene-link="4"><span>04</span><b>见性</b></a></li>
+      </ol>
+    </nav>
+
+    <nav class="utility-rail" aria-label="内容功能">
+      <button type="button" data-open-archive="all">文章</button>
+      <button type="button" data-open-archive="search">输入一词</button>
+      <button type="button" data-open-archive="time">时间</button>
+      <button type="button" data-open-archive="traces"><span>痕迹</span><output class="trace-count" aria-label="已阅读数量">0</output></button>
+      <button type="button" data-open-about>关于</button>
+    </nav>
+
+    <button class="return-core" type="button" data-go-scene="0">返回核心 <span aria-hidden="true">↑</span></button>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span class="scroll-cue-line"></span>
+      <span>滚动进入</span>
+    </div>
+
+    <main id="consciousness-space">
+      <section class="scene scene--core" id="scene-core" data-scene="0" aria-labelledby="core-title">
+        <div class="scene-copy scene-copy--hero">
+          <p class="scene-kicker"><span>00</span> 意识并未完成</p>
+          <h1 id="core-title">我试图穿过<br />世界的表象，<br /><em>寻找未被命名的真实。</em></h1>
+          <p class="statement-en" lang="en">I move through appearances, looking for what has not yet been named.</p>
+          <div class="hero-actions">
+            <button type="button" data-go-scene="1">沿第一次呼吸进入</button>
+            <button type="button" data-open-archive="all">普通文章索引</button>
+          </div>
+          <p class="privacy-note">阅读痕迹只保存在当前浏览器，不上传，也不属于任何人群。</p>
+        </div>
+        <p class="core-annotation" aria-hidden="true"><span>未闭合处</span><i></i></p>
+      </section>
+
+      <section class="scene scene--observe" id="scene-observe" data-scene="1" aria-labelledby="observe-title">
+        <div class="scene-copy">
+          <p class="scene-kicker"><span>01</span> 接触面</p>
+          <h2 id="observe-title">观象 <small>我看见了什么</small></h2>
+          <p class="scene-prompt">表象是入口，不是结论。外部世界先在结构表面留下压力，随后才成为文字。</p>
+          <div class="scene-articles" data-layer-articles="observe">
+            <p class="loading-copy">正在辨认表面铭文…</p>
+          </div>
+        </div>
+        <p class="breath-register" aria-live="polite"><span>外层呼吸</span><output data-breath-state>5.8 秒 / 次</output></p>
+      </section>
+
+      <section class="scene scene--order" id="scene-order" data-scene="2" aria-labelledby="order-title">
+        <div class="scene-copy">
+          <p class="scene-kicker"><span>02</span> 关系层</p>
+          <h2 id="order-title">构序 <small>我如何理解它</small></h2>
+          <p class="scene-prompt">不是把答案放进容器，而是让相隔的判断短暂采用同一尺度。</p>
+          <div class="scene-articles" data-layer-articles="order">
+            <p class="loading-copy">正在校准关系…</p>
+          </div>
+          <div class="sync-evidence" data-sync-panel="order">
+            <p><span>停留显影</span><output data-dwell-output>两处节律尚未重合 · 2.4s</output></p>
+            <blockquote>2023 → 2026<br /><strong>从生成内容，到改变现实状态</strong></blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene--inward" id="scene-inward" data-scene="3" aria-labelledby="inward-title">
+        <div class="scene-copy">
+          <p class="scene-kicker"><span>03</span> 时间层</p>
+          <h2 id="inward-title">观心 <small>世界如何穿过我</small></h2>
+          <p class="scene-prompt">停留不是空白。它改变核心的呼吸，让两个年份里未回答的问题开始同步。</p>
+          <div class="scene-articles" data-layer-articles="inward">
+            <p class="loading-copy">正在等待时间靠近…</p>
+          </div>
+          <div class="sync-evidence sync-evidence--inward" data-sync-panel="inward">
+            <p><span>呼吸同步</span><output data-dwell-output>保持停留 · 2.4s</output></p>
+            <blockquote>2022 → 2026<br /><strong>同一个未回答的问题再次出现</strong></blockquote>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene--reflect" id="scene-reflect" data-scene="4" aria-labelledby="reflect-title">
+        <div class="reflection-space">
+          <p class="scene-kicker"><span>04</span> 剥离之后</p>
+          <h2 id="reflect-title">见性</h2>
+          <p class="reflection-preface">这里没有可领取的答案。只剩你的阅读顺序暂时留下的一问：</p>
+          <blockquote class="reflection-question">当所有可证明的部分都退去，你仍愿意为哪一个选择负责？</blockquote>
+          <button class="unopenable-node" type="button" aria-describedby="node-response">
+            <span aria-hidden="true"></span>尝试靠近
+          </button>
+          <p id="node-response" class="node-response" aria-live="polite">节点保持微弱闭合。它不替你打开。</p>
+          <div class="reflection-actions">
+            <button type="button" data-open-archive="traces">查看我留下的痕迹</button>
+            <button type="button" data-go-scene="0">返回呼吸核心</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="exit-memory" role="status" aria-live="polite"></div>
+
+    <dialog class="archive-dialog" id="archive-dialog" aria-labelledby="archive-title">
+      <div class="dialog-shell">
+        <header class="dialog-heading">
+          <div>
+            <p>清晰入口 / 不需要理解空间</p>
+            <h2 id="archive-title">全部文章</h2>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="关闭文章索引">关闭</button>
+        </header>
+        <div class="archive-tools">
+          <label for="archive-search">向意识空间输入一个词</label>
+          <div class="search-line">
+            <input id="archive-search" type="search" autocomplete="off" placeholder="标题、主题、年份或一句话" />
+            <output id="search-count" aria-live="polite">6 篇</output>
+          </div>
+          <div class="archive-modes" aria-label="索引排列方式">
+            <button type="button" data-archive-mode="all" aria-pressed="true">全部</button>
+            <button type="button" data-archive-mode="time" aria-pressed="false">按时间</button>
+            <button type="button" data-archive-mode="traces" aria-pressed="false">我的痕迹</button>
+          </div>
+        </div>
+        <div class="archive-list" id="archive-list"></div>
+        <p class="archive-empty" hidden>没有找到相应文字。换一个更短的词，或清除输入。</p>
+        <footer class="dialog-privacy">阅读痕迹仅保存在此浏览器的 localStorage，可随时清除。<button type="button" data-clear-traces>清除我的痕迹</button></footer>
+      </div>
+    </dialog>
+
+    <dialog class="reader-dialog" id="reader-dialog" aria-labelledby="reader-title">
+      <div class="reader-shell">
+        <header class="reader-controls">
+          <button type="button" data-close-reader>返回呼吸空间</button>
+          <p><span class="reader-position">阅读切面</span><span class="reader-progress" aria-hidden="true"></span></p>
+        </header>
+        <article id="reader-article">
+          <p class="reader-meta"></p>
+          <h1 id="reader-title">文章标题</h1>
+          <p class="reader-summary"></p>
+          <div class="reader-body"></div>
+          <footer class="reader-footer">
+            <p class="reader-exit-copy"></p>
+            <div class="reader-related"></div>
+          </footer>
+        </article>
+      </div>
+    </dialog>
+
+    <dialog class="about-dialog" id="about-dialog" aria-labelledby="about-title">
+      <div class="dialog-shell dialog-shell--about">
+        <header class="dialog-heading">
+          <div><p>现实中的入口</p><h2 id="about-title">关于 self-awake</h2></div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="关闭关于">关闭</button>
+        </header>
+        <div class="about-body">
+          <p>这里先承载写作、技术实践与持续发生的自我校准。空间可以未知，文章必须清楚；视觉可以冷，连接不能冷漠。</p>
+          <p>此页面是独立高保真原型，不替作者编造履历或经历。现实身份、联系方法与正式 About 将在方向确认后接入。</p>
+          <dl><div><dt>方向</dt><dd>技术 · 知识 · 经验 · 本真</dd></div><div><dt>状态</dt><dd>原型 C / 呼吸核心</dd></div><div><dt>数据</dt><dd>无上传 · 无公共访客网络</dd></div></dl>
+        </div>
+      </div>
+    </dialog>
+
+    <section class="semantic-fallback" aria-label="无需视觉效果的文章入口">
+      <h2>文章与返照</h2>
+      <p>若视觉脚本未能运行，你仍可以在这里阅读全部内容。</p>
+      <details><summary>从“能回答”到“能交付”：生产级 AI Agent 的五层工程架构（已发布）</summary><p>模型处理模糊性，系统保存状态、约束风险并提供证据；可靠性本身就是用户正在使用的产品。</p></details>
+      <details><summary>AIGC：人工智能生成内容的革命（已发布）</summary><p>回看生成式技术如何改变创作效率、版权边界与人类创作者的位置。</p></details>
+      <details><summary>Docker in 2024: Evolving Relevance in Modern DevOps（已发布）</summary><p>Docker 从颠覆性工具变成基础设施标准，也提醒我们：价值会随着生态关系重新定义。</p></details>
+      <details><summary>从答案退回证据：我的知识校准方法</summary><p>原型内容 · 待作者确认。把“我相信什么”拆回来源、时间、反例与行动后果。</p></details>
+      <details><summary>当效率不再回答我</summary><p>原型内容 · 待作者确认。完成得更多，并没有自动回答为何出发。</p></details>
+      <details><summary>未被命名之前</summary><p>原型内容 · 待作者确认。身份、能力与判断暂时退去后，仍有一部分经验不能被替代。</p></details>
+      <blockquote>当所有可证明的部分都退去，你仍愿意为哪一个选择负责？</blockquote>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#020202" />
+    <meta
+      name="description"
+      content="Self-Awake 隐藏秩序原型：不解释意识，让一次停留改变空间。"
+    />
+    <title>隐藏秩序 C2 — Self-Awake</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M11.7 3.8A5.3 5.3 0 1 0 12.8 9' fill='none' stroke='%23ece8de' stroke-width='.8'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="../shared/content.js" defer></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body data-state="0">
+    <a class="skip-link" href="#stage">跳到意识空间</a>
+    <a class="skip-link skip-link--index" href="#edge-entry">打开普通文章索引</a>
+
+    <canvas id="core-canvas" aria-hidden="true"></canvas>
+    <div class="core-fallback" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="field-grain" aria-hidden="true"></div>
+
+    <button
+      class="edge-entry"
+      id="edge-entry"
+      type="button"
+      aria-haspopup="dialog"
+      aria-controls="index-dialog"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true"></span>
+      <b>索引</b>
+    </button>
+
+    <main class="journey" id="journey">
+      <div class="state-track" aria-hidden="true">
+        <i data-track-state="0"></i>
+        <i data-track-state="1"></i>
+        <i data-track-state="2"></i>
+        <i data-track-state="3"></i>
+        <i data-track-state="4"></i>
+      </div>
+
+      <section class="stage" id="stage" tabindex="-1" aria-labelledby="opening-statement">
+        <header class="opening-signature">
+          <p><span>self-awake</span><span>self-awareness</span></p>
+        </header>
+
+        <div class="opening" data-state-panel="0">
+          <h1 id="opening-statement">我试图穿过世界的表象，<br />寻找未被命名的真实。</h1>
+          <button class="approach-cue" type="button" data-next-state>
+            <span>继续靠近</span><i aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <p class="layer-arrival" id="layer-arrival" role="status" aria-live="polite"></p>
+
+        <div class="encounter encounter--observe" data-state-panel="1" aria-hidden="true">
+          <h2 class="sr-only">观象</h2>
+          <p class="encounter-judgement">表象留下压力，文字随后发生。</p>
+          <button class="thought-fragment" type="button" data-open-article="agent-architecture">
+            <time datetime="2026-07-11">2026</time>
+            <span>从“能回答”到“能交付”</span>
+          </button>
+        </div>
+
+        <div class="encounter encounter--order" data-state-panel="2" aria-hidden="true">
+          <h2 class="sr-only">构序</h2>
+          <p class="encounter-judgement">关系使相隔的判断获得形状。</p>
+          <button
+            class="thought-fragment thought-fragment--dwell"
+            type="button"
+            data-dwell-trigger
+            data-open-article="efficiency-silence"
+            aria-describedby="dwell-instruction dwell-status"
+          >
+            <time datetime="2022-08-19">2022</time>
+            <span>当效率不再回答我</span>
+            <i class="dwell-measure" aria-hidden="true"></i>
+          </button>
+          <p class="sr-only" id="dwell-instruction">在这段文字上停留，空间会回应。</p>
+          <p class="dwell-status" id="dwell-status" aria-live="polite"></p>
+        </div>
+
+        <div class="signature-moment" aria-hidden="true">
+          <p class="folded-thought folded-thought--past">
+            <time datetime="2022-08-19">2022</time>
+            <span>推进并不等于</span>
+          </p>
+          <button
+            class="fold-seam"
+            type="button"
+            data-enter-seam
+            aria-label="穿过裂缝，阅读《当效率不再回答我》"
+            tabindex="-1"
+          >
+            <i aria-hidden="true"></i>
+            <span>穿过此处</span>
+          </button>
+          <p class="folded-thought folded-thought--future">
+            <time datetime="2026-06-21">2026</time>
+            <span>抵达。</span>
+          </p>
+        </div>
+
+        <div class="encounter encounter--inward" data-state-panel="3" aria-hidden="true">
+          <h2 class="sr-only">观心</h2>
+          <p class="encounter-judgement">未被回答的部分，开始回望。</p>
+          <button class="thought-fragment" type="button" data-open-article="unnamed-real">
+            <time datetime="2026-06-21">2026</time>
+            <span>未被命名之前</span>
+          </button>
+        </div>
+
+        <div class="reflection" data-state-panel="4" aria-hidden="true">
+          <h2 class="sr-only">见性</h2>
+          <blockquote id="reflection-question">
+            当所有可证明的部分都退去，<br />你仍愿意为哪一个选择负责？
+          </blockquote>
+          <button class="sr-only" type="button" data-return-origin>返回起点</button>
+        </div>
+
+        <p class="space-status sr-only" id="space-status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <dialog class="index-dialog" id="index-dialog" aria-labelledby="index-title">
+      <div class="index-shell">
+        <header class="index-heading">
+          <p>self-awake</p>
+          <h2 id="index-title">普通入口</h2>
+          <button type="button" data-close-index aria-label="关闭普通入口">关闭</button>
+        </header>
+
+        <nav class="index-tabs" aria-label="普通入口内容">
+          <button type="button" id="tab-articles" role="tab" aria-selected="true" aria-controls="panel-articles" data-index-tab="articles">文章</button>
+          <button type="button" id="tab-search" role="tab" aria-selected="false" aria-controls="panel-search" data-index-tab="search">搜索</button>
+          <button type="button" id="tab-about" role="tab" aria-selected="false" aria-controls="panel-about" data-index-tab="about">关于</button>
+        </nav>
+
+        <section class="index-panel" id="panel-articles" role="tabpanel" aria-labelledby="tab-articles" data-index-panel="articles">
+          <div class="article-index" id="article-index"></div>
+        </section>
+
+        <section class="index-panel" id="panel-search" role="tabpanel" aria-labelledby="tab-search" data-index-panel="search" hidden>
+          <label class="search-field" for="index-search">
+            <span>输入标题、主题或年份</span>
+            <input id="index-search" type="search" autocomplete="off" placeholder="例如：证据" />
+          </label>
+          <output class="search-result-count" id="search-result-count" aria-live="polite"></output>
+          <div class="article-index" id="search-results"></div>
+          <p class="search-empty" hidden>没有找到相应文字。试试更短的词。</p>
+        </section>
+
+        <section class="index-panel index-panel--about" id="panel-about" role="tabpanel" aria-labelledby="tab-about" data-index-panel="about" hidden>
+          <p>这里承载技术实践、知识校准与仍在发生的自我观察。</p>
+          <p>空间保持未知，文章保持清楚。原型内容均明确标注，等待作者确认。</p>
+          <dl>
+            <div><dt>方向</dt><dd>技术 · 知识 · 经验 · 本真</dd></div>
+            <div><dt>状态</dt><dd>隐藏秩序 / 独立原型</dd></div>
+          </dl>
+        </section>
+
+        <footer class="index-footer">
+          <p><span id="read-count">0</span> 篇曾被你打开</p>
+          <button type="button" data-clear-memory>清除</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <dialog class="reader-dialog" id="reader-dialog" aria-labelledby="reader-title">
+      <div class="reader-shell">
+        <header class="reader-controls">
+          <button type="button" data-close-reader>返回空间</button>
+          <p aria-hidden="true"><span>READING</span><i class="reader-progress"></i></p>
+        </header>
+        <article id="reader-article">
+          <p class="reader-meta"></p>
+          <h1 id="reader-title">文章标题</h1>
+          <p class="reader-summary"></p>
+          <div class="reader-body"></div>
+          <footer class="reader-footer">
+            <p>继续沿这次阅读留下的关系：</p>
+            <div class="reader-related"></div>
+          </footer>
+        </article>
+      </div>
+    </dialog>
+
+    <section class="semantic-fallback" aria-label="文章与返照">
+      <header>
+        <p>self-awake / plain index</p>
+        <h1>文章与返照</h1>
+        <p>视觉空间未能运行，全部文字仍可在这里阅读。</p>
+      </header>
+      <details>
+        <summary>从“能回答”到“能交付”：生产级 AI Agent 的五层工程架构（已发布）</summary>
+        <p>模型处理模糊性，系统保存状态、约束风险并提供证据；可靠性本身就是用户正在使用的产品。</p>
+      </details>
+      <details>
+        <summary>AIGC：人工智能生成内容的革命（已发布）</summary>
+        <p>回看生成式技术如何改变创作效率、版权边界与人类创作者的位置。</p>
+      </details>
+      <details>
+        <summary>Docker in 2024: Evolving Relevance in Modern DevOps（已发布）</summary>
+        <p>Docker 从颠覆性工具变成基础设施标准，也提醒我们：价值会随着生态关系重新定义。</p>
+      </details>
+      <details>
+        <summary>从答案退回证据：我的知识校准方法（原型内容）</summary>
+        <p>把“我相信什么”拆回来源、时间、反例与行动后果，让知识保持可修订。</p>
+      </details>
+      <details>
+        <summary>当效率不再回答我（原型内容）</summary>
+        <p>一次关于速度、价值与自我要求的停顿：完成得更多，并没有自动回答为何出发。</p>
+      </details>
+      <details>
+        <summary>未被命名之前（原型内容）</summary>
+        <p>身份、能力与判断暂时退去后，仍有一部分经验不能被替代，也不急于获得名称。</p>
+      </details>
+      <blockquote>当所有可证明的部分都退去，你仍愿意为哪一个选择负责？</blockquote>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-CN" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Self-Awake 折叠核心原型：让时间与关系改变思想在有限空间中的邻接。"
+    />
+    <meta name="theme-color" content="#030303" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23030303'/%3E%3Cpath d='M7 8l9-4 9 7-4 17-12-4z' fill='none' stroke='%23e9e7df'/%3E%3Cpath d='M16 4v24' stroke='%23030303' stroke-width='2'/%3E%3C/svg%3E"
+    />
+    <title>Self-Awake — 折叠核心</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      document.documentElement.classList.remove('no-js')
+      document.documentElement.classList.add('js')
+    </script>
+  </head>
+  <body data-scene="0">
+    <a class="skip-link" href="#scene-core">跳至意识核心</a>
+
+    <div class="formation" id="formation" role="status" aria-live="polite" aria-label="思想核心正在形成">
+      <div class="formation__field" aria-hidden="true">
+        <span class="formation__node"></span>
+        <span class="formation__thread formation__thread--a"></span>
+        <span class="formation__thread formation__thread--b"></span>
+        <span class="formation__piece formation__piece--a"></span>
+        <span class="formation__piece formation__piece--b"></span>
+        <span class="formation__piece formation__piece--c"></span>
+        <span class="formation__piece formation__piece--d"></span>
+        <span class="formation__seam"></span>
+      </div>
+      <div class="formation__copy">
+        <p class="formation__word" id="formation-word">一次尚未命名的活动</p>
+        <p class="formation__measure"><span id="formation-progress">00</span><span aria-hidden="true"> / 100</span></p>
+      </div>
+      <button class="text-button formation__skip" id="skip-formation" type="button">跳过形成</button>
+    </div>
+
+    <header class="edge-signature" aria-label="站点署名">
+      <a href="#scene-core" data-scene-link="0">
+        <span>self-awake</span>
+        <span>self-awareness</span>
+      </a>
+      <span class="edge-signature__note">fold study / b</span>
+    </header>
+
+    <aside class="fold-space" aria-label="折叠思想核心的视觉状态">
+      <div class="fold-space__measure fold-space__measure--top" aria-hidden="true">
+        <span>outside</span><i></i><span>inside</span>
+      </div>
+
+      <div class="fold-stage" id="fold-stage">
+        <div class="fold-shadow" aria-hidden="true"></div>
+        <div class="fold-core" aria-hidden="true">
+          <div class="fold-face fold-face--rear"><span>unseen / 04</span></div>
+          <div class="fold-face fold-face--north"><span>表象</span></div>
+          <div class="fold-face fold-face--west"><span>2023</span></div>
+          <div class="fold-face fold-face--south"><span>method / 02</span></div>
+          <div class="fold-face fold-face--east"><span>2026</span></div>
+          <div class="fold-face fold-face--inside"><span>evidence</span></div>
+          <div class="fold-face fold-face--center">
+            <span class="fold-face__front">现在</span>
+            <span class="fold-face__back">过去</span>
+          </div>
+          <div class="fold-aperture"></div>
+
+          <div class="surface-fragment surface-fragment--a">
+            <span>2023 / 人机</span>
+            <strong>AIGC 与创造的边界</strong>
+          </div>
+          <div class="surface-fragment surface-fragment--b">
+            <span>2026 / 系统</span>
+            <strong>从能回答，到能交付</strong>
+          </div>
+
+          <div class="relation-fold">
+            <span class="relation-fold__year relation-fold__year--past">2022</span>
+            <span class="relation-fold__hinge"></span>
+            <span class="relation-fold__year relation-fold__year--now">2026</span>
+            <p>同一个未回答的问题再次出现</p>
+          </div>
+
+          <div class="time-plane time-plane--past">
+            <span>2022</span>
+            <strong>推进并不等于抵达</strong>
+          </div>
+          <div class="time-plane time-plane--now">
+            <span>2026</span>
+            <strong>仍要求我亲自面对</strong>
+          </div>
+
+          <svg class="fold-seams" viewBox="0 0 600 600" focusable="false">
+            <path class="fold-seams__outer" d="M170 198 L304 104 L464 190 L480 378 L336 500 L132 406 Z" />
+            <path class="fold-seams__crease" d="M304 104 L314 281 L480 378 M314 281 L132 406 M314 281 L336 500" />
+            <path class="fold-seams__open" d="M314 281 C319 308 307 343 322 378" />
+          </svg>
+          <span class="final-boundary"></span>
+        </div>
+      </div>
+
+      <p class="fold-space__caption" id="fold-caption">
+        <span>完整只属于当前视角</span>
+        <span class="fold-space__coordinate">31°14′ / relation fold</span>
+      </p>
+    </aside>
+
+    <nav class="scene-rail" aria-label="意识场景">
+      <p class="scene-rail__label">observation order</p>
+      <ol>
+        <li><a href="#scene-core" data-scene-link="0" aria-current="step"><span>00</span><i></i><b>形成</b></a></li>
+        <li><a href="#scene-observe" data-scene-link="1"><span>01</span><i></i><b>观象</b></a></li>
+        <li><a href="#scene-order" data-scene-link="2"><span>02</span><i></i><b>构序</b></a></li>
+        <li><a href="#scene-inward" data-scene-link="3"><span>03</span><i></i><b>观心</b></a></li>
+        <li><a href="#scene-reflect" data-scene-link="4"><span>04</span><i></i><b>见性</b></a></li>
+      </ol>
+    </nav>
+
+    <div class="scene-status" aria-live="polite">
+      <span id="scene-position">00 / 04</span>
+      <span id="scene-name">核心 · 形成</span>
+    </div>
+
+    <button class="return-core" id="return-core" type="button" data-scene-link="0">
+      <span aria-hidden="true">↖</span> 返回核心
+    </button>
+
+    <main id="main-content" class="consciousness">
+      <section class="scene scene--core is-active" id="scene-core" data-scene="0" aria-labelledby="core-title">
+        <div class="scene__copy scene__copy--statement">
+          <p class="scene__index"><span>00</span> 核心 / 形成</p>
+          <h1 id="core-title">我试图穿过世界的表象，<br />寻找未被命名的真实。</h1>
+          <p class="scene__en" lang="en">I move through appearances,<br />looking for what has not yet been named.</p>
+          <div class="scene__actions">
+            <button class="quiet-action" type="button" data-scene-link="1">沿折缝进入</button>
+            <button class="quiet-action quiet-action--muted" type="button" data-open-panel="articles">普通文章索引</button>
+          </div>
+        </div>
+        <p class="scene__prompt">意识并未完成。<br />它只是在此刻形成。</p>
+      </section>
+
+      <section class="scene scene--observe" id="scene-observe" data-scene="1" aria-labelledby="observe-title">
+        <div class="scene__copy">
+          <p class="scene__index"><span>01</span> 观象 / 接触面</p>
+          <h2 id="observe-title">表面不是遮蔽，<br />而是意识与现实接触的边界。</h2>
+          <p class="scene__lead">技术、作品与他人的思想先成为折面的外侧。继续观察，它们才显出并不一致的年代与重量。</p>
+          <div class="article-edges" aria-label="观象文章">
+            <a href="#article-agent-architecture" data-article="agent-architecture">
+              <span><b>2026</b> 技术实践 · 已发布</span>
+              <strong>从能回答，到能交付</strong>
+              <em>13 min ↗</em>
+            </a>
+            <a href="#article-aigc-revolution" data-article="aigc-revolution">
+              <span><b>2023</b> 外部观察 · 已发布</span>
+              <strong>AIGC 与创造的边界</strong>
+              <em>6 min ↗</em>
+            </a>
+          </div>
+        </div>
+        <p class="scene__prompt">我看见了什么<br /><span>外侧 / contact surface</span></p>
+      </section>
+
+      <section class="scene scene--order" id="scene-order" data-scene="2" aria-labelledby="order-title">
+        <div class="scene__copy">
+          <p class="scene__index"><span>02</span> 构序 / 关系层</p>
+          <h2 id="order-title">不是增加连接。<br />是交换什么与什么相邻。</h2>
+          <p class="scene__lead">折面翻转以后，结论退回证据，工具退回生态。原本位于结构两端的文字短暂共享一条内侧边。</p>
+          <div class="relation-evidence">
+            <a href="#article-docker-standards" data-article="docker-standards">
+              <span>2024 / 工具</span><strong>当颠覆者成为标准</strong>
+            </a>
+            <span class="relation-evidence__exchange" aria-label="邻接关系发生交换">内 ↔ 外</span>
+            <a href="#article-evidence-before-answer" data-article="evidence-before-answer">
+              <span>2025 / 方法</span><strong>从答案退回证据</strong>
+            </a>
+          </div>
+          <p class="prototype-mark">后者为原型内容 · 待作者确认</p>
+        </div>
+        <p class="scene__prompt">我如何理解它<br /><span>关系是形状，不是连线</span></p>
+      </section>
+
+      <section class="scene scene--inward" id="scene-inward" data-scene="3" aria-labelledby="inward-title">
+        <div class="scene__copy">
+          <p class="scene__index"><span>03</span> 观心 / 时间层</p>
+          <h2 id="inward-title">有些远处，<br />只需要认真停留便会抵达。</h2>
+          <p class="scene__lead">2022 年没有回答的问题，与 2026 年仍无法外包的选择，在同一张折面上互为内外。</p>
+
+          <div class="dwell" id="dwell-panel">
+            <div class="dwell__bar" aria-hidden="true"><span id="dwell-bar"></span></div>
+            <p id="dwell-status" aria-live="polite">在这里停留 2.4 秒，让两个年份靠近。</p>
+          </div>
+
+          <div class="time-entries">
+            <a href="#article-efficiency-silence" data-article="efficiency-silence">
+              <span>过去 / 2022</span>
+              <strong>效率没有回答的部分</strong>
+            </a>
+            <a href="#article-unnamed-real" data-article="unnamed-real">
+              <span>现在 / 2026</span>
+              <strong>未被命名之前</strong>
+            </a>
+          </div>
+          <p class="prototype-mark">两篇均为原型内容 · 待作者确认</p>
+        </div>
+        <p class="scene__prompt">世界如何穿过我<br /><span>停留会改变邻接</span></p>
+      </section>
+
+      <section class="scene scene--reflect" id="scene-reflect" data-scene="4" aria-labelledby="reflect-title">
+        <div class="scene__copy scene__copy--reflection">
+          <p class="scene__index"><span>04</span> 见性 / 返照</p>
+          <p class="reflection-before">你走过的顺序折回为一条边界。它不保存答案，只留下一个与你的阅读有关的问题。</p>
+          <h2 id="reflect-title" class="reflection-question">当所有可证明的部分都退去，<br />你仍愿意为哪一个选择负责？</h2>
+          <p class="reflection-privacy">阅读痕迹只保存在当前浏览器，不上传，也不属于任何人群。</p>
+          <div class="scene__actions">
+            <button class="quiet-action" type="button" data-article="unnamed-real">进入《未被命名之前》</button>
+            <button class="quiet-action quiet-action--muted" type="button" data-scene-link="0">重新观察</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <p class="scroll-cue" id="scroll-cue"><span></span>滚动 / 方向键改变观察顺序</p>
+
+    <nav class="edge-actions" aria-label="内容与站点功能">
+      <button type="button" data-open-panel="articles"><span>文章</span><small>all writing</small></button>
+      <button type="button" data-open-panel="connections"><span>连接</span><small>your trace</small></button>
+      <button type="button" data-open-panel="timeline"><span>时间</span><small>2022—26</small></button>
+      <button type="button" data-open-panel="about"><span>关于</span><small>the author</small></button>
+      <button type="button" data-open-panel="search"><span>搜索</span><small>input a word</small></button>
+    </nav>
+
+    <dialog class="archive" id="archive-dialog" aria-labelledby="archive-title">
+      <div class="archive__shell">
+        <header class="archive__header">
+          <div>
+            <p>ordinary access / 无需理解空间</p>
+            <h2 id="archive-title">内容索引</h2>
+          </div>
+          <button class="dialog-close" type="button" data-close-dialog aria-label="关闭内容索引">关闭 <span aria-hidden="true">×</span></button>
+        </header>
+
+        <nav class="archive__tabs" aria-label="索引内容" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="panel-articles" id="tab-articles" data-panel="articles">文章</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-search" id="tab-search" data-panel="search">搜索</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-connections" id="tab-connections" data-panel="connections">连接</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-timeline" id="tab-timeline" data-panel="timeline">时间</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-about" id="tab-about" data-panel="about">关于</button>
+        </nav>
+
+        <div class="archive__body">
+          <section class="archive-panel is-active" id="panel-articles" role="tabpanel" aria-labelledby="tab-articles">
+            <div class="panel-intro">
+              <p>六篇文字，同一套内容。按日期清晰排列，空间实验不会改变文章本身。</p>
+              <span>6 entries / 2022—2026</span>
+            </div>
+            <ol class="article-index" id="article-index">
+              <li>
+                <a href="#article-agent-architecture" data-article="agent-architecture"><time datetime="2026-07-11">2026.07.11</time><span><b>已发布 · 技术实践</b><strong>从“能回答”到“能交付”：生产级 AI Agent 的五层工程架构</strong><em>模型处理模糊性，系统保存状态、约束风险并提供证据。</em></span><small>13 min ↗</small></a>
+              </li>
+              <li>
+                <a href="#article-unnamed-real" data-article="unnamed-real"><time datetime="2026-06-21">2026.06.21</time><span><b>原型内容 · 待作者确认</b><strong>未被命名之前</strong><em>身份、能力与判断暂时退去后，仍有一部分经验不能被替代。</em></span><small>5 min ↗</small></a>
+              </li>
+              <li>
+                <a href="#article-evidence-before-answer" data-article="evidence-before-answer"><time datetime="2025-11-03">2025.11.03</time><span><b>原型内容 · 待作者确认</b><strong>从答案退回证据：我的知识校准方法</strong><em>让知识保持可修订，而非防卫结论。</em></span><small>8 min ↗</small></a>
+              </li>
+              <li>
+                <a href="#article-docker-standards" data-article="docker-standards"><time datetime="2024-09-17">2024.09.17</time><span><b>已发布 · 技术观察</b><strong>Docker in 2024: Evolving Relevance in Modern DevOps</strong><em>价值会随着生态关系重新定义。</em></span><small>9 min ↗</small></a>
+              </li>
+              <li>
+                <a href="#article-aigc-revolution" data-article="aigc-revolution"><time datetime="2023-06-15">2023.06.15</time><span><b>已发布 · 外部观察</b><strong>AIGC：人工智能生成内容的革命</strong><em>创作效率、版权边界与人类创作者的位置。</em></span><small>6 min ↗</small></a>
+              </li>
+              <li>
+                <a href="#article-efficiency-silence" data-article="efficiency-silence"><time datetime="2022-08-19">2022.08.19</time><span><b>原型内容 · 待作者确认</b><strong>当效率不再回答我</strong><em>完成得更多，并没有自动回答为何出发。</em></span><small>7 min ↗</small></a>
+              </li>
+            </ol>
+          </section>
+
+          <section class="archive-panel" id="panel-search" role="tabpanel" aria-labelledby="tab-search" hidden>
+            <div class="search-form" role="search">
+              <label for="thought-query">向意识空间输入一个词</label>
+              <div>
+                <input id="thought-query" name="q" type="search" autocomplete="off" placeholder="例如：证据、时间、人机协作" />
+                <button type="button" id="clear-search">清除</button>
+              </div>
+              <p id="search-count" aria-live="polite">输入标题、摘要、类型或主题。</p>
+            </div>
+            <ol class="article-index article-index--search" id="search-results"></ol>
+          </section>
+
+          <section class="archive-panel" id="panel-connections" role="tabpanel" aria-labelledby="tab-connections" hidden>
+            <div class="panel-intro">
+              <p>这里不展示公共数据。只有这个浏览器认真打开过的文字，以及一次停留后被照亮的关系。</p>
+              <span>local / private</span>
+            </div>
+            <div class="private-trace" id="private-trace"></div>
+          </section>
+
+          <section class="archive-panel" id="panel-timeline" role="tabpanel" aria-labelledby="tab-timeline" hidden>
+            <div class="panel-intro"><p>同一个问题在时间里改变重量，而不是被归档为旧答案。</p><span>folded time</span></div>
+            <ol class="timeline" id="timeline-list"></ol>
+          </section>
+
+          <section class="archive-panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about" hidden>
+            <div class="about-copy">
+              <p class="about-copy__mark">self-awake / self-awareness</p>
+              <h3>这是一座写作仍在发生的意识建筑。</h3>
+              <p>它收纳技术实践、外部观察、知识方法与个人觉察。首页负责让关系被感知；文章页负责让文字被安静地阅读。</p>
+              <p>此处是原型中的关于说明，不虚构作者履历。正式版本应在视觉确认后接入真实作者信息。</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="reader" id="reader-dialog" aria-labelledby="reader-title">
+      <div class="reader__shell">
+        <header class="reader__edge">
+          <a class="reader__brand" href="#scene-core" data-reader-home>self-awake</a>
+          <button class="dialog-close" type="button" data-close-reader aria-label="关闭文章">返回折面 <span aria-hidden="true">×</span></button>
+        </header>
+        <article class="reader__article" id="reader-article">
+          <header>
+            <p class="reader__kicker" id="reader-kicker"></p>
+            <h2 id="reader-title"></h2>
+            <p class="reader__summary" id="reader-summary"></p>
+            <dl class="reader__meta" id="reader-meta"></dl>
+          </header>
+          <div class="reader__body" id="reader-body"></div>
+          <footer class="reader__footer">
+            <p>离开这篇文字时，空间会记得你认真看过它。</p>
+            <div id="reader-related"></div>
+          </footer>
+        </article>
+      </div>
+    </dialog>
+
+    <section class="plain-fallback" id="plain-index" aria-labelledby="plain-index-title">
+      <h2 id="plain-index-title">普通文章索引</h2>
+      <p>视觉脚本不可用时，以下内容仍可阅读和导航。</p>
+      <article id="article-agent-architecture"><p>2026.07.11 · 已发布</p><h3>从“能回答”到“能交付”：生产级 AI Agent 的五层工程架构</h3><p>模型处理模糊性，系统保存状态、约束风险并提供证据；可靠性本身就是用户正在使用的产品。</p></article>
+      <article id="article-aigc-revolution"><p>2023.06.15 · 已发布</p><h3>AIGC：人工智能生成内容的革命</h3><p>回看生成式技术如何改变创作效率、版权边界与人类创作者的位置。</p></article>
+      <article id="article-docker-standards"><p>2024.09.17 · 已发布</p><h3>Docker in 2024: Evolving Relevance in Modern DevOps</h3><p>Docker 从颠覆性工具变成基础设施标准，也提醒我们：价值会随着生态关系重新定义。</p></article>
+      <article id="article-evidence-before-answer"><p>2025.11.03 · 原型内容 · 待作者确认</p><h3>从答案退回证据：我的知识校准方法</h3><p>把“我相信什么”拆回来源、时间、反例与行动后果，让知识保持可修订。</p></article>
+      <article id="article-efficiency-silence"><p>2022.08.19 · 原型内容 · 待作者确认</p><h3>当效率不再回答我</h3><p>一次关于速度、价值与自我要求的停顿：完成得更多，并没有自动回答为何出发。</p></article>
+      <article id="article-unnamed-real"><p>2026.06.21 · 原型内容 · 待作者确认</p><h3>未被命名之前</h3><p>身份、能力与判断暂时退去后，仍有一部分经验不能被替代，也不急于获得名称。</p></article>
+      <p class="plain-fallback__question">当所有可证明的部分都退去，你仍愿意为哪一个选择负责？</p>
+    </section>
+
+    <script src="../shared/content.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
