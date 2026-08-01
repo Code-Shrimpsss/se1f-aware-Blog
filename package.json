@@ -34,7 +34,7 @@
     "gsap": "^3.12.5",
     "image-size": "1.0.0",
     "lucide-react": "^0.439.0",
-    "next": "14.1.0",
+    "next": "15.5.21",
     "next-contentlayer": "latest",
     "next-intl": "^3.21.1",
     "next-themes": "^0.2.1",
